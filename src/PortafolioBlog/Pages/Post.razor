@@ -1,0 +1,60 @@
+﻿@page "/blog/{ArticleName}"
+@using Markdig
+@using PortafolioBlog.Models
+@inject HttpClient Http
+
+<PageTitle>@(postMetadata?.Titulo ?? "Cargando artículo...") - Wilmer</PageTitle>
+
+<div class="container mt-5">
+    <h1 class="display-4 fw-bold text-primary mb-3 text-center">
+        Blog: ¿Sueñan los ciegos con un mundo accesible?
+    </h1>
+
+    @if (articleHtml == null)
+    {
+        <div class="d-flex align-items-center" role="status">
+            <strong>Cargando contenido...</strong>
+            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+        </div>
+    }
+    else
+    {
+        <article class="blog-content">
+            @((MarkupString)articleHtml)
+        </article>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? ArticleName { get; set; }
+
+    private string? articleHtml;
+    private PostMetadata? postMetadata;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrEmpty(ArticleName))
+        {
+            try
+            {
+                // 1. Cargamos el índice de metadatos para obtener el título y otros datos
+                var articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+                postMetadata = articulos?.FirstOrDefault(p => p.Id == ArticleName);
+
+                // 2. Buscamos el archivo .md
+                var markdown = await Http.GetStringAsync($"articles/{ArticleName}.md");
+
+                // 3. Configuramos Markdig
+                var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+
+                // 4. Convertimos a HTML
+                articleHtml = Markdown.ToHtml(markdown, pipeline);
+            }
+            catch (Exception)
+            {
+                articleHtml = "<p class='alert alert-danger'>Error: No se pudo encontrar el artículo solicitado.</p>";
+            }
+        }
+    }
+}

@@ -1,0 +1,72 @@
+﻿@page "/blog"
+@using PortafolioBlog.Models
+@inject HttpClient Http
+
+<PageTitle>Blog-¿Sueñan los ciegos con un mundo accesible? - Wilmer</PageTitle>
+
+<div class="container mt-4">
+    <h1 class="mb-5 text-primary fw-bold">Blog: ¿Sueñan los ciegos con un mundo accesible?</h1>
+
+    @if (articulos == null)
+    {
+        <div class="d-flex align-items-center" role="status">
+            <strong class="text-light">Cargando artículos...</strong>
+            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+        </div>
+    }
+    else if (!articulos.Any())
+    {
+        <p class="text-light">Aún no hay artículos publicados en este rincón del mundo. ¡Vuelve pronto!</p>
+    }
+    else
+    {
+        <div class="list-group" role="list">
+            @foreach (var post in articulos.OrderByDescending(p => p.Fecha))
+            {
+                <div class="list-group-item p-4 mb-4 shadow-sm border-start border-4 border-primary bg-dark text-light" role="listitem" style="border-radius: 8px;">
+                    <h2 class="h3 mb-2">
+                        <NavLink href="@($"blog/{post.Id}")" class="text-decoration-none text-primary fw-bold">
+                            @post.Titulo
+                        </NavLink>
+                    </h2>
+
+                    <p class="text-muted small mb-3" style="color:#b8c2cc !important;">
+                        <span class="bi bi-calendar3" aria-hidden="true"></span>
+                        <span class="visually-hidden">Publicado el: </span>
+                        @post.Fecha.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"))
+                    </p>
+
+                    <p class="mb-3 text-light fs-5">
+                        @post.Resumen Categoría: @post.Categoria
+                    </p>
+
+                    <div class="mt-2">
+                        @foreach (var tag in post.Etiquetas)
+                        {
+                            <span class="badge rounded-pill bg-dark text-light border me-1">
+                                @tag
+                            </span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<PostMetadata>? articulos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Intentamos leer el archivo JSON que gestiona los metadatos
+            articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+        }
+        catch (Exception)
+        {
+            articulos = new List<PostMetadata>();
+        }
+    }
+}

@@ -1,7 +1,193 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Wilmer Rodriguez Vega - Consultor en Accesibilidad y Desarrollador .NET</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container mt-5">
+    <section class="text-center" aria-labelledby="perfil-titulo">
 
-Welcome to your new app.
+        <h1 id="perfil-titulo" class="display-3 fw-bold text-primary mb-3">
+            Wilmer Rodriguez Vega 
+        </h1>
+
+        <div class="mb-4">
+            <img src="images/foto_wilmer.jpg"
+                 alt="Wilmer, joven de cabello corto y barba recortada, con gafas de montura oscura y camiseta negra, sonriendo frente a una pared clara."
+                 class="rounded-circle shadow border border-2"
+                 style="width: 200px; height: 200px; object-fit: cover; border-color: #1e2533;" />
+        </div>
+
+        <p class="lead fs-3 mb-4 text-light">
+            Desarrollador .NET y Especialista en Accesibilidad Digital
+        </p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <p class="fs-5 mb-4 text-light">
+                    Soy Bachiller en Filosofía por la Universidad de Costa Rica
+                    y actualmente curso la carrera de Ingeniería del Software en Universidad Cenfotec.
+                    Mi perfil combina el análisis crítico con el desarrollo técnico para garantizar
+                    entornos digitales inclusivos.
+                </p>
+                <p class="fs-5 mb-5 text-light">
+                    Desde 2018, me desempeño como consultor y analista en accesibilidad digital en Inclutec (ITCR).
+                    Además, soy docente universitario en Universidad Cenfotec, donde imparto lecciones sobre
+                    ética profesional.
+                </p>
+                <p>
+                    Soy del pensar que la verdadera inclusión consiste en crear los espacios y hambientes donde todas las personas puedan ser y explotar su potencial. Esta se encuentra conformada por tres elementos: Accesibilidad, permanencia y participación; accesibilidad en todos los espacios y entornos sean físicos o virtuales, permanencia como la posibilidad de ser parte de un lugar, espacio o comunidad por largo tiempo y participación, sentirse parte de esa comunidad, grupo y personas que nos apoyen.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <NavLink href="blog" class="btn btn-primary btn-lg px-4 shadow">Explorar mi Blog</NavLink>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="my-5" aria-hidden="true" />
+
+    <section class="row g-4" aria-labelledby="servicios-titulo">
+        <h2 id="servicios-titulo" class="h2 mb-4 text-center text-light">Especialidades Técnicas</h2>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-dark text-light border border-1 border-dark">
+                <div class="card-body">
+                    <div class="display-6 text-primary mb-3"><i class="bi bi-braces" aria-hidden="true"></i></div>
+                    <h3 class="h5 fw-bold">Desarrollo .NET</h3>
+                    <p class="card-text">
+                        Experiencia en C#, HTML5, CSS, Bootstrap y tecnologías Razor.
+                        Enfoque en la creación de software robusto y escalable.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-dark text-light border border-1 border-dark">
+                <div class="card-body">
+                    <div class="display-6 text-primary mb-3"><i class="bi bi-eye" aria-hidden="true"></i></div>
+                    <h3 class="h5 fw-bold">Auditoría WCAG</h3>
+                    <p class="card-text">
+                        Dominio de las pautas WCAG y metodologías de evaluación como WCAG-EM.
+                        Usuario experto en lectores de pantalla NVDA y JAWS
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center bg-dark text-light border border-1 border-dark">
+                <div class="card-body">
+                    <div class="display-6 text-primary mb-3"><i class="bi bi-chat-quote" aria-hidden="true"></i></div>
+                    <h3 class="h5 fw-bold">Consultoría y Ética</h3>
+                    <p class="card-text">
+                        Investigador publicado en temas de experiencia de usuario y discapacidad.
+                        Experto en gestión de proyectos sociales con enfoque de marco lógico.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="mt-5" aria-labelledby="proyectos-titulo">
+        <h2 id="proyectos-titulo" class="h2 mb-4 text-center text-light">Proyectos Destacados</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">#HablemosDeAccesibilidad</h3>
+                        <p class="card-text">Sitio web en Blazor Server (.NET 7) con ejemplos de programación accesible: estructura, formularios, enlaces, imágenes (alt/descripción larga), tablas de datos simples y complejas.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary">Blazor Server</span>
+                            <span class="badge bg-secondary">.NET 7</span>
+                            <span class="badge bg-secondary">WCAG</span>
+                            <span class="badge bg-secondary">AWS</span>
+                        </div>
+                        <hr />
+                        <a class="btn btn-outline-primary" href="http://18.224.5.79:8084/" target="_blank" rel="noopener" aria-label="versitio web hablemosDeAccesibilidad (se habre en una pestaña nueva)">Ver sitio</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">autocommit-cli</h3>
+                        <p class="card-text">Script en Python (v1.0) para automatizar git add/commit/push/pull con validaciones de contenido sensible, ejecutado al escribir "autocommit" en la terminal. Uso abierto, guía en README. El proyecto fue creado con fines meramente para practicar.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary">Python</span>
+                            <span class="badge bg-secondary">CLI</span>
+                            <span class="badge bg-secondary">Git</span>
+                        </div>
+                        <hr />
+                        <a class="btn btn-outline-primary" href="https://github.com/WilmerRv1989/autocommit-cli" target="_blank" rel="noopener" aria-label="Visitar repositorio de proyecto en github (se habre en una pestaña nueva)">Ver repositorio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-md-6">
+                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">AlfredAgent (prototipo)</h3>
+                        <p class="card-text">Agente de IA en Python para terminal: revisa carpetas, analiza y crea archivos, responde preguntas, genera y ejecuta código; planeadas búsquedas web y ejecución sandbox. Proyecto personal en aprendizaje, creado también con fines de practica y aprendizaje para saber como funcionan los agentes de ia.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary">Python</span>
+                            <span class="badge bg-secondary">IA</span>
+                            <span class="badge bg-secondary">Terminal</span>
+                        </div>
+                        <span class="badge bg-info text-dark">Estado: Prototipo privado</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5 fw-bold">Sitio oficial PANACI (en desarrollo)</h3>
+                        <p class="card-text">Proyecto profesional inicial: sitio del Patronato Nacional de Ciegos (Costa Rica) en Blazor (.NET 10), SQL Server, hospedado en Azure; consulta/inscripción, capacitaciones, registro de asociados y mapeo territorial.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary">Blazor</span>
+                            <span class="badge bg-secondary">.NET 10 (plan)</span>
+                            <span class="badge bg-secondary">SQL Server</span>
+                            <span class="badge bg-secondary">Azure</span>
+                        </div>
+                        <span class="badge bg-warning text-dark">Estado: Planificación y toma de requerimientos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light" aria-labelledby="contacto-titulo">
+        <h2 id="contacto-titulo" class="h4 mb-4 fw-bold">Contacto</h2>
+        <p class="mb-4">País: Costa Rica. Preferencia de contacto: correo electrónico.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 px-3">
+            <a class="btn btn-primary" href="mailto:wilmer8981@hotmail.com">wilmer8981@hotmail.com|</a>
+            <a class="btn btn-outline-primary" href="https://www.linkedin.com/in/wilmer-rodriguez-a98b5956/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn btn-outline-primary" href="https://clubdeescritura.com/perfil/171865/wilmer-rodriguez-vega" target="_blank" rel="noopener">Club de escritura</a>
+            <a class="btn btn-outline-primary" href="https://scholar.google.es/citations?user=cVZSyxgAAAAJ&hl=es" target="_blank" rel="noopener">Google Académico</a>
+            <a class="btn btn-outline-primary" href="https://mastodon.cr/@@Wilmer" target="_blank" rel="noopener">Mastodon</a>
+            <a class="btn btn-outline-primary" href="https://www.threads.com/@@rvwilmer" target="_blank" rel="noopener">Threads</a>
+            <a class="btn btn-outline-primary" href="https://www.instagram.com/rvwilmer" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn btn-outline-primary" href="https://www.facebook.com/wilmer.rv" target="_blank" rel="noopener">Facebook</a>
+            <a class="btn btn-outline-primary" href="https://linktr.ee/Wilmer.Rv.1989?utm_source=threads&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener">Linktree</a>
+            <a class="btn btn-outline-primary" href="documents/wilmer_cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+        </div>
+        <p class="mt-4 text-muted" style="color:#b8c2cc !important;">Nota: Soy más activo en Threads y Mastodon que en otras redes sociales.</p>
+    </section>
+
+    <section class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light">
+        <h2 class="h4 mb-4 fw-bold">Certificaciones Destacadas</h2>
+        <div class="d-flex flex-wrap justify-content-center gap-4 px-3">
+            <span><strong>NVDA Certified Expert 2025</strong></span>
+            <span class="d-none d-md-inline border-start h-100"></span>
+            <span><strong>Certificación en Materiales Digitales Accesibles</strong></span>
+            <span class="d-none d-md-inline border-start h-100"></span>
+            <span><strong>Certificación en Accesibilidad Web</strong></span>
+            <span class="d-none d-md-inline border-start h-100"></span>
+            <span><strong>Gestión de Proyectos Sociales (FOAL)</strong></span>
+        </div>
+    </section>
+</div>

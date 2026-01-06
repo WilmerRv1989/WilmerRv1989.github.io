@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Id": "bienvenida",
+    "Titulo": "Bienvenida a ¿Sueñan los ciegos con un mundo accesible?",
+    "Resumen": "Una reflexión filosófica y técnica sobre el derecho a habitar y construir la realidad digital desde la ingeniería de software y la accesibilidad.",
+    "Fecha": "2026-01-05T00:00:00",
+    "Autor": "Wilmer",
+    "Categoria": "Opinión",
+    "Etiquetas": [ "Filosofía", "Accesibilidad", "Presentación", "Software" ]
+  }
+  
+]

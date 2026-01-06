@@ -1,0 +1,36 @@
+name: Despliegue de Portafolio
+
+on:
+  push:
+    branches: [ main ] # Se activa cada vez que subes algo a main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Descargar el código
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configurar .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      # 3. Publicar el proyecto (Compilar para producción)
+      - name: Publish
+        run: dotnet publish src/PortafolioBlog/PortafolioBlog.csproj -c Release -o release
+
+      # 4. Ajuste para GitHub Pages (Error 404 y .nojekyll)
+      - name: Fix for GitHub Pages
+        run: |
+          cp release/wwwroot/404.html release/wwwroot/index.html
+          touch release/wwwroot/.nojekyll
+
+      # 5. Subir a la rama de publicación
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: release/wwwroot
+          branch: gh-pages # GitHub Pages leerá los archivos de aquí
