@@ -1,0 +1,110 @@
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #0f1116;
+    color: #e6e6e6;
+}
+
+h1:focus { outline: none; }
+
+/* Links / botones */
+a, .btn-link { color: #8ab4ff; text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: #a7c4ff; }
+a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius: 3px; }
+
+.btn-primary {
+    color: #0b1220;
+    background-color: #8ab4ff;
+    border-color: #7aa6fb;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem #0f1116, 0 0 0 0.25rem #8ab4ff;
+}
+
+.content { padding-top: 1.1rem; }
+
+.valid.modified:not([type=checkbox]) { outline: 1px solid #26b050; }
+.invalid { outline: 1px solid #ff6b6b; }
+.validation-message { color: #ff6b6b; }
+
+/* Error UI */
+#blazor-error-ui {
+    background: #3b2b2b;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.4);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    color: #fff;
+}
+#blazor-error-ui .dismiss { cursor: pointer; position: absolute; right: 0.75rem; top: 0.5rem; }
+
+.blazor-error-boundary {
+    background: #b32121;
+    padding: 1rem 1rem 1rem 3.7rem;
+    color: white;
+}
+.blazor-error-boundary::after { content: "An error has occurred." }
+
+/* Loading */
+.loading-progress { position: relative; display: block; width: 8rem; height: 8rem; margin: 20vh auto 1rem auto; }
+.loading-progress circle { fill: none; stroke: #303745; stroke-width: 0.6rem; transform-origin: 50% 50%; transform: rotate(-90deg); }
+.loading-progress circle:last-child { stroke: #8ab4ff; stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%; transition: stroke-dasharray 0.05s ease-in-out; }
+.loading-progress-text { position: absolute; text-align: center; font-weight: bold; inset: calc(20vh + 3.25rem) 0 auto 0.2rem; }
+.loading-progress-text:after { content: var(--blazor-load-percentage-text, "Loading"); }
+
+/* Estilos de Markdown dentro de artículos */
+.blog-content { max-width: clamp(75ch, 92vw, 95ch); margin-inline: auto; line-height: 1.75; font-size: 1.08rem; width: 100%; }
+.blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5 { color: #f3f4f6; margin-top: 1.6rem; margin-bottom: 0.8rem; line-height: 1.25; }
+.blog-content h2 { padding-bottom: .25rem; border-bottom: 1px solid #2a3040; }
+.blog-content p { margin: 1rem 0; color: #e6e6e6; }
+.blog-content a { color: #a7c4ff; }
+.blog-content a:hover { color: #c2d6ff; }
+.blog-content a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius: 3px; }
+
+/* Listas */
+.blog-content ul, .blog-content ol { padding-left: 1.25rem; margin: .75rem 0; }
+.blog-content li { margin: .35rem 0; }
+
+/* Imágenes, figuras */
+.blog-content img { max-width: 100%; height: auto; border-radius: 6px; }
+.blog-content figure { margin: 1.2rem 0; }
+.blog-content figcaption { color: #b8c2cc; font-size: .95rem; margin-top: .4rem; }
+
+/* Citas */
+.blog-content blockquote { border-left: 4px solid #3b82f6; background: #151a24; padding: .75rem 1rem; margin: 1rem 0; color: #dbeafe; }
+
+/* Código inline */
+.blog-content code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: #161b26; color: #f2a7d8; padding: .15rem .4rem; border-radius: 4px; }
+
+/* Código en bloque */
+.blog-content pre { background: #0b1220; color: #e6e6e6; padding: 1rem; border-radius: 6px; overflow-x: auto; border: 1px solid #1e2533; }
+.blog-content pre code { display: block; background: transparent; color: inherit; padding: 0; }
+
+/* Tablas */
+.blog-content table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; border: 1px solid #1f2937; }
+.blog-content th, .blog-content td { border: 1px solid #1f2937; padding: .5rem .75rem; }
+.blog-content th { background: #111827; color: #f3f4f6; text-align: left; }
+.blog-content tr:nth-child(even) td { background: #0f1622; }
+
+/* HR y notas */
+.blog-content hr { border: 0; height: 1px; background: #2a3040; margin: 2rem 0; }
+.blog-content .footnotes { font-size: .95rem; color: #cbd5e1; }
+
+/* Foco general accesible */
+:focus-visible { outline: 2px solid #8ab4ff; outline-offset: 2px; }
+
+/* Modo oscuro preferencia del sistema (ya por defecto) */
+@media (prefers-color-scheme: dark) {
+  /* mantener misma paleta, podría ajustar si se agregara light mode en el futuro */
+}
+
+/* Código heredado / ajustes menores */
+code { color: #f2a7d8; }
