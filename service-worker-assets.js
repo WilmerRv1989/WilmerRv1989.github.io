@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "FLmtx86v",
+  "version": "ZKVNrOFb",
   "assets": [
     {
       "hash": "sha256-9daSXV4QESGMgjS0k81lZdW2/E++oeILXI4tTyvsGyQ=",
@@ -66,7 +66,7 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-NJbsJ4FrkxBG/oFt4dwdFRY7mCuB2q9ik0FyHE8EwLc=",
+      "hash": "sha256-VOQcE6w5JQ/Y/JdPRiLusyEyMjwn7tRfbZ+BB/r66/s=",
       "url": "_framework/PortafolioBlog.wasm"
     },
     {
@@ -150,7 +150,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.wasm"
     },
     {
-      "hash": "sha256-nomy4MBh58+eA4RoGLXhNE3v/reWYMD7wlhBzC2knUM=",
+      "hash": "sha256-kcMbC3wdf82tKOpaBA2S1bGO3T8aVo+uR5S61yowCkU=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -226,7 +226,7 @@ self.assetsManifest = {
       "url": "images/foto_wilmer.jpg"
     },
     {
-      "hash": "sha256-913GJ8zNLpd02VMDXnQ9AcP8U2NWxKiiWQenUHO89lU=",
+      "hash": "sha256-L6CVAHYfcp4a/hnOrO8jhVM67OCVEjrJeJrwhhIru1I=",
       "url": "index.html"
     },
     {
