@@ -7,6 +7,15 @@
     "Autor": "Wilmer",
     "Categoria": "Opinión",
     "Etiquetas": [ "Filosofía", "Accesibilidad", "Presentación", "Software" ]
+  },
+  {
+    "Id": "estructura-accesible",
+    "Titulo": "Estructura de la página y accesibilidad web",
+    "Resumen": "Guía fundamental sobre etiquetas HTML5, jerarquía de encabezados y regiones semánticas para crear sitios inclusivos y navegables.",
+    "Fecha": "2026-01-07",
+    "Autor": "Wilmer",
+    "Categoria": "Accesibilidad",
+    "Etiquetas": [ "HTML5", "Lectores de Pantalla", "WCAG", "Semántica" ]
   }
   
 ]

@@ -108,3 +108,39 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 
 /* Código heredado / ajustes menores */
 code { color: #f2a7d8; }
+
+
+/* Contenedor del código */
+pre {
+    position: relative; /* Indispensable para que el botón se ancle aquí */
+    padding-top: 2.5rem !important; /* Espacio para que el botón no tape el código */
+}
+
+/* Botón de copiado */
+.btn-copy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgba(128, 128, 128, 0.1); /* Fondo muy sutil */
+    color: inherit; /* Hereda el color de texto del modo claro/oscuro */
+    border: 1px solid #6c757d; /* Borde gris estándar */
+    border-radius: 4px;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+    /* Estado Hover y Foco (Accesibilidad) */
+    .btn-copy:hover, .btn-copy:focus {
+        background-color: rgba(128, 128, 128, 0.2);
+        border-color: #adb5bd;
+        outline: 2px solid #0d6efd; /* Anillo de enfoque claro para navegación por teclado */
+    }
+
+/* Feedback cuando se ha copiado con éxito */
+.btn-copy-success {
+    color: #198754 !important; /* Color verde éxito */
+    border-color: #198754 !important;
+}

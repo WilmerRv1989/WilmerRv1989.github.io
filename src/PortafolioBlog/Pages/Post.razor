@@ -2,6 +2,7 @@
 @using Markdig
 @using PortafolioBlog.Models
 @inject HttpClient Http
+@inject IJSRuntime JSRuntime
 
 <PageTitle>@(postMetadata?.Titulo ?? "Cargando artículo...") - Wilmer</PageTitle>
 
@@ -19,11 +20,25 @@
     }
     else
     {
-        <article class="blog-content">
+        <article class="blog-content mt-4">
             @((MarkupString)articleHtml)
         </article>
     }
 </div>
+
+<aside class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light" aria-labelledby="contacto-titulo">
+    <h2 id="contacto-titulo" class="h4 mb-4 fw-bold">Contacto y Redes sociales</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-3 px-3">
+        <a class="btn btn-primary" href="mailto:wilmer8981@hotmail.com">wilmer8981@hotmail.com|</a>
+        <a class="btn btn-outline-primary" href="https://www.linkedin.com/in/wilmer-rodriguez-a98b5956/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-outline-primary" href="https://clubdeescritura.com/perfil/171865/wilmer-rodriguez-vega" target="_blank" rel="noopener">Club de escritura</a>
+        <a class="btn btn-outline-primary" href="https://mastodon.cr/@@Wilmer" target="_blank" rel="noopener">Mastodon</a>
+        <a class="btn btn-outline-primary" href="https://www.threads.com/@@rvwilmer" target="_blank" rel="noopener">Threads</a>
+        <a class="btn btn-outline-primary" href="https://www.instagram.com/rvwilmer" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-outline-primary" href="https://www.facebook.com/wilmer.rv" target="_blank" rel="noopener">Facebook</a>
+        <a class="btn btn-outline-primary" href="https://linktr.ee/Wilmer.Rv.1989?utm_source=threads&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener">Linktree</a>
+    </div>
+</aside>
 
 @code {
     [Parameter]
@@ -55,6 +70,15 @@
             {
                 articleHtml = "<p class='alert alert-danger'>Error: No se pudo encontrar el artículo solicitado.</p>";
             }
+        }
+    }
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Solo ejecutamos el script si ya tenemos el HTML cargado en pantalla
+        if (articleHtml != null)
+        {
+            await JSRuntime.InvokeVoidAsync("clipboardFunctions.addCopyButtons");
         }
     }
 }
