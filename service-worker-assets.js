@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "ZKVNrOFb",
+  "version": "CZsh6DPR",
   "assets": [
     {
       "hash": "sha256-9daSXV4QESGMgjS0k81lZdW2/E++oeILXI4tTyvsGyQ=",
@@ -66,7 +66,7 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-VOQcE6w5JQ/Y/JdPRiLusyEyMjwn7tRfbZ+BB/r66/s=",
+      "hash": "sha256-agC81VnXnkoCUI3CXdc0xpLUzBcBEjOECngTjCIuxVI=",
       "url": "_framework/PortafolioBlog.wasm"
     },
     {
@@ -130,7 +130,7 @@ self.assetsManifest = {
       "url": "_framework/System.Runtime.InteropServices.wasm"
     },
     {
-      "hash": "sha256-cnnsES4WCgLGELD4LYaCP4E/6dTx5VDgq6YupIlNpQE=",
+      "hash": "sha256-aBmK7e1BEdo6ka1dKsAq+SfoXoXKXj6edMoxgjEenR4=",
       "url": "_framework/System.Runtime.wasm"
     },
     {
@@ -150,7 +150,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.wasm"
     },
     {
-      "hash": "sha256-kcMbC3wdf82tKOpaBA2S1bGO3T8aVo+uR5S61yowCkU=",
+      "hash": "sha256-hcQVgJPo8Yah/XtLjRfOzi+7o/QrntnwsRL7H5rUvoU=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -190,7 +190,11 @@ self.assetsManifest = {
       "url": "articles/bienvenida.md"
     },
     {
-      "hash": "sha256-J4eGlXLxXo5Nqdz8AIHf88bvXitbTOt4N3apgENY2iI=",
+      "hash": "sha256-5fDwSgwLRpFFlWGNCla3QQyYClglMR0pbVFtFlTgyJg=",
+      "url": "articles/estructura-accesible.md"
+    },
+    {
+      "hash": "sha256-LzZNiRT2r9rBfcKJopeX9tdnWHIiHIBoVeQR+3P7nkU=",
       "url": "css/app.css"
     },
     {
@@ -202,7 +206,7 @@ self.assetsManifest = {
       "url": "css/bootstrap/bootstrap.min.css.map"
     },
     {
-      "hash": "sha256-Jg9PdbEv5DeUQ41EhBLYytb6TJXvfLFJxaJe2NnvSdQ=",
+      "hash": "sha256-iQPzAswUtk2kJypbZI4E3PxHQeGQtvz7Ak/o9FvRd9o=",
       "url": "data/posts.json"
     },
     {
@@ -226,7 +230,7 @@ self.assetsManifest = {
       "url": "images/foto_wilmer.jpg"
     },
     {
-      "hash": "sha256-L6CVAHYfcp4a/hnOrO8jhVM67OCVEjrJeJrwhhIru1I=",
+      "hash": "sha256-/ans45kkUdt0V6rOpcxkq5G+ry7cLj4QFltBmQPoKbE=",
       "url": "index.html"
     },
     {
@@ -236,6 +240,10 @@ self.assetsManifest = {
     {
       "hash": "sha256-paIeuWnSzjeLGITWkk4p3rcejUsZWCJGPeOK9UhWXtg=",
       "url": "sample-data/weather.json"
+    },
+    {
+      "hash": "sha256-53NkK376blSObPFoRq9pzRMstEXkz/8ACfkv+pEfLXY=",
+      "url": "scrypts/code_copy.js"
     }
   ]
 };
