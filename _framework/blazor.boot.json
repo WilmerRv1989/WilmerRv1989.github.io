@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PortafolioBlog",
   "resources": {
-    "hash": "sha256-hsgJFVUdt+QlGSUHlBvEJKwKW/bD2XQyuEAmlV0rgPU=",
+    "hash": "sha256-wlt7bpBGNJ2ltbG/Fa3E0D9rpbhiXa++R2WmmrBUvkw=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -47,13 +47,13 @@
       "System.Private.Uri.wasm": "sha256-VeJiLn8t0GBrLc+pR9h8sHVyDFO1D2JIWWv9pkqf860=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-HoMTDuTDnPPGz33cAhUPWnjlBFwLPlXJmatxg7HMeac=",
       "System.Runtime.InteropServices.wasm": "sha256-tIqL6dCMcl/UC+J0C+H+P06IxLzx6Y2MpKSJ8rSsUec=",
-      "System.Runtime.wasm": "sha256-aBmK7e1BEdo6ka1dKsAq+SfoXoXKXj6edMoxgjEenR4=",
+      "System.Runtime.wasm": "sha256-0/KYMima2sFa2s/ylDMl58s5HJ/0W8tUJBej30/YtGI=",
       "System.Text.Encodings.Web.wasm": "sha256-ZfCb2TSGxncfpyCkdqhIDqbsmxhl1+L2kv26ZWtTdWE=",
       "System.Text.Json.wasm": "sha256-nwLcpLAaNr1O+OznHBKVHvF5RPdPzbiqAFQNtiWpfVI=",
       "System.Text.RegularExpressions.wasm": "sha256-N5iEwt2bfvrglh1Ef1pkKFXQo82wOkhE64+4FGK7Ru8=",
       "System.Threading.wasm": "sha256-qdFor27turMzpayhcymzZpI1BeMuDgpHqzsi06+Zceo=",
-      "System.Private.CoreLib.wasm": "sha256-HWxfyb0oC+Qmd3ejbWZLUQolMBZn3UxcX5zoOErI1CQ=",
-      "PortafolioBlog.wasm": "sha256-agC81VnXnkoCUI3CXdc0xpLUzBcBEjOECngTjCIuxVI="
+      "System.Private.CoreLib.wasm": "sha256-ROqgGedP909kdP1qUcbsGHz7JrcJ/sR2NqHQ5dvTR7U=",
+      "PortafolioBlog.wasm": "sha256-d74d7y3U3BGOEUwEOEqK1HwOzFNrUAHWiike7ZCG7bU="
     }
   },
   "cacheBootResources": true,

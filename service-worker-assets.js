@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "CZsh6DPR",
+  "version": "CkG87q56",
   "assets": [
     {
       "hash": "sha256-9daSXV4QESGMgjS0k81lZdW2/E++oeILXI4tTyvsGyQ=",
@@ -66,7 +66,7 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-agC81VnXnkoCUI3CXdc0xpLUzBcBEjOECngTjCIuxVI=",
+      "hash": "sha256-d74d7y3U3BGOEUwEOEqK1HwOzFNrUAHWiike7ZCG7bU=",
       "url": "_framework/PortafolioBlog.wasm"
     },
     {
@@ -114,7 +114,7 @@ self.assetsManifest = {
       "url": "_framework/System.Net.Primitives.wasm"
     },
     {
-      "hash": "sha256-HWxfyb0oC+Qmd3ejbWZLUQolMBZn3UxcX5zoOErI1CQ=",
+      "hash": "sha256-ROqgGedP909kdP1qUcbsGHz7JrcJ/sR2NqHQ5dvTR7U=",
       "url": "_framework/System.Private.CoreLib.wasm"
     },
     {
@@ -130,7 +130,7 @@ self.assetsManifest = {
       "url": "_framework/System.Runtime.InteropServices.wasm"
     },
     {
-      "hash": "sha256-aBmK7e1BEdo6ka1dKsAq+SfoXoXKXj6edMoxgjEenR4=",
+      "hash": "sha256-0/KYMima2sFa2s/ylDMl58s5HJ/0W8tUJBej30/YtGI=",
       "url": "_framework/System.Runtime.wasm"
     },
     {
@@ -150,7 +150,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.wasm"
     },
     {
-      "hash": "sha256-hcQVgJPo8Yah/XtLjRfOzi+7o/QrntnwsRL7H5rUvoU=",
+      "hash": "sha256-hsYT3fOUJg8ufXImpEEG0fySGKTtoAv3PwB54sdy6kU=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -206,7 +206,7 @@ self.assetsManifest = {
       "url": "css/bootstrap/bootstrap.min.css.map"
     },
     {
-      "hash": "sha256-iQPzAswUtk2kJypbZI4E3PxHQeGQtvz7Ak/o9FvRd9o=",
+      "hash": "sha256-q/fKx71DATaYAhVJN3Epd1Dvwe56KrjysQdK9Ym1vVA=",
       "url": "data/posts.json"
     },
     {
@@ -230,7 +230,7 @@ self.assetsManifest = {
       "url": "images/foto_wilmer.jpg"
     },
     {
-      "hash": "sha256-/ans45kkUdt0V6rOpcxkq5G+ry7cLj4QFltBmQPoKbE=",
+      "hash": "sha256-7cNfK7DHgQpZD9sIW92Nnc4b9JnMWAENPyVS51qsdxM=",
       "url": "index.html"
     },
     {
@@ -242,8 +242,12 @@ self.assetsManifest = {
       "url": "sample-data/weather.json"
     },
     {
+      "hash": "sha256-zSmFoEAbdh17Taj/c1OfP1G2F1NrkZV8I8gwvU33aPM=",
+      "url": "scripts/accessibility_functions.js"
+    },
+    {
       "hash": "sha256-53NkK376blSObPFoRq9pzRMstEXkz/8ACfkv+pEfLXY=",
-      "url": "scrypts/code_copy.js"
+      "url": "scripts/code_copy.js"
     }
   ]
 };
