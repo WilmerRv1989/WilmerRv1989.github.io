@@ -7,7 +7,7 @@
 <PageTitle>@(postMetadata?.Titulo ?? "Cargando artículo...") - Wilmer</PageTitle>
 
 <div class="container mt-5">
-    <h1 class="display-4 fw-bold text-primary mb-3 text-center">
+    <h1 id="titulo-principal" class="display-4 fw-bold text-primary mb-3 text-center">
         Blog: ¿Sueñan los ciegos con un mundo accesible?
     </h1>
 
@@ -20,50 +20,96 @@
     }
     else
     {
+        @* Contenido del Artículo *@
         <article class="blog-content mt-4">
             @((MarkupString)articleHtml)
         </article>
+
+        <hr class="mt-5" />
+        <nav class="d-flex justify-content-between align-items-center my-5" aria-label="Navegación entre artículos">
+            <div style="flex: 1;">
+                @if (prevPost != null)
+                {
+                    <a href="blog/@prevPost.Id" class="btn btn-outline-primary w-100 text-start shadow-sm">
+                        <span class="d-inline-block text-truncate" style="max-width: 100%;">@prevPost.Titulo</span>
+                    </a>
+                }
+            </div>
+
+            <div class="text-center" style="flex: 0.5;">
+                <a href="blog" class="btn btn-link text-decoration-none" aria-label="Volver al índice del blog">
+                    <span class="oi oi-grid-three-up" aria-hidden="true" style="font-size: 1.5rem;"></span>
+                    <small class="d-block text-dark">Índice</small>
+                </a>
+            </div>
+
+            <div class="text-end" style="flex: 1;">
+                @if (nextPost != null)
+                {
+                    <a href="blog/@nextPost.Id" class="btn btn-outline-primary w-100 text-end shadow-sm">
+                        <span class="d-inline-block text-truncate" style="max-width: 100%;">@nextPost.Titulo</span>
+                    </a>
+                }
+            </div>
+        </nav>
     }
 </div>
 
 <aside class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light" aria-labelledby="contacto-titulo">
     <h2 id="contacto-titulo" class="h4 mb-4 fw-bold">Contacto y Redes sociales</h2>
     <div class="d-flex flex-wrap justify-content-center gap-3 px-3">
-        <a class="btn btn-primary" href="mailto:wilmer8981@hotmail.com">wilmer8981@hotmail.com|</a>
-        <a class="btn btn-outline-primary" href="https://www.linkedin.com/in/wilmer-rodriguez-a98b5956/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-outline-primary" href="https://clubdeescritura.com/perfil/171865/wilmer-rodriguez-vega" target="_blank" rel="noopener">Club de escritura</a>
-        <a class="btn btn-outline-primary" href="https://mastodon.cr/@@Wilmer" target="_blank" rel="noopener">Mastodon</a>
-        <a class="btn btn-outline-primary" href="https://www.threads.com/@@rvwilmer" target="_blank" rel="noopener">Threads</a>
-        <a class="btn btn-outline-primary" href="https://www.instagram.com/rvwilmer" target="_blank" rel="noopener">Instagram</a>
-        <a class="btn btn-outline-primary" href="https://www.facebook.com/wilmer.rv" target="_blank" rel="noopener">Facebook</a>
-        <a class="btn btn-outline-primary" href="https://linktr.ee/Wilmer.Rv.1989?utm_source=threads&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener">Linktree</a>
+        <a class="btn btn-primary" href="mailto:wilmer8981@hotmail.com">wilmer8981@hotmail.com</a>
+        <a class="btn btn-outline-primary text-light" href="https://www.linkedin.com/in/wilmer-rodriguez-a98b5956/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-outline-primary text-light" href="https://clubdeescritura.com/perfil/171865/wilmer-rodriguez-vega" target="_blank" rel="noopener">Club de escritura</a>
+        <a class="btn btn-outline-primary text-light" href="https://mastodon.cr/@@Wilmer" target="_blank" rel="noopener">Mastodon</a>
+        <a class="btn btn-outline-primary text-light" href="https://www.threads.com/@@rvwilmer" target="_blank" rel="noopener">Threads</a>
+        <a class="btn btn-outline-primary text-light" href="https://www.instagram.com/rvwilmer" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn btn-outline-primary text-light" href="https://www.facebook.com/wilmer.rv" target="_blank" rel="noopener">Facebook</a>
+        <a class="btn btn-outline-primary text-light" href="https://linktr.ee/Wilmer.Rv.1989?utm_source=threads&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener">Linktree</a>
     </div>
 </aside>
 
 @code {
-    [Parameter]
-    public string? ArticleName { get; set; }
-
+    [Parameter] public string? ArticleName { get; set; }
+    private bool foco = false;
     private string? articleHtml;
     private PostMetadata? postMetadata;
+    private PostMetadata? prevPost;
+    private PostMetadata? nextPost;
 
     protected override async Task OnParametersSetAsync()
     {
+        foco = true;
+
         if (!string.IsNullOrEmpty(ArticleName))
         {
             try
             {
-                // 1. Cargamos el índice de metadatos para obtener el título y otros datos
+                // 1. Obtener todos los artículos y ordenarlos cronológicamente
                 var articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
-                postMetadata = articulos?.FirstOrDefault(p => p.Id == ArticleName);
 
-                // 2. Buscamos el archivo .md
+                if (articulos != null)
+                {
+                    // Ordenamos: más reciente primero (para que "Siguiente" sea el más nuevo)
+                    var listaOrdenada = articulos.OrderByDescending(p => p.Fecha).ToList();
+                    var currentIndex = listaOrdenada.FindIndex(p => p.Id == ArticleName);
+
+                    if (currentIndex != -1)
+                    {
+                        postMetadata = listaOrdenada[currentIndex];
+
+                        // Definimos navegación:
+                        // Siguiente es el que está ANTES en la lista (índice menor, más nuevo)
+                        nextPost = currentIndex > 0 ? listaOrdenada[currentIndex - 1] : null;
+
+                        // Anterior es el que está DESPUÉS en la lista (índice mayor, más viejo)
+                        prevPost = currentIndex < listaOrdenada.Count - 1 ? listaOrdenada[currentIndex + 1] : null;
+                    }
+                }
+
+                // 2. Carga y renderizado del Markdown
                 var markdown = await Http.GetStringAsync($"articles/{ArticleName}.md");
-
-                // 3. Configuramos Markdig
                 var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-
-                // 4. Convertimos a HTML
                 articleHtml = Markdown.ToHtml(markdown, pipeline);
             }
             catch (Exception)
@@ -72,13 +118,18 @@
             }
         }
     }
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Solo ejecutamos el script si ya tenemos el HTML cargado en pantalla
         if (articleHtml != null)
         {
             await JSRuntime.InvokeVoidAsync("clipboardFunctions.addCopyButtons");
+
+            if (foco)
+            {
+                await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "titulo-principal"); 
+                foco = false;
+            }
         }
     }
 }
