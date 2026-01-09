@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PortafolioBlog",
   "resources": {
-    "hash": "sha256-SbO5hW8sTTRmbxH+J+nHTO4Mjw+my6U0tmP8tHB78aY=",
+    "hash": "sha256-50uyL4aA2e7D3Pk6l5Bg+p/wipl0J0sFA+re3DcdGyQ=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -53,7 +53,7 @@
       "System.Text.RegularExpressions.wasm": "sha256-N5iEwt2bfvrglh1Ef1pkKFXQo82wOkhE64+4FGK7Ru8=",
       "System.Threading.wasm": "sha256-qdFor27turMzpayhcymzZpI1BeMuDgpHqzsi06+Zceo=",
       "System.Private.CoreLib.wasm": "sha256-ROqgGedP909kdP1qUcbsGHz7JrcJ/sR2NqHQ5dvTR7U=",
-      "PortafolioBlog.wasm": "sha256-RhcuH2PzivKJ+7CnaFwHlm7jnk4nvxPlYd2lOX+dC7w="
+      "PortafolioBlog.wasm": "sha256-CvP5QgDGRnWaBS+zkhHD5btgyg2nQq7U0+5uvtrY4AI="
     }
   },
   "cacheBootResources": true,
