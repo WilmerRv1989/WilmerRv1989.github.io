@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PortafolioBlog",
   "resources": {
-    "hash": "sha256-mnNAd/v+plCI7ltKUB2ibFjhxM4/H2pbXGASfGhTSCo=",
+    "hash": "sha256-SbO5hW8sTTRmbxH+J+nHTO4Mjw+my6U0tmP8tHB78aY=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-vtotCeXt2UD6oc459laJT32vBgigZ+eLoUmdeFkvYDk="
     },
@@ -19,8 +19,8 @@
     "coreAssembly": {},
     "assembly": {
       "Markdig.wasm": "sha256-b4V+/xkhwIjcgE3D13ucgJNFe7/oyhTWfIdi6inIg9k=",
-      "Microsoft.AspNetCore.Components.wasm": "sha256-7UfEwwUgsxCSOAsv6BrJuaIg54f8p8P99fgmOuOsUUg=",
-      "Microsoft.AspNetCore.Components.Web.wasm": "sha256-29A5T2mBi8Opu0v8fQj0AiMc3lNSvlJbnHcuKv8MSgw=",
+      "Microsoft.AspNetCore.Components.wasm": "sha256-N8a/Hm4EE9qXy0DhNazZpAle6nVwOd08eCvdxgE/BNc=",
+      "Microsoft.AspNetCore.Components.Web.wasm": "sha256-9+n3TFwnQJjVjktfK9hCroospOIOxHQnG91UFpNl4z0=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-rgatSEY0UxM1plTCtrJEWmv6ZA0f+yjwezefHEYa+HA=",
       "Microsoft.Extensions.Configuration.wasm": "sha256-od574rRtVVRJj+24jbl8j3GdQFpxlJOpSx+pEMw1Q18=",
       "Microsoft.Extensions.Configuration.Abstractions.wasm": "sha256-XR+WUfg8LtnrwdXFBnV+qO3ROyp6cYCfl1AZajIAheM=",
@@ -47,13 +47,13 @@
       "System.Private.Uri.wasm": "sha256-VeJiLn8t0GBrLc+pR9h8sHVyDFO1D2JIWWv9pkqf860=",
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-HoMTDuTDnPPGz33cAhUPWnjlBFwLPlXJmatxg7HMeac=",
       "System.Runtime.InteropServices.wasm": "sha256-tIqL6dCMcl/UC+J0C+H+P06IxLzx6Y2MpKSJ8rSsUec=",
-      "System.Runtime.wasm": "sha256-0/KYMima2sFa2s/ylDMl58s5HJ/0W8tUJBej30/YtGI=",
+      "System.Runtime.wasm": "sha256-tg7uYUy4Fe0eySi6n1RxFFruWboRtQMz8D6D1qgZw1I=",
       "System.Text.Encodings.Web.wasm": "sha256-ZfCb2TSGxncfpyCkdqhIDqbsmxhl1+L2kv26ZWtTdWE=",
       "System.Text.Json.wasm": "sha256-nwLcpLAaNr1O+OznHBKVHvF5RPdPzbiqAFQNtiWpfVI=",
       "System.Text.RegularExpressions.wasm": "sha256-N5iEwt2bfvrglh1Ef1pkKFXQo82wOkhE64+4FGK7Ru8=",
       "System.Threading.wasm": "sha256-qdFor27turMzpayhcymzZpI1BeMuDgpHqzsi06+Zceo=",
       "System.Private.CoreLib.wasm": "sha256-ROqgGedP909kdP1qUcbsGHz7JrcJ/sR2NqHQ5dvTR7U=",
-      "PortafolioBlog.wasm": "sha256-0d6UF3zTXitmZwH7E7PNMK2pQo/CXcC3RTFn55uS8uw="
+      "PortafolioBlog.wasm": "sha256-RhcuH2PzivKJ+7CnaFwHlm7jnk4nvxPlYd2lOX+dC7w="
     }
   },
   "cacheBootResources": true,
