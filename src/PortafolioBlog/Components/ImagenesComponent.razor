@@ -1,0 +1,226 @@
+﻿<h2>Hablemos de imágenes y texto alternativo</h2>
+
+<p>Nota: Esta es la segunda entrada de una serie dedicada a la accesibilidad web. En esta serie, exploraremos diversos aspectos clave para garantizar que las páginas web sean accesibles para todos los usuarios, incluyendo aquellos con discapacidades. En esta entrada hablaremos del texto alternativo en las imágenes. Esta serie es una re-publicación de contenido que había creado anteriormente en un sitio web dedicado a la accesibilidad, con fines prácticos y educativos que ahora estoy trasladando a este blog personal para llegar a una audiencia más amplia interesada en el tema.</p>
+
+<p>Las imágenes en una página web que transmiten información relevante deben ser descritas mediante el atributo "Alt".</p>
+<p>Las imágenes informativas comunican un concepto o información simple que se puede expresar en una frase u oración corta. El texto alternativo debe transmitir el significado o el contenido visualmente representado.</p>
+<p>La decisión sobre si una imagen requiere una descripción detallada, una referencia simple o si es meramente decorativa es responsabilidad del autor de la página. Una forma de determinar si una imagen necesita una descripción es hacerse la siguiente pregunta:</p>
+<p>¿La imagen transmite información importante para entender el mensaje del contenido?</p>
+<ul>
+    <li>Si la respuesta es afirmativa: la imagen requiere una descripción.</li>
+    <li>Si la respuesta es negativa: la imagen es meramente decorativa y, por lo tanto, no requiere una descripción.</li>
+</ul>
+
+<p>A continuación, veremos cómo agregar correctamente una descripción de imagen mediante texto alternativo en HTML.</p>
+
+<h2>Imágenes informativas</h2>
+<p>Las imágenes informativas, como se mencionó anteriormente, necesitan un texto alternativo ya que transmiten información importante para la comprensión del contenido de la página.</p>
+<p>Para las imágenes informativas, utilice el atributo "Alt" para añadir el texto alternativo que será leído por las herramientas de apoyo, como los lectores de pantalla, como se muestra en el siguiente ejemplo:</p>
+
+<h3>Ejemplo de imágen con texto alternativo</h3>
+<div class="border border-2 p-4 rounded text-center">
+<img src="images/PinguinosEmperador.jpg" alt="Se muestra tres pingüinos emperador en un paisaje nevado.  Dos pingüinos adultos están de pie uno al lado del otro, mirando en direcciones opuestas, con sus picos apuntando hacia el cielo. Entre ellos, hay un pingüino joven mirando hacia adelante.  Los adultos tienen plumaje negro en la espalda y blanco en el frente con un tono amarillo alrededor de sus cuellos, mientras que el joven tiene un plumaje gris." />
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+    <code style="white-space: pre-wrap;">
+        &lt;img src="Imagenes/PinguinosEmperador.jpg" alt="Se muestra tres pingüinos emperador en un paisaje nevado.  Dos pingüinos adultos están de pie uno al lado del otro, mirando en direcciones opuestas, con sus picos apuntando hacia el cielo. Entre ellos, hay un pingüino joven mirando hacia adelante.  Los adultos tienen plumaje negro en la espalda y blanco en el frente con un tono amarillo alrededor de sus cuellos, mientras que el joven tiene un plumaje gris." /&gt;
+    </code>
+</pre>
+<h3>Explicación</h3>
+<p>En este ejemplo, al no haber un texto introductorio previo, parece que la imagen requiere una descripción de todos los elementos que la componen. Por lo tanto, en el atributo "Alt", se describe el número de pingüinos, sus características y su posición en relación con la imagen.</p>
+<p>En el siguiente ejemplo, la descripción cambia, ya que forma parte de un contexto previo que modifica su descripción.</p>
+
+<h3>Ejemplo con texto circundante</h3>
+<div class="border border-2 p-4 rounded row">
+    <div class="col-6">
+        <p>Esta especie, endémica de la Antártida, es la de mayor tamaño y peso de todos los pingüinos. Tanto el macho como la hembra son similares en plumaje y tamaño; pueden superar los 120 cm de altura y pesan entre 20 y 45 kg. Presentan una espalda, alas y cabeza de color negro, mientras que la parte anterior es blanca desde las patas hasta el vientre, con el pecho de un tono amarillo pálido y dos auriculares a la altura de los oídos de un llamativo amarillo brillante. Las crías tienen un color grisáceo en su plumaje, el cual cambia a medida que crecen.</p>
+    </div>
+    <div class="col-6">
+        <img src="images/PinguinosEmperador.jpg" alt="Tres pingüinos ocupan todo el plano, dos pingüinos adultos y en medio uno bebé." />
+    </div>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+        &lt;img src="Imagenes/PinguinosEmperador.jpg" alt="Tres pingüinos ocupan todo el plano, dos pingüinos adultos y en medio uno bebé." /&gt;
+    </code>
+</pre>
+
+<h3>Explicación</h3>
+<p>En este caso, el contexto hace que la imagen no requiera una descripción detallada de su contenido, ya que está acompañada de un texto descriptivo sobre los pingüinos emperador. Por lo tanto, la descripción textual de la imagen será simplemente informativa, indicando lo que hay en la imagen, ya que el párrafo anterior la complementa.</p>
+
+<h2>Imágenes decorativas</h2>
+<p>Hay un tipo de imágenes que no requieren un texto alternativo, conocidas como "imágenes decorativas". Estas imágenes no aportan ninguna información relevante para el usuario ni contribuyen a la comprensión del contenido de la página.</p>
+<p>En este caso, lo único que debemos hacer es dejar el atributo "Alt" en blanco, como se muestra a continuación:</p>
+
+<h3>Ejemplo de imágen decorativa</h3>
+<div class="border border-2 p-4 rounded text-center">
+<img src="images/PinguinosEmperador.jpg" alt="" />
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+        &lt;img src="Imagenes/PinguinosEmperador.jpg" alt="" /&gt;
+    </code>
+</pre>
+
+<h3>Explicación</h3>
+<p>En este caso, dejar el atributo "Alt" en blanco hará que la imagen sea ignorada automáticamente por las herramientas de apoyo, como los lectores de pantalla. Por lo tanto, se debe dejar vacío solo en aquellos casos donde la imagen no aporte información relevante. Además, es importante tener en cuenta lo siguiente:</p>
+<ul>
+    <li>NO se debe eliminar el atributo "Alt" en las imágenes decorativas. Una imagen sin atributo "Alt" será leída por los lectores de pantalla como "Gráfico".</li>
+    <li>No es necesario agregar "Imagen decorativa" como texto alternativo, ya que esto dificulta la navegación fluida para los usuarios de lectores de pantalla.</li>
+</ul>
+
+<h2>Imágenes Complejas y Descripciones Largas</h2>
+<p>Para imágenes que transmiten información compleja, como gráficos, diagramas o infografías, entre otras, el atributo `alt` puede no ser suficiente para describir todo su contenido. En estos casos, es necesario proporcionar una <b>descripción larga</b> que ofrezca todos los detalles visuales de forma textual.</p>
+<p>Existen varias formas de ofrecer estas descripciones:</p>
+<ul>
+    <li><b>Texto adyacente:</b> Integrar la descripción detallada de la imagen directamente en el párrafo o la sección que la rodea.</li>
+    <li><b>Usando `aria-describedby`:</b> Vincular la imagen a un elemento de texto (visible o visualmente oculto) en la misma página que contenga la descripción completa. El atributo `aria-describedby` de la imagen debe apuntar al `id` de ese elemento de descripción.</li>
+    <li><b>Enlace a una descripción:</b> Proporcionar un enlace (a menudo etiquetado como "Ver descripción detallada" o "Datos del gráfico") justo después de la imagen, que lleve a una página separada o a una sección de la misma página donde se encuentre la descripción larga.</li>
+</ul>
+
+<h3>Ejemplo: Cría de pingüino con descripción larga (usando `aria-describedby`)</h3>
+<div class="border border-2 p-4 rounded text-center">
+    <img src="images/pinguinobebe.jpeg" alt="Cría de pingüino emperador en primer plano." aria-describedby="desc-pinguino-cria" />
+    <p id="desc-pinguino-cria" class="visually-hidden">Se observa una cría de pingüino emperador en primer plano, destacando por su apariencia esponjosa. El cuerpo de la cría es redondeado y está cubierto por un plumón gris claro, que le proporciona protección contra el frío extremo del entorno antártico. Su cabeza es grande y presenta un contraste de colores muy característico: la parte superior y la nuca son de un gris oscuro casi negro, mientras que la cara y la garganta son blancas, formando una máscara que resalta sus pequeños ojos oscuros. El pico es corto, negro y ligeramente curvado hacia abajo, típico de las crías de esta especie. Las alas, aún no desarrolladas completamente, se ven pequeñas y pegadas al cuerpo, cubiertas también de plumón gris. Las patas, cortas y de color oscuro, apenas se asoman bajo el cuerpo redondeado, dándole una apariencia compacta y adorable. La cría está de pie sobre la nieve blanca, con una postura erguida y curiosa, mirando ligeramente hacia un lado.</p>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;img src="Imagenes/PinguinoCria.jpg" alt="Cría de pingüino emperador en primer plano." aria-describedby="desc-pinguino-cria" /&gt;
+&lt;p id="desc-pinguino-cria" class="visuallyhidden"&gt;Se observa una cría de pingüino emperador en primer plano, destacando por su apariencia esponjosa. El cuerpo de la cría es redondeado y está cubierto por un plumón gris claro, que le proporciona protección contra el frío extremo del entorno antártico. Su cabeza es grande y presenta un contraste de colores muy característico: la parte superior y la nuca son de un gris oscuro casi negro, mientras que la cara y la garganta son blancas, formando una máscara que resalta sus pequeños ojos oscuros. El pico es corto, negro y ligeramente curvado hacia abajo, típico de las crías de esta especie. Las alas, aún no desarrolladas completamente, se ven pequeñas y pegadas al cuerpo, cubiertas también de plumón gris. Las patas, cortas y de color oscuro, apenas se asoman bajo el cuerpo redondeado, dándole una apariencia compacta y adorable. La cría está de pie sobre la nieve blanca, con una postura erguida y curiosa, mirando ligeramente hacia un lado.&lt;/p&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>En este ejemplo, el atributo `alt` proporciona una descripción concisa de la imagen, mientras que `aria-describedby` vincula la imagen a un párrafo (con `id="desc-pinguino-cria"`) que contiene la descripción larga y detallada. La clase `visuallyhidden` se utiliza para ocultar visualmente el párrafo, pero este sigue siendo accesible para los lectores de pantalla, quienes lo leerán después del `alt` text de la imagen.</p>
+
+<h2>Imágenes funcionales</h2>
+
+<p>Las imágenes funcionales son aquellas que se utilizan para iniciar una acción o para servir como parte de un elemento interactivo, como un botón o un enlace. A diferencia de las imágenes informativas, su propósito principal no es transmitir contenido visual complejo, sino indicar una funcionalidad. Por esta razón, el texto alternativo para estas imágenes debe comunicar la acción que se iniciará o el propósito del elemento interactivo, en lugar de una simple descripción de lo que se ve en la imagen.</p>
+<p>Por ejemplo, el texto alternativo adecuado para la imagen de una lupa en un botón de búsqueda debería ser "Buscar", y no "lupa". De manera similar, para el logotipo de una empresa que funciona como enlace a la página principal, el texto alternativo correcto sería "Página de inicio de [Nombre de la Empresa]", no solo "logotipo".</p>
+<p>Cuando el atributo `alt` está ausente o vacío en una imagen funcional, se generan problemas significativos para los usuarios de lectores de pantalla. En estos casos, las herramientas de asistencia suelen anunciar el nombre del archivo de la imagen o la URL del destino del enlace, información que rara vez ayuda al usuario a comprender la acción que la imagen debe iniciar. Dado que las imágenes funcionales son esenciales para la interacción con el contenido, su correcta etiquetación es vital.</p>
+<p>A continuación, exploraremos distintos escenarios y su implementación correcta:</p>
+
+<h3>Ejemplo 1: Imagen utilizada sola como logotipo de enlace</h3>
+<p>Cuando un logotipo es el único contenido de un enlace que lleva a la página principal del sitio, su texto alternativo debe indicar claramente este destino.</p>
+
+<div class="border border-2 p-4 rounded">
+     <a href="" @onclick:preventDefault>
+        <img src="images/pinguinitos-s-a.png" alt="Página de inicio de Pingüinitos SA" width="60px" height="60px" />
+    </a>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;a href="https://www.pinguinitos.com/"&gt;
+    &lt;img src="Imagenes/logo-empresa.png" alt="Página de inicio de Pingüinitos SA" /&gt;
+&lt;/a&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>En esta situación, aunque la imagen es un logotipo, su función principal es actuar como un enlace a la página de inicio. Por lo tanto, el texto alternativo se enfoca en el destino del enlace ("Página de inicio de Pingüinitos SA") en lugar de solo describir la imagen. Es importante destacar que las imágenes utilizadas como logotipos pueden tener requisitos de accesibilidad ligeramente más flexibles en cuanto a contraste de color y tamaño de texto en comparación con el texto normal.</p>
+
+<h3>Ejemplo 2: Imagen del logotipo dentro del texto del enlace</h3>
+<p>Si el logotipo acompaña un texto que ya describe el destino del enlace, la imagen se considera decorativa en ese contexto y su `alt` text debe ser vacío.</p>
+
+<div class="border border-2 p-4 rounded">
+    <a href="" @onclick:preventDefault>
+         <img src=" images/pinguinitos-s-a.png" alt="" width="16px" height="16px" /> Página de inicio de Pingüinitos SA
+    </a>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;a href="https://www.pinguinitos.com/"&gt;
+    &lt;img src="Imagenes/logo-empresa-pequeño.png" alt="" /&gt; Página de inicio de Tu Empresa
+&lt;/a&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>En este caso, la imagen del logotipo complementa el texto visible del enlace ("Página de inicio de Pingüinitos SA"). Dado que el texto ya proporciona toda la información necesaria, la imagen no añade una funcionalidad o información diferente. Por lo tanto, se aplica un valor `alt=""` (vacío) para evitar redundancias y repeticiones al ser leída por las herramientas de asistencia. En efecto, la imagen actúa como un complemento decorativo o una señal visual para el texto del enlace.</p>
+
+<h3>Ejemplo 3: Imagen de icono que complementa un enlace informativo</h3>
+<p>Un icono puede ser utilizado para añadir información adicional sobre el comportamiento de un enlace.</p>
+
+<div class="border border-2 p-4 rounded">
+    <a href="" @onclick:preventDefault >
+        Política de Privacidad <img src="images/pinguino-pdf.png" width="16px" height="16px" alt="documento PDF" />
+    </a>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;a href="https://www.pinguinitos.com/documentos/politica.pdf" target="_blank"&gt;
+    Política de Privacidad &lt;img src="Imagenes/icono-pdf.png" alt="documento PDF" /&gt;
+&lt;/a&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>En este ejemplo, el icono sigue al texto del enlace para informar a los usuarios sobre el formato del archivo que se va a descargar. El texto alternativo "documento PDF" comunica el significado del icono, lo cual es crucial para usuarios que no pueden ver la representación visual. Esta técnica es frecuentemente utilizada para indicar diferentes formatos de archivo (como DOCX, MP3, ZIP) o para señalar que un enlace se abrirá en una nueva ventana/pestaña.</p>
+
+<h3>Ejemplo 4: Imagen de icono independiente que tiene una función</h3>
+<p>Cuando una imagen de icono es el único elemento interactivo, su `alt` text debe describir la acción que realiza.</p>
+
+<div class="border border-2 p-4 rounded">
+    <a href="javascript:window.print()">
+        <img src="images/imprimir.png" alt="Imprimir esta página" width="35px" height="35px" />
+    </a>
+    
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;a href="javascript:window.print()"&gt;
+    &lt;img src="Imagenes/icono-imprimir.png" alt="Imprimir esta página" /&gt;
+&lt;/a&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>Aquí, el icono representa una impresora y su propósito es activar el cuadro de diálogo de impresión al ser seleccionado. Por lo tanto, el texto alternativo "Imprimir esta página" describe directamente la funcionalidad que el usuario iniciará al interactuar con el enlace.</p>
+
+<h3>Ejemplo 5: Imagen utilizada en un botón</h3>
+<p>Las imágenes pueden utilizarse dentro de botones para darles un estilo distintivo o para representar su función.</p>
+
+<div class="border border-2 p-4 rounded">
+    <button>
+        <img src="images/icono-buscar-p.png" width="20px" height="20px" alt="Buscar" />
+    </button>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;button type="submit"&gt;
+    &lt;img src="Imagenes/icono-buscar.png" alt="Buscar" /&gt;
+&lt;/button&gt;
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>En este caso, la imagen de una lupa se utiliza dentro de un botón de tipo `submit`. El texto alternativo "Buscar" transmite el propósito del botón, asegurando que los usuarios de herramientas de apoyo comprendan la acción que se realizará al activar el botón. Es fundamental que el `alt` text describa la función, no solo el elemento visual del icono.</p>
+
+<h2>Conclusiones</h2>
+
+<p>A lo largo de esta entrada, hemos profundizado en la importancia crucial de un uso accesible de las imágenes en la web. Aprendimos a diferenciar entre imágenes informativas, decorativas y funcionales, y cómo cada tipo requiere un enfoque específico para su texto alternativo. Desde descripciones concisas para imágenes simples, pasando por un `alt=""` para elementos puramente decorativos, hasta textos que comunican la acción para imágenes funcionales.</p>
+<p>Además, exploramos cómo abordar imágenes complejas que exigen descripciones más extensas, utilizando técnicas como `aria-describedby` o enlaces a contenido detallado.</p>
+<p>A pesar de la claridad de estas buenas prácticas, las imágenes sin atributo `alt` o con descripciones genéricas siguen siendo uno de los mayores problemas de accesibilidad documentados en la web. Numerosos informes señalan que los usuarios de lectores de pantalla a menudo se encuentran con que más de la mitad de las imágenes en una página carecen de una alternativa textual adecuada, lo que resulta en que solo escuchen la palabra "Gráfico". Esta deficiencia no solo dificulta la navegación, sino que también niega información esencial a quienes dependen de estas herramientas.</p>
+<p>La correcta implementación de los textos alternativos y el marcado adecuado de las imágenes no es solo una recomendación; es un pilar fundamental para construir una web verdaderamente inclusiva. Al garantizar que cada imagen sea comprensible para todos, eliminamos barreras y enriquecemos la experiencia de cada usuario.</p>
+<p>Gracias por leer esta entrada, que como les contaba, es la segunda de una serie dedicada a la accesibilidad web que formaba parte de el sitio web #HablemosDeAccesibilidad que había hecho hace un tiempo con fines prácticos y educativos, y que ahora estoy re-publicando en este blog personal para que llegue a más gente interesada en el tema. espero que les haya sido de utilidad y nos vemos en la próxima entrega donde hablaremos de otros aspectos importantes de la accesibilidad web. ¡Hasta la próxima miches!</p>

@@ -144,3 +144,18 @@ pre {
     color: #198754 !important; /* Color verde éxito */
     border-color: #198754 !important;
 }
+
+.skip-link {
+    position: absolute; /* Permite posicionarlo fuera del flujo normal */
+    top: -40px; /* Lo mueve fuera de la pantalla por defecto */
+    left: 0;
+    background-color: #fefefe; /* Fondo visible al enfocarse */
+    color: #333; /* Color de texto visible al enfocarse */
+    padding: 8px;
+    z-index: 100; /* Asegura que esté por encima de otros elementos al hacerse visible */
+    transition: top 0.3s ease-in-out; /* Transición suave para el efecto de aparición */
+}
+
+    .skip-link:focus {
+        top: 0; /* Lo hace visible al recibir foco */
+    }

@@ -1,0 +1,194 @@
+﻿<h2>Hablemos de Uso de enlaces y accesibilidad web</h2>
+
+<p>Nota: Esta es la tercera entrada de una serie dedicada a la accesibilidad web. En esta serie, exploraremos diversos aspectos clave para garantizar que las páginas web sean accesibles para todos los usuarios, incluyendo aquellos con discapacidades. En esta entrada hablaremos del uso de enlaces de forma accesible. Esta serie es una re-publicación de contenido que había creado anteriormente en un sitio web dedicado a la accesibilidad, con fines prácticos y educativos que ahora estoy trasladando a este blog personal para llegar a una audiencia más amplia interesada en el tema.</p>
+
+<p>Los enlaces o vínculos son elementos fundamentales en nuestras páginas web. Por esta razón, es crucial que sigan buenas prácticas de accesibilidad en su creación y presentación a los usuarios. Un enlace sin una descripción adecuada o un texto claro puede frustrar a los usuarios al navegar por nuestro sitio web.</p>
+<p>Es imprescindible que los enlaces cumplan con parámetros de accesibilidad, evitando el uso de términos genéricos y procurando que sean comprensibles por sí mismos, sin depender del contexto circundante para su comprensión.</p>
+
+<h2>Enlaces comprensibles dentro y fuera de contexto</h2>
+<p>A menudo, se utilizan prácticas inadecuadas al crear enlaces en los sitios web. Algunos ejemplos de esto incluyen el uso de textos como "Haga clic aquí", "Más información", "Enlace", "Leer más", entre otros.</p>
+<p>El uso de este tipo de textos para identificar un enlace es una mala práctica, ya que los usuarios, incluidos aquellos que utilizan herramientas de apoyo, pueden no comprender su finalidad y uso sin interactuar con el enlace.</p>
+<p>Estos enlaces se conocen como enlaces comprensibles dentro del contexto, lo que significa que su función solo se puede comprender al leer el texto circundante. Sin embargo, los usuarios de herramientas de apoyo, como los lectores de pantalla, no siempre navegan por todo el contenido para buscar información en un sitio web. En cambio, suelen usar atajos de teclado para acceder a contenidos específicos.</p>
+<p>Por ejemplo, un lector de pantalla como NVDA puede listar todos los enlaces de una página web, pero solo mostrará al usuario la lista con los enlaces y el texto que se les ha asignado. Por lo tanto, si el sitio web tiene muchos enlaces con el mismo texto, como "Leer más", no será accesible para el usuario del lector de pantalla.</p>
+<p>Por lo tanto, es recomendable que los enlaces sean comprensibles tanto dentro como fuera de contexto. Es decir, el texto proporcionado en el enlace debe ser suficiente para comprender su finalidad y uso. A continuación, se presentan algunos ejemplos de ambos casos.</p>
+
+<h3>Ejemplo 1:</h3>
+<div class="border border-2 p-4 rounded">
+    <p>Si desea obtener más información sobre las Pautas de Accesibilidad al Contenido Web (WCAG), puede visitar la página oficial del W3C en el siguiente <a href="https://www.w3.org/TR/WCAG20/" target="_blank">enlace</a>.</p>
+
+    <p>Si está interesado en aprender más sobre accesibilidad web, puede visitar el sitio oficial de <a href="https://www.w3.org/TR/WCAG20/" target="_blank">las Pautas de Accesibilidad al Contenido Web (WCAG) del W3C</a>.</p>
+</div>
+
+<br />
+<h3>Ejemplo 2</h3>
+<div class="border border-2 p-4 rounded">
+    <p>Si quiere saber más sobre los pingüinos emperador puede visitar la entrada de Wikipedia sobre estos animales en el siguiente <a href="https://es.wikipedia.org/wiki/Aptenodytes_forsteri#:~:text=El%20ping%C3%BCino%20emperador%20(Aptenodytes%20forsteri,esfenisciforme%20de%20la%20familia%20Spheniscidae.&text=Ping%C3%BCinos%20emperador%20en%20la%20isla%20Cerro%20Nevado%2C%20Ant%C3%A1rtida.&text=Zonas%20donde%20vive%20Zonas%20de,peso%20de%20todos%20los%20ping%C3%BCinos." target="_blank">enlace</a></p>
+
+    <p>Si quiere saber más sobre los pingüinos emperador y sus características puede visitar la entrada de <a href="https://es.wikipedia.org/wiki/Aptenodytes_forsteri#:~:text=El%20ping%C3%BCino%20emperador%20(Aptenodytes%20forsteri,esfenisciforme%20de%20la%20familia%20Spheniscidae.&text=Ping%C3%BCinos%20emperador%20en%20la%20isla%20Cerro%20Nevado%2C%20Ant%C3%A1rtida.&text=Zonas%20donde%20vive%20Zonas%20de,peso%20de%20todos%20los%20ping%C3%BCinos." target="_blank">los pingüinos emperador en Wikipedia</a>.</p>
+</div>
+
+<br />
+<h3>Explicación</h3>
+<p>En los ejemplos anteriores se muestran dos formas de presentar el mismo enlace. En ambas opciones, la primera presenta el enlace de manera genérica y poco comprensible si se lee fuera del contexto del párrafo en el que se encuentra. En cambio, en la segunda opción, con solo unos pequeños cambios, se puede presentar la misma información de manera clara y comprensible tanto dentro como fuera del contexto del párrafo.</p>
+<p>Presentar los enlaces con un texto descriptivo de su finalidad y uso beneficia no solo a los usuarios de lectores de pantalla, sino también a aquellos usuarios que necesitan ayuda para comprender cómo se les presenta la información. Por lo tanto, es necesario que los textos de los enlaces sean claros y descriptivos.</p>
+
+<h2>Uso de `aria-label` en los enlaces</h2>
+<p>Una forma de agregar más contexto sobre la finalidad de un enlace para los usuarios de herramientas de apoyo es utilizando el atributo `aria-label` junto con la etiqueta del enlace. Este atributo nos permite añadir información relevante sobre el enlace, como su propósito o si abre en una nueva ventana, entre otros detalles.</p>
+<p>Es importante tener en cuenta que el texto incluido en el atributo `aria-label` será leído por las herramientas de apoyo, como los lectores de pantalla, en lugar del texto que se muestra visualmente. Por lo tanto, es recomendable utilizar el mismo texto que se presenta visualmente y luego agregar información adicional en el atributo `aria-label`. A continuación, se muestra un ejemplo:</p>
+
+<h3>Ejemplo uso de `aria-label`</h3>
+<div class="border border-2 p-4 rounded">
+    <p>No olvide visitar: <a href="https://www.w3.org/TR/WCAG20/" target="_blank" aria-label="Las Pautas de Accesibilidad al Contenido Web (WCAG) del W3C (se abre en una pestaña nueva)">Las Pautas de Accesibilidad al Contenido Web (WCAG) del W3C</a></p>
+</div>
+
+<br />
+<h3>Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+        &lt;a href="https://www.w3.org/TR/WCAG20/" target="_blank" aria-label="Las Pautas de Accesibilidad al Contenido Web (WCAG) del W3C (se abre en una pestaña nueva)"&gt;Las Pautas de Accesibilidad al Contenido Web (WCAG) del W3C&lt;/a&gt;
+    </code>
+</pre>
+
+<h3>Explicación</h3>
+<p>En este ejemplo, se utiliza el atributo `aria-label` para mejorar la ayuda contextual del enlace. Se emplea el mismo texto que se muestra visualmente, pero además se advierte al usuario que este enlace se abrirá en una nueva pestaña del navegador. De esta manera, se brinda al usuario la opción de decidir si desea abrir o no el enlace. Esto es importante porque los usuarios de herramientas de apoyo dependen de la ubicación del foco para identificar dónde se encuentran, y los cambios de página y la apertura de enlaces pueden desplazar dicho foco.</p>
+
+<h2>Enlaces de Omisión o Saltar a</h2>
+
+<p>El uso de enlaces de omisión o "saltar a" es una práctica de accesibilidad sumamente valiosa. Permiten a los usuarios omitir bloques de contenido repetitivo (como menús de navegación extensos o encabezados) y acceder directamente al contenido principal de la página. Esto es especialmente útil para usuarios que dependen del teclado o de tecnologías de asistencia como los lectores de pantalla.</p>
+<p>Es crucial que los enlaces de omisión sean el primer elemento enfocable en la página, para que los usuarios de teclado puedan acceder a ellos de inmediato. Además, aunque estos enlaces se ocultan visualmente por defecto para no interferir con el diseño, deben volverse visibles cuando reciben el foco del teclado, indicando claramente su propósito.</p>
+<p>El texto asociado a un enlace de omisión debe ser descriptivo, como "Saltar al contenido principal" o "Ir a la navegación", en lugar de genéricos como "Saltar" o "Omitir". Esto asegura que el usuario comprenda claramente a dónde lo llevará el enlace, mejorando la eficiencia y usabilidad para la navegación no visual.</p>
+
+<h3>Ejemplo: Enlace de omisión al contenido principal (HTML Estándar)</h3>
+<p>Este ejemplo muestra cómo un enlace de omisión, oculto visualmente por defecto, se hace visible cuando se enfoca con el teclado, permitiendo al usuario saltar directamente a la sección principal de la página.</p>
+
+<div class="border border-2 p-4 rounded">
+    <a href="" @onclick:preventDefault @onclick="@EnfocarElemento" class="skip-link">Saltar al contenido principal</a>
+
+    <header style="background-color:#eee; padding:10px; margin-top:20px;">
+        <p>Menú de navegación y encabezado...</p>
+        <nav>...</nav>
+    </header>
+
+    <main tabindex="-1" @ref="enfoqueAutomatico" id="contenido-principal" style="background-color:#f8f8f8; padding:20px; border:1px solid #ddd; margin-top:10px;">
+        <h2>Contenido Principal de la Página</h2>
+        <p>Aquí comienza el contenido más relevante y único de la página. Al usar el enlace de omisión, se evita tener que tabular por todos los elementos anteriores.</p>
+        <p>...</p>
+    </main>
+</div>
+<br />
+<h3>Código html</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+&lt;a href="#contenido-principal" class="skip-link"&gt;Saltar al contenido principal&lt;/a&gt;
+
+&lt;!-- El resto de tu encabezado, navegación, etc. --&gt;
+&lt;header&gt;
+    &lt;p&gt;Menú de navegación y encabezado...&lt;/p&gt;
+    &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main id="contenido-principal"&gt;
+    &lt;h2&gt;Contenido Principal de la Página&lt;/h2&gt;
+    &lt;p&gt;Aquí comienza el contenido más relevante y único de la página...&lt;/p&gt;
+    &lt;p&gt;...&lt;/p&gt;
+&lt;/main&gt;
+</code>
+</pre>
+
+<h3>Código CSS (para la clase `skip-link`)</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+.skip-link {
+    position: absolute; /* Permite posicionarlo fuera del flujo normal */
+    top: -40px; /* Lo mueve fuera de la pantalla por defecto */
+    left: 0;
+    background-color: #fefefe; /* Fondo visible al enfocarse */
+    color: #333; /* Color de texto visible al enfocarse */
+    padding: 8px;
+    z-index: 100; /* Asegura que esté por encima de otros elementos al hacerse visible */
+    transition: top 0.3s ease-in-out; /* Transición suave para el efecto de aparición */
+}
+
+.skip-link:focus {
+    top: 0; /* Lo hace visible al recibir foco */
+}
+</code>
+</pre>
+<h3>Explicación</h3>
+<p>El enlace `&lt;a class="skip-link" href="#contenido-principal"&gt;Saltar al contenido principal&lt;/a&gt;` se coloca como el primer elemento dentro del `&lt;body&gt;`. Por defecto, la clase `skip-link` lo posiciona fuera de la vista (con `top: -40px;`). Cuando un usuario navega con la tecla `Tab` y el foco alcanza este enlace (`.skip-link:focus`), el estilo `top: 0;` lo hace visible en la parte superior de la pantalla. Al activarlo, el usuario es llevado directamente al elemento con `id="contenido-principal"`, omitiendo toda la navegación y el encabezado repetitivos. Esto es especialmente útil para personas que no usan un ratón.</p>
+
+<h2>Enlaces de Omisión en SPAs (con JavaScript)</h2>
+
+<p>En el contexto de las Aplicaciones de Una Sola Página (SPA), como las construidas con React o Angular, los enlaces de omisión requieren un manejo especial. Esto se debe a que el sistema de enrutamiento interno del framework puede interceptar los enlaces de anclaje (<code>#id</code>), o el contenido puede no estar completamente cargado cuando el navegador intenta realizar el salto. Esto a menudo resulta en que el enlace no funcione, o incluso que la página se recargue o redirija inesperadamente.</p>
+<p>Para garantizar que los enlaces de omisión operen de forma fiable en SPAs, la práctica adecuada es manejar el clic del enlace con JavaScript para controlar el foco programáticamente. Esto le da a tu aplicación el control preciso sobre dónde debe ir el foco del teclado después de que el usuario active el enlace de omisión.</p>
+
+<h3>Código JavaScript para gestionar el salto:</h3>
+<pre class="border border-2 p-4 rounded">
+<code style="white-space: pre-wrap;">
+document.addEventListener('DOMContentLoaded', function() {
+    // Selecciona el enlace con la clase 'skip-link'
+    const skipLinks = document.querySelectorAll('.skip-link');
+
+    skipLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            // Prevenir el comportamiento por defecto del navegador/router
+            event.preventDefault();
+
+            // Obtener el ID del elemento de destino desde el atributo href
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                // Hacer el elemento de destino enfocable programáticamente y mover el foco
+                targetElement.setAttribute('tabindex', '-1'); // Crucial para que pueda recibir foco programático
+                targetElement.focus();
+
+                // Opcional: Restaurar tabindex después de que el elemento pierde el foco
+                targetElement.addEventListener('blur', function handler() {
+                    targetElement.removeAttribute('tabindex');
+                    targetElement.removeEventListener('blur', handler);
+                });
+
+                // Opcional: Desplazamiento suave (si el navegador no lo hace por defecto)
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
+</code>
+</pre>
+
+<h3>Explicación:</h3>
+<p>Este enfoque con JavaScript asegura que el enlace de omisión funcione de manera fiable en entornos dinámicos.</p>
+<ol>
+    <li><code>event.preventDefault();</code>: Esta línea es fundamental. Detiene el comportamiento predeterminado del navegador para el enlace, evitando que el enrutador de la SPA lo intercepte.</li>
+    <li><code>targetElement.setAttribute('tabindex', '-1');</code>: Al establecer <code>tabindex="-1"</code>, el elemento de destino se vuelve enfocable programáticamente sin que entre en el orden de tabulación natural del teclado. Esto permite que el foco sea dirigido a él mediante JavaScript, pero no lo hace parte de la secuencia de tabulación normal.</li>
+    <li><code>targetElement.focus();</code>: Una vez que el elemento de destino es capaz de recibir foco, esta línea mueve el foco del teclado directamente a él. Para los usuarios de lectores de pantalla, esto significa que la lectura comenzará desde el inicio de esa sección. Para los usuarios de teclado, su siguiente pulsación de <code>Tab</code> continuará la navegación desde dentro de esa sección.</li>
+    <li>Restauración de <code>tabindex</code> (opcional pero recomendado): La función de <code>blur</code> elimina el <code>tabindex="-1"</code> una vez que el elemento pierde el foco. Esto previene que el elemento, una vez saltado, pueda ser alcanzado de forma inesperada más adelante en la secuencia de tabulación normal si no debería serlo.</li>
+    <li> <code>scrollIntoView()</code> (opcional): Aunque <code>focus()</code> a menudo provoca un desplazamiento, <code>scrollIntoView()</code> asegura un desplazamiento suave y preciso, mejorando la experiencia visual de la transición.</li>
+</ol>
+
+<h3>Ventajas y Consideraciones:</h3>
+<ul>
+    <li>Fiabilidad: Este método es mucho más fiable en SPAs, ya que el control del desplazamiento se realiza directamente mediante JavaScript, eludiendo posibles conflictos con el enrutamiento del framework.</li>
+    <li>Control de Foco Preciso: Permite un control exacto sobre dónde aterriza el foco del teclado, lo cual es vital para la experiencia del usuario de teclado y lectores de pantalla.</li>
+    <li>Dependencia de JavaScript: Requiere que JavaScript esté habilitado y cargado correctamente. Asegúrate de que este script se ejecute después de que el DOM esté disponible (<code>DOMContentLoaded</code>).</li>
+</ul>
+
+<h2>Conclusiones</h2>
+
+<p>A lo largo de esta entrada, hemos comprendido que los enlaces son mucho más que simples conexiones; son elementos de navegación cruciales para todos los usuarios. La clave reside en su comprensibilidad, asegurando que su propósito sea claro tanto dentro como fuera de su contexto. Vimos cómo evitar textos genéricos como "haga clic aquí" y cómo el uso estratégico del atributo `aria-label` puede enriquecer la información contextual, especialmente en enlaces que abren nuevas pestañas.</p>
+<p>Un pilar fundamental de la accesibilidad en la navegación es la implementación de enlaces de omisión. Estos permiten a los usuarios de teclado y lectores de pantalla saltar bloques repetitivos de contenido, mejorando drásticamente la eficiencia. Además, reconocimos que en las Aplicaciones de Una Sola Página (SPA), estas implementaciones requieren de soluciones más robustas, a menudo basadas en JavaScript, para asegurar su funcionalidad sin interferir con el enrutamiento de la aplicación.</p>
+<p>En definitiva, diseñar enlaces accesibles no es solo una buena práctica; es un requisito esencial para una web inclusiva. Al priorizar la claridad, la semántica y la funcionalidad para todas las formas de interacción, eliminamos barreras y garantizamos que la navegación sea fluida y efectiva para cada usuario.</p>
+<p>Gracias por leer esta nueva entrada la cual es la tercera ya de una serie dedicada a la accesibilidad web que formaba parte de el sitio web #HablemosDeAccesibilidad que había hecho hace un tiempo con fines prácticos y educativos, y que ahora estoy re-publicando en este blog personal para que llegue a más gente interesada en el tema. espero que les haya sido de utilidad y nos vemos en la próxima entrega donde hablaremos más sobre accesibilidad web. ¡Hasta la próxima miches!</p>
+
+@code {
+    private ElementReference enfoqueAutomatico;
+
+    //método para enfocar el elemento principal al hacer clic en el enlace de omisión
+    private async Task EnfocarElemento()
+    {
+        await enfoqueAutomatico.FocusAsync();
+    }
+
+}

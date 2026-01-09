@@ -61,8 +61,15 @@
     {
         try
         {
-            // Intentamos leer el archivo JSON que gestiona los metadatos
-            articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+            var listaCompleta = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+
+            if (listaCompleta != null)
+            {
+                articulos = listaCompleta
+                    .Where(p => p.Fecha <= DateTime.Now)
+                    .OrderByDescending(p => p.Fecha)
+                    .ToList();
+            }
         }
         catch (Exception)
         {

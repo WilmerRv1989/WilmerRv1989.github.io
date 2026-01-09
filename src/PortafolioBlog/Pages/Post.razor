@@ -1,6 +1,7 @@
 ﻿@page "/blog/{ArticleName}"
 @using Markdig
 @using PortafolioBlog.Models
+@using PortafolioBlog.Services
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
@@ -11,7 +12,7 @@
         Blog: ¿Sueñan los ciegos con un mundo accesible?
     </h1>
 
-    @if (articleHtml == null)
+    @if (articleHtml == null && componente == null)
     {
         <div class="d-flex align-items-center" role="status">
             <strong>Cargando contenido...</strong>
@@ -20,12 +21,17 @@
     }
     else
     {
-        @* Contenido del Artículo *@
         <article class="blog-content mt-4">
-            @((MarkupString)articleHtml)
+            @if (postMetadata != null && postMetadata.EsComponente && componente != null)
+            {
+                <DynamicComponent Type="@componente" />
+            }
+            else if (articleHtml != null)
+            {
+                @((MarkupString)articleHtml)
+            }
         </article>
 
-        <hr class="mt-5" />
         <nav class="d-flex justify-content-between align-items-center my-5" aria-label="Navegación entre artículos">
             <div style="flex: 1;">
                 @if (prevPost != null)
@@ -76,21 +82,22 @@
     private PostMetadata? postMetadata;
     private PostMetadata? prevPost;
     private PostMetadata? nextPost;
+    private Type? componente; 
 
     protected override async Task OnParametersSetAsync()
     {
         foco = true;
+        componente = null; 
+        articleHtml = null;
 
         if (!string.IsNullOrEmpty(ArticleName))
         {
             try
             {
-                // 1. Obtener todos los artículos y ordenarlos cronológicamente
                 var articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
 
                 if (articulos != null)
                 {
-                    // Ordenamos: más reciente primero (para que "Siguiente" sea el más nuevo)
                     var listaOrdenada = articulos.OrderByDescending(p => p.Fecha).ToList();
                     var currentIndex = listaOrdenada.FindIndex(p => p.Id == ArticleName);
 
@@ -98,19 +105,23 @@
                     {
                         postMetadata = listaOrdenada[currentIndex];
 
-                        // Definimos navegación:
-                        // Siguiente es el que está ANTES en la lista (índice menor, más nuevo)
+                        // Navegación
                         nextPost = currentIndex > 0 ? listaOrdenada[currentIndex - 1] : null;
-
-                        // Anterior es el que está DESPUÉS en la lista (índice mayor, más viejo)
                         prevPost = currentIndex < listaOrdenada.Count - 1 ? listaOrdenada[currentIndex + 1] : null;
+
+                        // DECISIÓN DE CARGA:
+                        if (postMetadata.EsComponente)
+                        {
+                            componente = BlogComponentMapper.GetTypeById(ArticleName);
+                        }
+                        else
+                        {
+                            var markdown = await Http.GetStringAsync($"articles/{ArticleName}.md");
+                            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+                            articleHtml = Markdown.ToHtml(markdown, pipeline);
+                        }
                     }
                 }
-
-                // 2. Carga y renderizado del Markdown
-                var markdown = await Http.GetStringAsync($"articles/{ArticleName}.md");
-                var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-                articleHtml = Markdown.ToHtml(markdown, pipeline);
             }
             catch (Exception)
             {
@@ -121,13 +132,15 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (articleHtml != null)
+        // El foco debe dispararse si hay algo cargado (HTML o Componente)
+        if (articleHtml != null || componente != null)
         {
             await JSRuntime.InvokeVoidAsync("clipboardFunctions.addCopyButtons");
 
+
             if (foco)
             {
-                await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "titulo-principal"); 
+                await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "titulo-principal");
                 foco = false;
             }
         }

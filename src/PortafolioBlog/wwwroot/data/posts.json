@@ -2,20 +2,61 @@
   {
     "Id": "bienvenida",
     "Titulo": "Bienvenida a ¿Sueñan los ciegos con un mundo accesible?",
-    "Resumen": "Una reflexión filosófica y técnica sobre el derecho a habitar y construir la realidad digital desde la ingeniería de software y la accesibilidad.",
+    "Resumen": "Una reflexión filosófica y técnica sobre el derecho a habitar y construir la realidad digital.",
     "Fecha": "2026-01-05T00:00:00",
-    "Autor": "Wilmer",
+    "Autor": "Wilmer Rodríguez Vega",
     "Categoria": "Opinión",
-    "Etiquetas": [ "Filosofía", "Accesibilidad", "Presentación", "Software" ]
+    "Etiquetas": [ "Filosofía", "Accesibilidad", "Presentación" ],
+    "EsComponente": false
   },
   {
     "Id": "estructura-accesible",
     "Titulo": "Estructura de la página y accesibilidad web",
-    "Resumen": "Guía fundamental sobre etiquetas HTML5, jerarquía de encabezados y regiones semánticas para crear sitios inclusivos y navegables.",
-    "Fecha": "2026-01-07",
-    "Autor": "Wilmer",
+    "Resumen": "Guía sobre etiquetas HTML5, jerarquía de encabezados y regiones semánticas.",
+     "Fecha": "2026-01-07T00:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
     "Categoria": "Accesibilidad web",
-    "Etiquetas": [ "HTML5", "Lectores de Pantalla", "WCAG", "Semántica" ]
+    "Etiquetas": [ "HTML5", "Semántica", "WCAG" ],
+    "EsComponente": false
+  },
+  {
+    "Id": "uso-de-formularios",
+    "Titulo": "Uso de formularios accesibles",
+    "Resumen": "Ejemplos interactivos sobre el etiquetado correcto de campos de formularios accesibles para lectores de pantalla.",
+    "Fecha": "2026-01-10T10:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Accesibilidad web",
+    "Etiquetas": [ "Formularios", "Interactivo", "html", "Accesibilidad" ],
+    "EsComponente": true
+  },
+  {
+    "Id": "uso-de-enlaces",
+    "Titulo": "Uso de enlaces y accesibilidad web",
+    "Resumen": "Demostración de cómo crear enlaces descriptivos y accesibles tanto dentro como fuera de contexto.",
+    "Fecha": "2026-01-09T11:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Accesibilidad web",
+    "Etiquetas": [ "Enlaces", "Navegación", "Teclado" ],
+    "EsComponente": true
+  },
+  {
+    "Id": "uso-de-imagenes",
+    "Titulo": "Imágenes y texto alternativo",
+    "Resumen": "Práctica interactiva sobre descripciones alternativas y cuándo usar imágenes decorativas.",
+    "Fecha": "2026-01-08T00:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Accesibilidad web",
+    "Etiquetas": [ "Texto Alternativo", "Atributo Alt", "Diseño Inclusivo" ],
+    "EsComponente": true
+  },
+  {
+    "Id": "uso-de-tablas",
+    "Titulo": "Tablas de datos accesibles",
+    "Resumen": "Creación de tablas accesibles con encabezados y estructura semántica.",
+    "Fecha": "2026-01-11T00:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Accesibilidad web",
+    "Etiquetas": [ "Tablas", "ARIA", "Datos" ],
+    "EsComponente": true
   }
-  
 ]

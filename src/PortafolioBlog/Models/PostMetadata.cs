@@ -12,5 +12,6 @@ namespace PortafolioBlog.Models
         public string Autor { get; set; } = string.Empty;
         public string Categoria { get; set; } = string.Empty; 
         public List<string> Etiquetas { get; set; } = new();
+        public bool EsComponente { get; set; } = false;
     }
 }
