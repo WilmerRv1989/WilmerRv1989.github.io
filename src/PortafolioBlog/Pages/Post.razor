@@ -82,13 +82,16 @@
     private PostMetadata? postMetadata;
     private PostMetadata? prevPost;
     private PostMetadata? nextPost;
-    private Type? componente; 
+    private Type? componente;
 
     protected override async Task OnParametersSetAsync()
     {
         foco = true;
-        componente = null; 
+        componente = null;
         articleHtml = null;
+        postMetadata = null;
+        prevPost = null;
+        nextPost = null;
 
         if (!string.IsNullOrEmpty(ArticleName))
         {
@@ -98,18 +101,21 @@
 
                 if (articulos != null)
                 {
-                    var listaOrdenada = articulos.OrderByDescending(p => p.Fecha).ToList();
-                    var currentIndex = listaOrdenada.FindIndex(p => p.Id == ArticleName);
+                    var hoy = DateTime.Now;
+                    var listaPublicada = articulos
+                        .Where(p => p.Fecha <= hoy)
+                        .OrderByDescending(p => p.Fecha)
+                        .ToList();
+
+                    var currentIndex = listaPublicada.FindIndex(p => p.Id == ArticleName);
 
                     if (currentIndex != -1)
                     {
-                        postMetadata = listaOrdenada[currentIndex];
+                        postMetadata = listaPublicada[currentIndex];
 
-                        // Navegación
-                        nextPost = currentIndex > 0 ? listaOrdenada[currentIndex - 1] : null;
-                        prevPost = currentIndex < listaOrdenada.Count - 1 ? listaOrdenada[currentIndex + 1] : null;
+                        nextPost = currentIndex > 0 ? listaPublicada[currentIndex - 1] : null;
+                        prevPost = currentIndex < listaPublicada.Count - 1 ? listaPublicada[currentIndex + 1] : null;
 
-                        // DECISIÓN DE CARGA:
                         if (postMetadata.EsComponente)
                         {
                             componente = BlogComponentMapper.GetTypeById(ArticleName);
@@ -120,6 +126,13 @@
                             var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
                             articleHtml = Markdown.ToHtml(markdown, pipeline);
                         }
+                    }
+                    else
+                    {
+                        //manejar navegación incorrecta
+                        articleHtml = "<div class='alert alert-warning text-center mt-5'>" +
+                                      "<h3>Contenido no disponible</h3>" +
+                                      "</div>";
                     }
                 }
             }
@@ -132,14 +145,15 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // El foco debe dispararse si hay algo cargado (HTML o Componente)
+        // El foco y los scripts se disparan si hay algo cargado (HTML de MD o Componente Razor)
         if (articleHtml != null || componente != null)
         {
+            // Ejecutamos el script de copiado para cualquier etiqueta <pre> presente en el DOM
             await JSRuntime.InvokeVoidAsync("clipboardFunctions.addCopyButtons");
-
 
             if (foco)
             {
+                // Devolvemos el foco al título para una navegación fluida con NVDA
                 await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "titulo-principal");
                 foco = false;
             }
