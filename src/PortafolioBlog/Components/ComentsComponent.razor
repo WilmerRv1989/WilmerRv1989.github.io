@@ -1,0 +1,24 @@
+﻿@inject IJSRuntime JS
+
+<section class="mt-5 p-5 border-top border-secondary" aria-labelledby="comments-title">
+    <h2 id="comments-title" class="mb-4">
+        <span class="bi bi-chat-dots-fill text-primary" aria-hidden="true"></span>
+        Sección de Comentarios y Discusión
+    </h2>
+
+    <div id="giscus-container">
+        <p class="text-muted">Cargando comentarios...</p>
+    </div>
+</section>
+
+@code {
+    // Este método se ejecuta después de que el HTML ya está en la pantalla
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Llamamos a la función que creamos en coments_Giscus.js
+            await JS.InvokeVoidAsync("renderGiscus");
+        }
+    }
+}

@@ -1,0 +1,37 @@
+﻿@using PortafolioBlog.Models
+@using System.Globalization
+@inject HttpClient Http
+
+<div style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+    <p role="status" aria-live="polite">
+        Prueba de contador: <strong>@visitas</strong> visitas detectadas.
+    </p>
+</div>
+
+
+@code {
+    private long visitas;
+
+    protected override async Task OnInitializedAsync()
+        {
+
+        try
+        {
+            // Llamada directa al servicio CounterAPI
+            var resultado = await Http.GetFromJsonAsync<ContadorResponse>("https://api.counterapi.dev/v1/wilmer-blog-1989-2026/visitas/up");
+
+            if (resultado != null)
+            {
+                // Asignamos el valor a tu variable 'visitas'
+                visitas = resultado.Value;
+            }
+        }
+        catch (Exception)
+        {
+            // Si falla, el contador se queda en 0 para no afectar la experiencia
+            visitas = 0;
+        }
+
+    }
+
+}

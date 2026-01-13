@@ -1,79 +1,242 @@
 ﻿@page "/blog"
 @using PortafolioBlog.Models
+@using System.Globalization
 @inject HttpClient Http
+@inject IJSRuntime JSRuntime
 
-<PageTitle>Blog-¿Sueñan los ciegos con un mundo accesible? - Wilmer</PageTitle>
+<PageTitle>Blog - ¿Sueñan los ciegos con un mundo accesible? - Wilmer</PageTitle>
 
 <div class="container mt-4">
-    <h1 class="mb-5 text-primary fw-bold">Blog: ¿Sueñan los ciegos con un mundo accesible?</h1>
+    <h1 class="mb-4 text-primary fw-bold">Blog: ¿Sueñan los ciegos con un mundo accesible?</h1>
 
-    @if (articulos == null)
+    @if (listaCompleta == null)
     {
         <div class="d-flex align-items-center" role="status">
             <strong class="text-light">Cargando artículos...</strong>
             <div class="spinner-border ms-auto" aria-hidden="true"></div>
         </div>
     }
-    else if (!articulos.Any())
-    {
-        <p class="text-light">Aún no hay artículos publicados en este rincón del mundo. ¡Vuelve pronto!</p>
-    }
     else
     {
-        <div class="list-group" role="list">
-            @foreach (var post in articulos.OrderByDescending(p => p.Fecha))
-            {
-                <div class="list-group-item p-4 mb-4 shadow-sm border-start border-4 border-primary bg-dark text-light" role="listitem" style="border-radius: 8px;">
-                    <h2 class="h3 mb-2">
-                        <NavLink href="@($"blog/{post.Id}")" class="text-decoration-none text-primary fw-bold">
-                            @post.Titulo
-                        </NavLink>
-                    </h2>
+        <section class="row g-3 mb-5 p-3 bg-dark rounded shadow-sm border border-secondary" aria-label="Filtros de búsqueda">
+            <div class="col-md-5">
+                <label for="buscar" class="form-label text-light">Buscar por título o palabra clave:</label>
+                <input type="search" id="buscar" class="form-control" placeholder="Ej: formularios, ARIA..."
+                       @bind="textoBusqueda" @bind:event="oninput" @onkeyup="HandleFiltrado" />
+            </div>
 
-                    <p class="text-muted small mb-3" style="color:#b8c2cc !important;">
-                        <span class="bi bi-calendar3" aria-hidden="true"></span>
-                        <span class="visually-hidden">Publicado el: </span>
-                        @post.Fecha.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("es-ES"))
-                    </p>
+            <div class="col-md-4">
+                <label for="categoria" class="form-label text-light">Categoría:</label>
+                <select id="categoria" class="form-select" @onchange="HandleCategoria">
+                    <option value="Todas">Todas las categorías</option>
+                    @foreach (var cat in categoriasDisponibles)
+                    {
+                        <option value="@cat">@cat</option>
+                    }
+                </select>
+            </div>
 
-                    <p class="mb-3 text-light fs-5">
-                        @post.Resumen Categoría: @post.Categoria
-                    </p>
+            <div class="col-md-3">
+                <label for="orden" class="form-label text-light">Ordenar por:</label>
+                <select id="orden" class="form-select" @onchange="HandleOrden">
+                    <option value="desc">Más nuevos primero</option>
+                    <option value="asc">Más antiguos primero</option>
+                </select>
+            </div>
 
-                    <div class="mt-2">
-                        @foreach (var tag in post.Etiquetas)
-                        {
-                            <span class="badge rounded-pill bg-dark text-light border me-1">
-                                @tag
-                            </span>
-                        }
+            <div class="col-12" aria-live="polite">
+                <p class="text-info mb-0 small">
+                    Se encontraron @articulosFiltrados.Count artículos.
+                    Mostrando página @(paginaActual + 1) de @((int)Math.Ceiling((double)articulosFiltrados.Count / TamañoPagina)).
+                </p>
+            </div>
+        </section>
+
+        @if (!articulosPaginados.Any())
+        {
+            <p class="text-warning h4">No se encontraron artículos con esos filtros. Intenta otra búsqueda.</p>
+        }
+        else
+        {
+            <div class="list-group" role="list" id="lista-resultados">
+                @foreach (var post in articulosPaginados)
+                {
+                    <div class="list-group-item p-4 mb-4 shadow-sm border-start border-4 border-primary bg-dark text-light" role="listitem" style="border-radius: 8px;">
+                        <h2 class="h3 mb-2">
+                            <NavLink href="@($"blog/{post.Id}")" class="text-decoration-none text-primary fw-bold">
+                                @post.Titulo
+                            </NavLink>
+                        </h2>
+
+                        <p class="text-muted small mb-3" style="color:#b8c2cc !important;">
+                            <span class="bi bi-calendar3" aria-hidden="true"></span>
+                            <span class="visually-hidden">Publicado el:  </span>
+                            @post.Fecha.ToString("dd 'de' MMMM 'de' yyyy", new CultureInfo("es-ES"))
+                        </p>
+
+                        <p class="mb-3 text-light fs-5">
+                            @post.Resumen <br />
+                        </p>
+                        <p>
+                            <span class="badge bg-secondary mt-2">Categoría: @post.Categoria</span>
+                        </p>
+
+                        <div class="mt-2">
+                            @foreach (var tag in post.Etiquetas)
+                            {
+                                <span class="badge rounded-pill bg-dark text-light border me-1">@tag. </span>
+                            }
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+
+            <nav class="d-flex justify-content-center gap-3 mt-4 mb-5" aria-label="Navegación de páginas">
+                @if (paginaActual > 0)
+                {
+                    <button class="btn btn-outline-primary px-4" @onclick="() => CambiarPagina(-1)">
+                        &laquo; Entradas recientes
+                    </button>
+                }
+
+                @if (articulosFiltrados.Count > (paginaActual + 1) * TamañoPagina)
+                {
+                    <button class="btn btn-outline-primary px-4" @onclick="() => CambiarPagina(1)">
+                        Entradas más antiguas &raquo;
+                    </button>
+                }
+            </nav>
+        }
     }
 </div>
 
 @code {
-    private List<PostMetadata>? articulos;
+    private List<PostMetadata>? listaCompleta;
+    private List<PostMetadata> articulosFiltrados = new();
+    private List<PostMetadata> articulosPaginados = new();
 
+    private string textoBusqueda = "";
+    private string categoriaSeleccionada = "Todas";
+    private bool ordenDescendente = true;
+
+    // Paginación
+    private int paginaActual = 0;
+    private const int TamañoPagina = 10;
+    private List<string> categoriasDisponibles = new();
+        
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            var listaCompleta = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+            var datosReales = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+            listaCompleta = datosReales ?? new List<PostMetadata>();
 
-            if (listaCompleta != null)
-            {
-                articulos = listaCompleta
-                    .Where(p => p.Fecha <= DateTime.Now)
-                    .OrderByDescending(p => p.Fecha)
-                    .ToList();
-            }
+            // GENERADOR DE PRUEBAS (Borrar o comentar esto cuando se termine de hacer el test). Usa fecha pasada para simular posts antiguos.
+            // string[] cats = { "Accesibilidad web", ".NET", "Opinión", "CSS" };
+            // Random rnd = new Random();
+
+            // for (int i = 1; i <= 50; i++)
+            // {
+            //     listaCompleta.Add(new PostMetadata
+            //     {
+            //         Id = $"post-prueba-{i}",
+            //         Titulo = $"Artículo de prueba número {i}",
+            //         Resumen = $"Este es un resumen generado automáticamente para probar la búsqueda y la paginación del post {i}.",
+            //         Fecha = DateTime.Now.AddDays(-i), // Cada uno un día más viejo
+            //         Autor = "Sistema de Pruebas",
+            //         Categoria = cats[rnd.Next(cats.Length)], // Categoría aleatoria de la lista
+            //         Etiquetas = new List<string> { "Prueba", "Test", "Blazor" }
+            //     });
+            // }
+
+            //se inicializan los datos, con los datos reales y los datos de prueba combinados si no se ha comentado la sección de generación de pruebas.
+            CargarCategorias();
+            ActualizarVista();
+
         }
         catch (Exception)
         {
-            articulos = new List<PostMetadata>();
+            listaCompleta = new List<PostMetadata>();
         }
     }
+
+
+    // Manejo de eventos de filtrado
+    private void HandleFiltrado()
+    {
+        paginaActual = 0; // Resetear página al buscar
+        ActualizarVista();
+    }
+
+    private void HandleCategoria(ChangeEventArgs e)
+    {
+        categoriaSeleccionada = e.Value?.ToString() ?? "Todas";
+        paginaActual = 0;
+        ActualizarVista();
+    }
+
+    // Manejo de orden
+    private void HandleOrden(ChangeEventArgs e)
+    {
+        ordenDescendente = e.Value?.ToString() == "desc";
+        paginaActual = 0;
+        ActualizarVista();
+    }
+
+    // Cambio de página
+    private async Task CambiarPagina(int salto)
+    {
+        paginaActual += salto;
+        ActualizarVista();
+        // Movemos el foco al inicio de la lista para comodidad del usuario de lector de pantalla.
+        await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "lista-resultados");
+    }
+
+    private void ActualizarVista()
+    {
+        if (listaCompleta == null) return;
+
+        // 1. Filtrar por fecha (Publicados hoy o antes)
+        var consulta = listaCompleta.Where(p => p.Fecha <= DateTime.Now);
+
+        // 2. Búsqueda
+        if (!string.IsNullOrWhiteSpace(textoBusqueda))
+        {
+            consulta = consulta.Where(p =>
+                p.Titulo.Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase) ||
+                p.Resumen.Contains(textoBusqueda, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // 3. Categoría
+        if (categoriaSeleccionada != "Todas")
+        {
+            consulta = consulta.Where(p => p.Categoria == categoriaSeleccionada);
+        }
+
+        // 4. Orden
+        consulta = ordenDescendente
+            ? consulta.OrderByDescending(p => p.Fecha)
+            : consulta.OrderBy(p => p.Fecha);
+
+        articulosFiltrados = consulta.ToList();
+
+        // 5. Paginación
+        articulosPaginados = articulosFiltrados
+            .Skip(paginaActual * TamañoPagina)
+            .Take(TamañoPagina)
+            .ToList();
+    }
+    // Cargar categorías únicas para el filtro
+    private void CargarCategorias()
+    {
+        if (listaCompleta != null)
+        {
+            categoriasDisponibles = listaCompleta
+                .Select(p => p.Categoria)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+        }
+    }
+
 }

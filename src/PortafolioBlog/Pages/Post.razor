@@ -58,8 +58,14 @@
                 }
             </div>
         </nav>
+        
+        @if (!string.IsNullOrEmpty(ArticleName))
+        {
+            <ComentsComponent @key="ArticleName" />
+        }
     }
 </div>
+
 
 <aside class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light" aria-labelledby="contacto-titulo">
     <h2 id="contacto-titulo" class="h4 mb-4 fw-bold">Contacto y Redes sociales</h2>
