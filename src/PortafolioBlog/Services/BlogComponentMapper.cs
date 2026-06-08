@@ -11,7 +11,8 @@ namespace PortafolioBlog.Services
             { "uso-de-formularios", typeof(Components.FormulariosComponent) },
             { "uso-de-enlaces", typeof(Components.EnlacesComponent) },
             { "uso-de-imagenes", typeof(Components.ImagenesComponent) },
-            { "uso-de-tablas", typeof(Components.TablasComponent) }
+            { "uso-de-tablas", typeof(Components.TablasComponent) },
+            { "etiquetas-html-utiles", typeof(Components.EtiquetasHtmlUtiles) }
         };
 
         public static Type? GetTypeById(string id)

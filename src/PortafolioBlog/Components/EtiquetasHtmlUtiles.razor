@@ -1,0 +1,357 @@
+﻿<h1 id="titulo-principal">Hablemos de Etiquetas HTML nativas que te ahorran código y mejoran la accesibilidad</h1>
+
+<p>Hola gente, hoy les traigo una entrada cortita, tan solo quería compartirles algunas etiquetas <code>HTML</code> que les va a ahorrar unas líneas de codigo y hará su contenido más accesible de forma nativa.</p>
+
+<p>Muchas veces por prisas o desconocimiento por adoptar frameworks complejos y librerías de componentes, solemos olvidar que HTML5 evolucionó para resolver problemas históricos de la web. Construir un menú desplegable, un modal o una barra de progreso solía requerir manipulación intensiva del DOM y una gestión manual exhaustiva del foco y los atributos de estado (como <code>aria-expanded</code> o <code>aria-hidden</code>) para cumplir con las pautas WCAG 2.2.</p>
+<p>Hoy en día, el mejor código JavaScript para accesibilidad es el que no tienes que escribir. A continuación, veremos las etiquetas nativas más útiles que puedes empezar a usar hoy mismo.</p>
+
+<h2>Acordeones nativos con &lt;details&gt; y &lt;summary&gt;</h2>
+<p>Crear secciones colapsables (acordeones) es un requerimiento común. Históricamente, esto implicaba botones con eventos <code>onclick</code>, control de estilos de visualización y alternar etiquetas ARIA para que los lectores de pantalla anunciaran si la sección estaba abierta o cerrada. Los elementos <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code> resuelven esto de forma nativa.</p>
+<p>El navegador maneja la apertura y cierre del contenido, y los lectores de pantalla anuncian automáticamente el estado (expandido/contraído) al interactuar con el <code>&lt;summary&gt;</code>, el cual recibe el foco del teclado correctamente sin configuración extra.</p>
+
+<h3>Ejemplo 1:</h3>
+<div class="border border-2 p-4 rounded">
+    <details>
+        <summary class="fw-bold text-primary fs-5" style="cursor: pointer;">¿Qué es HTML?</summary>
+        <div class="mt-3">
+            <p>El Lenguaje de Marcado de Hipertexto (HTML) es el código que se utiliza para estructurar y desplegar una página web y sus contenidos.</p>
+        </div>
+    </details>
+    <details class="mt-4">
+        <summary class="fw-bold text-primary fs-5" style="cursor: pointer;">¿Qué es CSS?</summary>
+        <div class="mt-3">
+            <p>Hojas de Estilo en Cascada (CSS) es el lenguaje utilizado para describir la presentación de un documento escrito en HTML. Permite aplicar estilos, colores, espaciados y diseños a la estructura de la web.</p>
+        </div>
+    </details>
+    <details class="mt-4">
+        <summary class="fw-bold text-primary fs-5" style="cursor: pointer;">¿Qué es JavaScript?</summary>
+        <div class="mt-3">
+            <p>JavaScript (JS) es un lenguaje de programación que dota de interactividad a las páginas web. Desde responder a los clics de botones hasta cargar datos de forma asíncrona.</p>
+        </div>
+    </details>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code>
+        &lt;details&gt;
+            &lt;summary&gt;¿Qué es HTML?&lt;/summary&gt;
+            &lt;div&gt;
+                &lt;p&gt;El Lenguaje de Marcado de Hipertexto (HTML)...&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/details&gt;
+
+        &lt;details&gt;
+            &lt;summary&gt;¿Qué es CSS?&lt;/summary&gt;
+            &lt;div&gt;
+                &lt;p&gt;Hojas de Estilo en Cascada (CSS) es el lenguaje...&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/details&gt;
+
+        &lt;details&gt;
+            &lt;summary&gt;¿Qué es JavaScript?&lt;/summary&gt;
+            &lt;div&gt;
+                &lt;p&gt;JavaScript (JS) es un lenguaje de programación...&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/details&gt;
+    </code>
+</pre>
+
+<h3>Explicación</h3>
+<p>El elemento <code>&lt;summary&gt;</code> funciona como la etiqueta interactiva. Todo lo que esté debajo de él, dentro de <code>&lt;details&gt;</code>, permanecerá oculto hasta que el usuario interactúe (con clic o tecla Enter/Espacio). Puedes agregar el atributo <code>open</code> (ej: <code>&lt;details open&gt;</code>) si deseas que renderice expandido por defecto al cargar la página.</p>
+
+<h2>Ventanas flotantes y Tooltips con el atributo popover</h2>
+<p>Recientemente introducido en el estándar HTML, el atributo global <code>popover</code> permite crear elementos flotantes eliminando por completo la necesidad de JavaScript para la lógica de apertura, cierre y gestión de superposición (z-index). Más importante aún: resuelve el problema del foco.</p>
+<p>Al invocar un popover, el navegador lo mueve a la "capa superior" (Top Layer) y permite descartarlo nativamente presionando la tecla <code>Esc</code> o haciendo clic fuera de él, cumpliendo estrictamente con el Criterio 1.4.13 (Contenido señalado con el puntero o que tiene el foco) de WCAG.</p>
+
+<h3>Ejemplo 2</h3>
+<div class="border border-2 p-4 rounded">
+    <button class="btn btn-primary" popovertarget="info-tecnica">Mostrar Tooltip Técnico</button>
+
+    <div id="info-tecnica" popover class="p-3 border border-dark rounded shadow bg-light text-dark">
+        <h4 class="h6 fw-bold">Gestión de la Capa Superior</h4>
+        <p class="mb-2">Este bloque se renderiza por encima de todo el DOM nativamente.</p>
+        <button class="btn btn-sm btn-danger" popovertarget="info-tecnica" popovertargetaction="hide">Cerrar</button>
+    </div>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+
+<pre class="border border-2 p-4 rounded">
+<code>
+        &lt;!-- Botón desencadenante --&gt;
+        &lt;button popovertarget="info-tecnica"&gt;Mostrar Tooltip Técnico&lt;/button&gt;
+
+        &lt;!-- Contenedor flotante --&gt;
+        &lt;div id="info-tecnica" popover&gt;
+            &lt;h4&gt;Gestión de la Capa Superior&lt;/h4&gt;
+            &lt;p&gt;Este bloque se renderiza por encima de todo el DOM...&lt;/p&gt;
+            &lt;button popovertarget="info-tecnica" popovertargetaction="hide"&gt;Cerrar&lt;/button&gt;
+        &lt;/div&gt;
+    </code>
+</pre>
+
+<h3>Explicación</h3>
+<p>Al declarar <code>popovertarget="ID_DEL_ELEMENTO"</code> en un botón, el navegador asume el control. El contenedor con el atributo <code>popover</code> permanece invisible en el DOM (como si tuviera <code>display: none</code>) hasta que es invocado. Esto asegura que los lectores de pantalla no lean contenido flotante oculto por accidente.</p>
+
+<h2>Autocompletado accesible con &lt;datalist&gt;</h2>
+<p>Implementar un ComboBox o un campo de búsqueda con sugerencias suele requerir librerías pesadas. HTML5 incluye <code>&lt;datalist&gt;</code>, que proporciona una lista de opciones predefinidas mientras el usuario escribe en un campo <code>&lt;input&gt;</code>.</p>
+<p>Su mayor ventaja es que cumple automáticamente con los complejos patrones ARIA de Combobox. Los lectores de pantalla informan al usuario sobre la existencia de sugerencias, permitiendo la navegación fluida con las flechas direccionales.</p>
+
+<h3>Ejemplo 3:</h3>
+<div class="border border-2 p-4 rounded">
+    <label for="lectorPantalla" class="form-label">Selecciona o escribe tu lector de pantalla principal:</label>
+    <input list="lectores" id="lectorPantalla" class="form-control" placeholder="Ej: NVDA">
+
+    <datalist id="lectores">
+        <option value="NVDA"></option>
+        <option value="JAWS"></option>
+        <option value="Narrador de Windows"></option>
+        <option value="VoiceOver"></option>
+        <option value="Orca"></option>
+    </datalist>
+
+    <div class="mt-3">
+        <button type="button" class="btn btn-primary" @onclick="() => MostrarAlerta(1)">Guardar preferencia</button>
+    </div>
+
+    @foreach (var alerta in alertas)
+    {
+        if (alerta.Visible && alerta.Index == 1)
+        {
+            <div role="alert" class="mt-2 text-info">
+                <p>@alerta.Mensaje</p>
+            </div>
+        }
+    }
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+
+<pre class="border border-2 p-4 rounded">
+<code>
+        &lt;label for="lectorPantalla"&gt;Selecciona o escribe tu lector de pantalla:&lt;/label&gt;
+        &lt;!-- El atributo 'list' vincula el input con el ID del datalist --&gt;
+        &lt;input list="lectores" id="lectorPantalla"&gt;
+        
+        &lt;datalist id="lectores"&gt;
+            &lt;option value="NVDA"&gt;&lt;/option&gt;
+            &lt;option value="JAWS"&gt;&lt;/option&gt;
+            &lt;option value="VoiceOver"&gt;&lt;/option&gt;
+        &lt;/datalist&gt;
+    </code>
+</pre>
+
+<h2>Anuncio de resultados dinámicos con &lt;output&gt;</h2>
+<p>El elemento <code>&lt;output&gt;</code> está diseñado para representar el resultado de un cálculo o una acción del usuario. Su integración semántica es brillante: la mayoría de los navegadores modernos mapean implícitamente este elemento a un área viva (<code>aria-live="polite"</code>).</p>
+<p>Si el valor cambia dinámicamente (por ejemplo, el resultado de una suma o un contador de caracteres), la tecnología de asistencia anunciará el nuevo valor sin interrumpir el flujo actual del usuario.</p>
+
+<h3>Ejemplo 4: Calculadora reactiva con Blazor y &lt;output&gt;</h3>
+<div class="border border-2 p-4 rounded">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <input type="number" class="form-control w-25" aria-label="Primer valor" @bind="ValorA" @bind:event="oninput">
+        <span class="fs-4">+</span>
+        <input type="number" class="form-control w-25" aria-label="Segundo valor" @bind="ValorB" @bind:event="oninput">
+        <span class="fs-4">=</span>
+        <output class="fs-4 fw-bold text-success" name="resultado">@(ValorA + ValorB)</output>
+    </div>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+
+<pre class="border border-2 p-4 rounded">
+<code>    
+        &lt;!-- En Blazor, vinculamos las propiedades para calcular al instante --&gt;
+        &lt;input type="number" aria-label="Primer valor" @@bind="ValorA" @@bind:event="oninput"&gt;
+        &lt;span&gt;+&lt;/span&gt;
+        &lt;input type="number" aria-label="Segundo valor" @@bind="ValorB" @@bind:event="oninput"&gt;
+        &lt;span&gt;=&lt;/span&gt;
+        
+        &lt;!-- Output semántico para el resultado --&gt;
+        &lt;output name="resultado"&gt;@@(ValorA + ValorB)&lt;/output&gt;
+   </code>
+</pre>
+
+<h2>Medidores e Indicadores visuales (&lt;progress&gt; y &lt;meter&gt;)</h2>
+<p>Es común ver barras de progreso construidas con un montón de <code>&lt;div&gt;</code> anidados, estilos CSS complejos y un arsenal de atributos (<code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code>). HTML5 soluciona esto con <code>&lt;progress&gt;</code> (para tareas en curso) y <code>&lt;meter&gt;</code> (para valores estáticos dentro de un rango conocido, como uso de disco).</p>
+<p>Estos elementos transmiten su estado semántico y su valor porcentual o absoluto directamente a las API de accesibilidad de forma nativa.</p>
+
+<h3>Ejemplo 5:</h3>
+<div class="border border-2 p-4 rounded">
+    <div class="mb-3">
+        <label for="descarga" class="form-label d-block">Progreso de la auditoría:</label>
+        <progress id="descarga" value="75" max="100" class="w-100">75%</progress>
+    </div>
+
+    <div>
+        <label for="cpu" class="form-label d-block">Uso de recursos cognitivos (Meter):</label>
+        <meter id="cpu" value="85" min="0" max="100" low="30" high="80" optimum="10" class="w-100">85%</meter>
+    </div>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+
+<pre class="border border-2 p-4 rounded">
+<code>
+ &lt;label for="descarga"&gt;Progreso de la auditoría:&lt;/label&gt;
+ &lt;!-- Barra de progreso semántica --&gt;
+ &lt;progress id="descarga" value="75" max="100"&gt;75%&lt;/progress&gt;
+
+ &lt;label for="cpu"&gt;Uso de CPU:&lt;/label&gt;
+ &lt;!-- Medidor semántico con umbrales de alerta nativos --&gt;
+ &lt;meter id="cpu" value="85" min="0" max="100" low="30" high="80" optimum="10"&gt;85%&lt;/meter&gt;
+    </code>
+</pre>
+
+<h2>Ventanas Modales Nativas con &lt;dialog&gt;</h2>
+<p>Construir un modal accesible es históricamente una de las tareas más propensas a errores en el desarrollo web. Requiere atrapar el foco del teclado dentro de la ventana (focus trapping), oscurecer el fondo, inhabilitar el resto del DOM y gestionar el cierre con la tecla <code>Esc</code> para cumplir con las pautas de accesibilidad. El elemento <code>&lt;dialog&gt;</code> hace todo esto por ti de forma nativa.</p>
+<p>Aunque requiere una pequeña invocación a través de JavaScript (el método <code>showModal()</code>) para abrirse correctamente por encima del resto del contenido, la gestión de su cierre y el manejo del foco se realizan mediante marcado HTML puro utilizando <code>&lt;form method="dialog"&gt;</code>.</p>
+
+<h3>Ejemplo de uso de &lt;dialog&gt;</h3>
+<div class="border border-2 p-4 rounded">
+    <button class="btn btn-danger" onclick="document.getElementById('modal-eliminar').showModal()">Eliminar registro</button>
+
+    <dialog id="modal-eliminar" class="p-4 border-0 rounded shadow-lg" style="max-width: 500px;">
+        <h4 class="h5 fw-bold text-danger">¿Confirmar eliminación?</h4>
+        <p>Esta acción no se puede deshacer y los datos se perderán permanentemente.</p>
+
+        <form method="dialog" class="d-flex gap-2 justify-content-end mt-4">
+            <button class="btn btn-outline-secondary" type="submit">Cancelar</button>
+            <button class="btn btn-danger" type="submit" @onclick="() => MostrarAlerta(2)">Sí, eliminar</button>
+        </form>
+    </dialog>
+
+    @foreach (var alerta in alertas)
+    {
+        if (alerta.Visible && alerta.Index == 2)
+        {
+            <div role="alert" class="mt-3 text-danger">
+                <p>@alerta.Mensaje</p>
+            </div>
+        }
+    }
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code>
+    &lt;!-- El botón llama al método nativo de la API de Dialog --&gt;
+    &lt;button onclick="document.getElementById('modal-eliminar').showModal()"&gt;Eliminar registro&lt;/button&gt;
+
+    &lt;dialog id="modal-eliminar"&gt;
+        &lt;h4&gt;¿Confirmar eliminación?&lt;/h4&gt;
+        &lt;p&gt;Esta acción no se puede deshacer.&lt;/p&gt;
+        
+        &lt;!-- El método 'dialog' indica que cualquier submit cerrará la ventana --&gt;
+        &lt;form method="dialog"&gt;
+            &lt;button type="submit"&gt;Cancelar&lt;/button&gt;
+            &lt;button type="submit"&gt;Sí, eliminar&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/dialog&gt;
+</code>
+</pre>
+
+<h2>Resaltado semántico con &lt;mark&gt;</h2>
+<p>Cuando implementamos una función de búsqueda y queremos resaltar la coincidencia exacta en los resultados, la práctica común es envolver la palabra en un <code>&lt;span&gt;</code> con un color de fondo mediante CSS. Sin embargo, esto es invisible semánticamente. La etiqueta <code>&lt;mark&gt;</code> indica explícitamente que un texto ha sido resaltado por su relevancia en el contexto actual.</p>
+<p>Podemos utilizar <code>&lt;mark&gt;</code> para mejorar la accesibilidad y la comprensión del contenido resaltado, ya que los lectores de pantalla pueden anunciarlo como texto destacado.</p>
+
+<h3>Ejemplo de uso de &lt;mark&gt;</h3>
+<div class="border border-2 p-4 rounded">
+    <p>Resultados de búsqueda para la consulta: <strong>"WCAG"</strong></p>
+    <blockquote class="border-start border-3 border-primary ps-3 mb-0">
+        La versión 2.2 de las pautas <mark class="bg-warning text-dark px-1 rounded">WCAG</mark> añade nuevos criterios enfocados en la navegación por teclado y la reducción de carga cognitiva.
+    </blockquote>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code>
+    &lt;p&gt;Resultados de búsqueda para la consulta: "WCAG"&lt;/p&gt;
+    &lt;blockquote&gt;
+        La versión 2.2 de las pautas &lt;mark&gt;WCAG&lt;/mark&gt; añade nuevos criterios...
+    &lt;/blockquote&gt;
+</code>
+</pre>
+
+<h2>Fechas comprensibles con &lt;time&gt;</h2>
+<p>Los formatos de fecha varían enormemente dependiendo del idioma o la región (DD/MM/YYYY vs MM/DD/YYYY). Para los lectores de pantalla y motores de búsqueda, texto como "10/05/26" puede ser ambiguo (¿Mayo 10 u Octubre 5?). La etiqueta <code>&lt;time&gt;</code> junto con su atributo <code>datetime</code> resuelve esto proporcionando un formato estándar legible por máquina independientemente de cómo se muestre visualmente.</p>
+
+<h3>Ejemplo de uso de &lt;time&gt;</h3>
+<div class="border border-2 p-4 rounded">
+    <p>La próxima reunión de revisión de accesibilidad se llevará a cabo el <time datetime="2026-06-15T14:00">15 de junio a las 14:00 horas</time>.</p>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code>
+    &lt;p&gt;La próxima reunión de revisión se llevará a cabo el &lt;time datetime="2026-06-15T14:00"&gt;15 de junio a las 14:00 horas&lt;/time&gt;.&lt;/p&gt;
+</code>
+</pre>
+
+<h2>Agrupación de contenido multimedia con &lt;figure&gt; y &lt;figcaption&gt;</h2>
+<p>Asociar una leyenda a una imagen, un gráfico o un bloque de código suele hacerse mediante texto adyacente. Para garantizar que las herramientas de apoyo comprendan que la descripción pertenece exclusivamente a ese elemento y no al flujo general del texto, debemos agruparlos semánticamente.</p>
+<p>La etiqueta <code>&lt;figure&gt;</code> se utiliza para agrupar contenido multimedia y su descripción, mientras que <code>&lt;figcaption&gt;</code> proporciona la leyenda asociada.</p>
+<p>Esto mejora la accesibilidad y la comprensión del contenido, ya que los lectores de pantalla pueden anunciar la leyenda como parte del contenido multimedia asociado.</p>
+
+<h3>Ejemplo de uso de &lt;figure&gt;</h3>
+<div class="border border-2 p-4 rounded">
+    <figure class="text-center mb-0">
+        <div class="bg-secondary text-light p-5 rounded mb-2 d-inline-block" style="width: 100%; max-width: 400px;">
+            <img src="images/PinguinosEmperador.jpg" alt="Se muestra tres pingüinos emperador en un paisaje nevado.  Dos pingüinos adultos están de pie uno al lado del otro, mirando en direcciones opuestas, con sus picos apuntando hacia el cielo. Entre ellos, hay un pingüino joven mirando hacia adelante.  Los adultos tienen plumaje negro en la espalda y blanco en el frente con un tono amarillo alrededor de sus cuellos, mientras que el joven tiene un plumaje gris." />
+        </div>
+        <figcaption class="text-muted fst-italic">Figura 1: Pingüinos emperador</figcaption>
+    </figure>
+</div>
+
+<br />
+<h3><span class="oi oi-code"></span> Código</h3>
+<pre class="border border-2 p-4 rounded">
+<code>
+    &lt;figure&gt;
+        &lt;img src="Imagenes/PinguinosEmperador.jpg" alt="Se muestra tres pingüinos emperador en ..." /&gt;
+        &lt;figcaption&gt;Figura 1: Pingüinos emperador&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</code>
+</pre>
+
+<h2>En conclusión:</h2>
+<p>Deja que el navegador trabaje por ti. Al final del día, la evolución de HTML nos demuestra que la web busca ser accesible en sus bases. Muchas veces, en nuestro afán por reinventar la rueda construyendo componentes desde cero con montañas de JavaScript y un sinfín de <code>&lt;div&gt;</code> genéricos, terminamos rompiendo esa accesibilidad nativa de forma involuntaria. Volver a las bases y conocer nuestro HTML no solo nos convierte en desarrolladores más eficientes que escriben y mantienen menos código, sino que es el primer paso para construir productos que verdaderamente todas las personas puedan disfrutar.</p>
+
+<p>En fín, pues eso era, como les dije esta entrada es cortita, solo quería compartirles estas etiquetas que quizá no conocían y que les pueden facilitar las cosas. Como hemos visto, delegar la lógica de interfaz al estándar no solo limpia nuestros proyectos, sino que democratiza el acceso a la información asegurando compatibilidad con NVDA, JAWS y demás herramientas de apoyo.</p>
+<p>Espero que les haya sido de utilidad. Implementen estas etiquetas en sus próximos desarrollos y veamos cómo desaparecen esos dolores de cabeza en las auditorías. ¡Hasta la próxima miches!</p>
+
+
+@code {
+    
+    private int ValorA { get; set; } = 0;
+    private int ValorB { get; set; } = 0;
+
+    private readonly List<AlertasClass> alertas = new List<AlertasClass>
+    {
+        new AlertasClass { Mensaje = "Esto es un placeholder para evitar IndexOutOfRange", Visible = false, Index = 0 },
+        new AlertasClass { Mensaje = "Preferencia guardada. Tu selección de lector de pantalla ha sido aplicada.", Visible = false, Index = 1 },
+        new AlertasClass { Mensaje = "El registro ha sido eliminado (es una simulación).", Visible = false, Index = 2 }
+    };
+
+    private void MostrarAlerta(int indice)
+    {
+        foreach (var alerta in alertas)
+        {
+            alerta.Visible = false;
+        }
+        
+        var alertaEncontrada = alertas.FirstOrDefault(a => a.Index == indice);
+        if (alertaEncontrada != null)
+        {
+            alertaEncontrada.Visible = true;
+        }
+    }
+}
