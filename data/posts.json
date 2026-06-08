@@ -58,5 +58,25 @@
     "Categoria": "Accesibilidad web",
     "Etiquetas": [ "Tablas", "ARIA", "Datos" ],
     "EsComponente": true
+  },
+  {
+    "Id": "etiquetas-html-utiles",
+    "Titulo": "Etiquetas HTML útiles que deberías estar usando",
+    "Resumen": "Exploración de etiquetas HTML nativas que mejoran la accesibilidad y reducen la necesidad de JavaScript.",
+    "Fecha": "2026-06-01T00:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Programación",
+    "Etiquetas": [ "HTML5", "Accesibilidad", "JavaScript" ],
+    "EsComponente": true
+  },
+  {
+    "id": "no_a_las_accessibility_overlays",
+    "titulo": "No a las 'Accessibility Overlays'",
+    "resumen": "Análisis crítico de las 'Accessibility Overlays' y por qué no son una solución adecuada para la accesibilidad web.",
+    "fecha": "2026-06-08T00:00:00",
+    "autor": "Wilmer Rodríguez Vega",
+    "categoria": "Opinión",
+    "etiquetas": [ "Accesibilidad", "Overlays", "Crítica" ],
+    "esComponente": false
   }
 ]
