@@ -87,62 +87,52 @@
 
     <section id="proyectos" class="mt-5" aria-labelledby="proyectos-titulo">
         <h2 id="proyectos-titulo" class="h2 mb-4 text-center text-light">Proyectos Destacados</h2>
+        @* Primero los proyectos publicados y en uso. Los repositorios privados nunca se enlazan. *@
         <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
-                    <div class="card-body">
-                        <h3 class="h5 fw-bold">#HablemosDeAccesibilidad</h3>
-                        <p class="card-text">Sitio web desarrollado en Blazor Server (.NET 7) con ejemplos prácticos de programación accesible: estructuras semánticas, formularios, gestión de enlaces, descripciones complejas de imágenes y tablas de datos.</p>
-                        <div class="d-flex flex-wrap gap-2 mb-3">
-                            <span class="badge bg-secondary">Blazor Server</span>
-                            <span class="badge bg-secondary">.NET 7</span>
-                            <span class="badge bg-secondary">WCAG</span>
-                            <span class="badge bg-secondary">AWS</span>
-                        </div>
-                        <hr />
-                        <!-- El servidor original ya no responde: se conserva el proyecto como referencia, sin enlace -->
-                        <span class="badge bg-info text-dark">Estado: Archivado</span>
-                    </div>
-                </div>
-            </div>
+            <TarjetaProyecto Titulo="MiEvaluaciónAccesible"
+                             Descripcion="Herramienta web para planificar, documentar y comunicar evaluaciones de accesibilidad según WCAG 2.0, 2.1 y 2.2, siguiendo los cinco pasos de la metodología WCAG-EM 2. Trabajo en equipo con roles, evaluaciones de cientos de páginas, catálogo WCAG en español e informes en pantalla, HTML y PDF. Inspirada en el WCAG-EM Report Tool del W3C y reescrita desde cero."
+                             Tecnologias='["Blazor", ".NET 10", "SQL Server", "WCAG-EM 2", "Docker"]'
+                             Url="https://mi-evaluacion-accesible.wilmer-rv.com/" />
 
-            <div class="col-md-6">
-                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
-                    <div class="card-body">
-                        <h3 class="h5 fw-bold">autocommit-cli</h3>
-                        <p class="card-text">Herramienta de línea de comandos en Python para automatizar el flujo de Git (add, commit, push, pull). Incluye validaciones heurísticas para prevenir la fuga accidental de credenciales o contenido sensible.</p>
-                        <div class="d-flex flex-wrap gap-2 mb-3">
-                            <span class="badge bg-secondary">Python</span>
-                            <span class="badge bg-secondary">CLI</span>
-                            <span class="badge bg-secondary">Git</span>
-                        </div>
-                        <hr />
-                        <!-- Se eliminó la redundancia y la falta ortográfica en el aria-label -->
-                        <a class="btn btn-outline-primary" href="https://github.com/WilmerRv1989/autocommit-cli" target="_blank" rel="noopener" aria-label="Ver repositorio de autocommit-cli en GitHub (se abre en una pestaña nueva)">Ver repositorio</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <TarjetaProyecto Titulo="Ágora"
+                             Descripcion="Espacio de participación para actividades de clase. El docente crea tableros de respuesta libre, cuestionarios en vivo con resultados y clasificación, y debates con sorteo de posturas, turnos cronometrados, votación y comentarios. El estudiantado entra sin registrarse, con un código de acceso. Diseñado para usarse con lector de pantalla."
+                             Tecnologias='["Blazor Server", ".NET 10", "SQL Server", "EF Core", "Docker"]'
+                             Url="https://agora.wilmer-rv.com/" />
 
-        <div class="row g-4 mt-4">
-            <div class="col-md-6">
-                <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
-                    <div class="card-body">
-                        <h3 class="h5 fw-bold">AlfredAgent (prototipo)</h3>
-                        <p class="card-text">Agente de IA autónomo para terminal basado en Python. Capaz de inspeccionar directorios, analizar y redactar archivos, y ejecutar código local. Diseñado para explorar arquitecturas de agentes autónomos.</p>
-                        <div class="d-flex flex-wrap gap-2 mb-3">
-                            <span class="badge bg-secondary">Python</span>
-                            <span class="badge bg-secondary">IA</span>
-                            <span class="badge bg-secondary">Terminal</span>
-                        </div>
-                        <span class="badge bg-info text-dark">Estado: Prototipo privado</span>
-                    </div>
-                </div>
-            </div>
+            <TarjetaProyecto Titulo="MiPresupuestoAccesible"
+                             Descripcion="Aplicación de finanzas personales pensada desde el inicio para personas usuarias de lectores de pantalla: control de ingresos y gastos y gráficos accesibles con Highcharts traducidos al español. Incluye una investigación propia sobre cómo NVDA y distintos sintetizadores verbalizan fechas, cifras y monedas."
+                             Tecnologias='["Blazor Server", ".NET 8", "SQL Server", "Highcharts"]'
+                             Url="https://mi-presupuesto-accesible.wilmer-rv.com/" />
 
-            <div class="col-md-6">
-                
-            </div>
+            <TarjetaProyecto Titulo="El cazador de Dragones"
+                             Descripcion="Juego de rol por turnos que se puede jugar al 100 % con lector de pantalla y solo con teclado: tres clases con habilidades propias, economía, exploración por zonas y escenas 3D con una descripción textual paralela. Cada ronda de combate se anuncia en un único mensaje, y los medidores dicen «92 de 180 puntos de salud» en lugar de porcentajes."
+                             Tecnologias='["JavaScript", "HTML y CSS", "Three.js"]'
+                             Url="https://cazador-de-dragones.wilmer-rv.com/"
+                             TextoBoton="Jugar"
+                             EtiquetaBoton="Jugar a El cazador de Dragones" />
+
+            <TarjetaProyecto Titulo="Infraestructura propia"
+                             Descripcion="Servidor doméstico donde se publican mis aplicaciones: Debian con seguridad reforzada, un contenedor Docker por aplicación, Caddy como proxy inverso por subdominio y Cloudflare Tunnel para ofrecer HTTPS sin abrir puertos. Incluye copias de seguridad, correo transaccional y un procedimiento de despliegue documentado paso a paso."
+                             Tecnologias='["Debian", "Docker", "Caddy", "Cloudflare Tunnel", "Tailscale"]'
+                             Estado="En producción" />
+
+            <TarjetaProyecto Titulo="autocommit-cli"
+                             Descripcion="Herramienta de línea de comandos en Python para automatizar el flujo de Git (add, commit, push, pull). Incluye validaciones heurísticas para prevenir la fuga accidental de credenciales o contenido sensible."
+                             Tecnologias='["Python", "CLI", "Git"]'
+                             Url="https://github.com/WilmerRv1989/autocommit-cli"
+                             TextoBoton="Ver repositorio"
+                             EtiquetaBoton="Ver repositorio de autocommit-cli en GitHub" />
+
+            <TarjetaProyecto Titulo="AlfredAgent (prototipo)"
+                             Descripcion="Agente de IA autónomo para terminal basado en Python. Capaz de inspeccionar directorios, analizar y redactar archivos, y ejecutar código local. Diseñado para explorar arquitecturas de agentes autónomos."
+                             Tecnologias='["Python", "IA", "Terminal"]'
+                             Estado="Prototipo privado" />
+
+            @* El servidor original ya no responde: se conserva como referencia, sin enlace. *@
+            <TarjetaProyecto Titulo="#HablemosDeAccesibilidad"
+                             Descripcion="Sitio web desarrollado en Blazor Server (.NET 7) con ejemplos prácticos de programación accesible: estructuras semánticas, formularios, gestión de enlaces, descripciones complejas de imágenes y tablas de datos."
+                             Tecnologias='["Blazor Server", ".NET 7", "WCAG", "AWS"]'
+                             Estado="Archivado" />
         </div>
     </section>
 

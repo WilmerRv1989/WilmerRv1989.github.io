@@ -1,0 +1,40 @@
+@* Tarjeta de un proyecto en la sección "Proyectos Destacados" de la portada.
+   Con Url: botón que abre el sitio en una pestaña nueva. Sin Url: se muestra el Estado. *@
+
+<div class="col-md-6">
+    <div class="card h-100 bg-dark text-light border border-1 border-dark shadow-sm">
+        <div class="card-body">
+            <h3 class="h5 fw-bold">@Titulo</h3>
+            <p class="card-text">@Descripcion</p>
+            <ul class="list-unstyled d-flex flex-wrap gap-2 mb-3" aria-label="Tecnologías">
+                @foreach (var tecnologia in Tecnologias)
+                {
+                    <li><span class="badge bg-secondary">@tecnologia</span></li>
+                }
+            </ul>
+            @if (Url is not null)
+            {
+                <hr />
+                <a class="btn btn-outline-primary" href="@Url" target="_blank" rel="noopener"
+                   aria-label="@($"{EtiquetaBoton ?? $"{TextoBoton} de {Titulo}"} (se abre en una pestaña nueva)")">@TextoBoton</a>
+            }
+            else if (Estado is not null)
+            {
+                <span class="badge bg-info text-dark">Estado: @Estado</span>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public string Titulo { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Descripcion { get; set; } = string.Empty;
+    [Parameter] public string[] Tecnologias { get; set; } = [];
+
+    // Dirección pública del proyecto. Nunca un repositorio privado.
+    [Parameter] public string? Url { get; set; }
+    [Parameter] public string TextoBoton { get; set; } = "Ver sitio";
+    // Nombre accesible del botón cuando "<TextoBoton> de <Titulo>" no suena natural. Debe empezar por TextoBoton (2.5.3).
+    [Parameter] public string? EtiquetaBoton { get; set; }
+    [Parameter] public string? Estado { get; set; }
+}
