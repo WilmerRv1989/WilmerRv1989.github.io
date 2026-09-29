@@ -370,7 +370,7 @@ Utilizar los tipos de campo de entrada semánticos de HTML5 es una buena prácti
 
 - **`type="email"`, `type="tel"`, `type="url"`:**
 
-  Estos tipos van más allá de un simple campo de texto. En dispositivos móviles, activan teclados especializados que incluyen caracteres comunes para correos electrónicos,, números para teléfonos o barras para URLs, agilizando la entrada de datos. Además, el navegador puede realizar una validación básica del formato, indicando al usuario si el valor ingresado no parece ser una dirección de correo, un número de teléfono o una URL válidos.
+  Estos tipos van más allá de un simple campo de texto. En dispositivos móviles, activan teclados especializados que incluyen caracteres comunes para correos electrónicos, números para teléfonos o barras para URLs, agilizando la entrada de datos. Además, el navegador puede realizar una validación básica del formato, indicando al usuario si el valor ingresado no parece ser una dirección de correo, un número de teléfono o una URL válidos.
 
 - **`type="date"`, `type="time"`, `type="month"`, `type="week"`, `type="datetime-local"`:**
 

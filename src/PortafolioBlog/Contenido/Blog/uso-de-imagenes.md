@@ -95,7 +95,7 @@ Existen varias formas de ofrecer estas descripciones:
 
 ### Explicación
 
-En este ejemplo, el atributo `alt` proporciona una descripción concisa de la imagen, mientras que `aria-describedby` vincula la imagen a un párrafo (con `id="desc-pinguino-cria"`) que contiene la descripción larga y detallada. La clase `visuallyhidden` se utiliza para ocultar visualmente el párrafo, pero este sigue siendo accesible para los lectores de pantalla, quienes lo leerán después del `alt` text de la imagen.
+En este ejemplo, el atributo `alt` proporciona una descripción concisa de la imagen, mientras que `aria-describedby` vincula la imagen a un párrafo (con `id="desc-pinguino-cria"`) que contiene la descripción larga y detallada. La clase `visually-hidden` se utiliza para ocultar visualmente el párrafo, pero este sigue siendo accesible para los lectores de pantalla, quienes lo leerán después del `alt` text de la imagen.
 
 ## Imágenes funcionales
 
