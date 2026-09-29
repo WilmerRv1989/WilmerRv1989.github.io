@@ -1,10 +1,14 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+
+<a href="#contenido-principal" class="skip-link" @onclick="SaltarAlContenido" @onclick:preventDefault>Saltar al contenido principal</a>
+
 <div class="page">
     <header>
         <NavMenu />
     </header>
 
-    <main>
+    <main id="contenido-principal">
         <article class="content px-4">
             @Body
         </article>
@@ -17,3 +21,12 @@
         <p><q>Nosce te ipsum</q></p>
     </div>
 </footer>
+
+@code {
+    // En una SPA el enrutador intercepta los anclajes "#id": se mueve el foco por script
+    // para que lector de pantalla y teclado continúen desde el contenido principal.
+    private async Task SaltarAlContenido()
+    {
+        await JSRuntime.InvokeVoidAsync("accessibilityFunctions.focusElement", "contenido-principal");
+    }
+}

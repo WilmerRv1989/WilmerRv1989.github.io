@@ -35,7 +35,8 @@
                 @if (prevPost != null)
                 {
                     <a href="blog/@prevPost.Id" class="btn btn-outline-primary w-100 text-start shadow-sm">
-                        <span class="d-inline-block text-truncate" style="max-width: 100%;">@prevPost.Titulo</span>
+                        <span class="d-block small">Artículo anterior:</span>
+                        <span class="d-block">@prevPost.Titulo</span>
                     </a>
                 }
             </div>
@@ -43,7 +44,7 @@
             <div class="text-center" style="flex: 0.5;">
                 <a href="blog" class="btn btn-link text-decoration-none" aria-label="Volver al índice del blog">
                     <span class="oi oi-grid-three-up" aria-hidden="true" style="font-size: 1.5rem;"></span>
-                    <small class="d-block text-dark">Índice</small>
+                    <small class="d-block">Índice</small>
                 </a>
             </div>
 
@@ -51,7 +52,8 @@
                 @if (nextPost != null)
                 {
                     <a href="blog/@nextPost.Id" class="btn btn-outline-primary w-100 text-end shadow-sm">
-                        <span class="d-inline-block text-truncate" style="max-width: 100%;">@nextPost.Titulo</span>
+                        <span class="d-block small">Artículo siguiente:</span>
+                        <span class="d-block">@nextPost.Titulo</span>
                     </a>
                 }
             </div>

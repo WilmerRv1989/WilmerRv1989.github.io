@@ -3,6 +3,7 @@
 @using System.Globalization
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
+@implements IDisposable
 
 <PageTitle>Blog - ¿Sueñan los ciegos con un mundo accesible? - Wilmer</PageTitle>
 
@@ -44,14 +45,10 @@
                 </select>
             </div>
 
-            <div class="col-12" aria-live="polite">
-                <p class="text-info mb-0 small">
-                    Se encontraron @articulosFiltrados.Count artículos.
-                    @if (articulosFiltrados.Count > 0)
-                    {
-                        <text>Mostrando página @(paginaActual + 1) de @((int)Math.Ceiling((double)articulosFiltrados.Count / TamañoPagina)).</text>
-                    }
-                </p>
+            <div class="col-12">
+                <p class="text-info mb-0 small">@TextoResultados</p>
+                @* Región viva separada y con retardo: se anuncia al dejar de escribir, no en cada tecla *@
+                <div class="visually-hidden" role="status">@anuncioResultados</div>
             </div>
         </section>
 
@@ -61,10 +58,10 @@
         }
         else
         {
-            <div class="list-group" role="list" id="lista-resultados">
+            <ul class="list-group" id="lista-resultados">
                 @foreach (var post in articulosPaginados)
                 {
-                    <div class="list-group-item p-4 mb-4 shadow-sm border-start border-4 border-primary bg-dark text-light" role="listitem" style="border-radius: 8px;">
+                    <li class="list-group-item p-4 mb-4 shadow-sm border-start border-4 border-primary bg-dark text-light" style="border-radius: 8px;">
                         <h2 class="h3 mb-2">
                             <NavLink href="@($"blog/{post.Id}")" class="text-decoration-none text-primary fw-bold">
                                 @post.Titulo
@@ -84,15 +81,15 @@
                             <span class="badge bg-secondary mt-2">Categoría: @post.Categoria</span>
                         </p>
 
-                        <div class="mt-2">
+                        <ul class="list-inline mt-2 mb-0" aria-label="Etiquetas">
                             @foreach (var tag in post.Etiquetas)
                             {
-                                <span class="badge rounded-pill bg-dark text-light border me-1">@tag. </span>
+                                <li class="list-inline-item"><span class="badge rounded-pill bg-dark text-light border">@tag</span></li>
                             }
-                        </div>
-                    </div>
+                        </ul>
+                    </li>
                 }
-            </div>
+            </ul>
 
             <nav class="d-flex justify-content-center gap-3 mt-4 mb-5" aria-label="Navegación de páginas">
                 @if (paginaActual > 0)
@@ -165,26 +162,58 @@
 
 
     // Manejo de eventos de filtrado
-    private void HandleFiltrado()
+    private async Task HandleFiltrado()
     {
         paginaActual = 0; // Resetear página al buscar
         ActualizarVista();
+        await AnunciarResultadosAsync();
     }
 
-    private void HandleCategoria(ChangeEventArgs e)
+    private async Task HandleCategoria(ChangeEventArgs e)
     {
         categoriaSeleccionada = e.Value?.ToString() ?? "Todas";
         paginaActual = 0;
         ActualizarVista();
+        await AnunciarResultadosAsync();
     }
 
     // Manejo de orden
-    private void HandleOrden(ChangeEventArgs e)
+    private async Task HandleOrden(ChangeEventArgs e)
     {
         ordenDescendente = e.Value?.ToString() == "desc";
         paginaActual = 0;
         ActualizarVista();
+        await AnunciarResultadosAsync();
     }
+
+    private string TextoResultados => articulosFiltrados.Count switch
+    {
+        0 => "No se encontraron artículos.",
+        1 => "Se encontró 1 artículo.",
+        var total => $"Se encontraron {total} artículos. Mostrando página {paginaActual + 1} de {(int)Math.Ceiling((double)total / TamañoPagina)}."
+    };
+
+    // Anuncio para lectores de pantalla: espera a que el usuario deje de escribir
+    // y solo entonces actualiza la región viva, en lugar de hablar en cada tecla.
+    private string anuncioResultados = "";
+    private CancellationTokenSource? ctsAnuncio;
+
+    private async Task AnunciarResultadosAsync()
+    {
+        ctsAnuncio?.Cancel();
+        ctsAnuncio = new CancellationTokenSource();
+        try
+        {
+            await Task.Delay(700, ctsAnuncio.Token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+        anuncioResultados = TextoResultados;
+    }
+
+    public void Dispose() => ctsAnuncio?.Cancel();
 
     // Cambio de página
     private async Task CambiarPagina(int salto)

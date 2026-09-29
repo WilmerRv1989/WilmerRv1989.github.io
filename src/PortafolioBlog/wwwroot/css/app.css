@@ -8,7 +8,10 @@ html, body {
     color: #e6e6e6;
 }
 
-h1:focus { outline: none; }
+h1:focus, main:focus { outline: none; }
+
+/* El gris de Bootstrap (#6c757d) no alcanza 4.5:1 sobre los fondos oscuros del sitio */
+.text-muted { color: #b8c2cc !important; }
 
 /* Links / botones */
 a, .btn-link { color: #8ab4ff; text-decoration: underline; text-underline-offset: 2px; }
@@ -51,16 +54,16 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
     padding: 1rem 1rem 1rem 3.7rem;
     color: white;
 }
-.blazor-error-boundary::after { content: "An error has occurred." }
+.blazor-error-boundary::after { content: "Ha ocurrido un error." }
 
 /* Loading */
 .loading-progress { position: relative; display: block; width: 8rem; height: 8rem; margin: 20vh auto 1rem auto; }
 .loading-progress circle { fill: none; stroke: #303745; stroke-width: 0.6rem; transform-origin: 50% 50%; transform: rotate(-90deg); }
 .loading-progress circle:last-child { stroke: #8ab4ff; stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%; transition: stroke-dasharray 0.05s ease-in-out; }
 .loading-progress-text { position: absolute; text-align: center; font-weight: bold; inset: calc(20vh + 3.25rem) 0 auto 0.2rem; }
-.loading-progress-text:after { content: var(--blazor-load-percentage-text, "Loading"); }
+.loading-progress-text:after { content: var(--blazor-load-percentage-text, "Cargando"); }
 
-/* Estilos de Markdown dentro de artículos */
+/* Estilos de Markdown dentro de artï¿½culos */
 .blog-content { max-width: clamp(75ch, 92vw, 95ch); margin-inline: auto; line-height: 1.75; font-size: 1.08rem; width: 100%; }
 .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5 { color: #f3f4f6; margin-top: 1.6rem; margin-bottom: 0.8rem; line-height: 1.25; }
 .blog-content h2 { padding-bottom: .25rem; border-bottom: 1px solid #2a3040; }
@@ -73,7 +76,7 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 .blog-content ul, .blog-content ol { padding-left: 1.25rem; margin: .75rem 0; }
 .blog-content li { margin: .35rem 0; }
 
-/* Imágenes, figuras */
+/* Imï¿½genes, figuras */
 .blog-content img { max-width: 100%; height: auto; border-radius: 6px; }
 .blog-content figure { margin: 1.2rem 0; }
 .blog-content figcaption { color: #b8c2cc; font-size: .95rem; margin-top: .4rem; }
@@ -81,10 +84,10 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 /* Citas */
 .blog-content blockquote { border-left: 4px solid #3b82f6; background: #151a24; padding: .75rem 1rem; margin: 1rem 0; color: #dbeafe; }
 
-/* Código inline */
+/* Cï¿½digo inline */
 .blog-content code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background: #161b26; color: #f2a7d8; padding: .15rem .4rem; border-radius: 4px; }
 
-/* Código en bloque */
+/* Cï¿½digo en bloque */
 .blog-content pre { background: #0b1220; color: #e6e6e6; padding: 1rem; border-radius: 6px; overflow-x: auto; border: 1px solid #1e2533; }
 .blog-content pre code { display: block; background: transparent; color: inherit; padding: 0; }
 
@@ -103,27 +106,27 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 
 /* Modo oscuro preferencia del sistema (ya por defecto) */
 @media (prefers-color-scheme: dark) {
-  /* mantener misma paleta, podría ajustar si se agregara light mode en el futuro */
+  /* mantener misma paleta, podrï¿½a ajustar si se agregara light mode en el futuro */
 }
 
-/* Código heredado / ajustes menores */
+/* Cï¿½digo heredado / ajustes menores */
 code { color: #f2a7d8; }
 
 
-/* Contenedor del código */
+/* Contenedor del cï¿½digo */
 pre {
-    position: relative; /* Indispensable para que el botón se ancle aquí */
-    padding-top: 2.5rem !important; /* Espacio para que el botón no tape el código */
+    position: relative; /* Indispensable para que el botï¿½n se ancle aquï¿½ */
+    padding-top: 2.5rem !important; /* Espacio para que el botï¿½n no tape el cï¿½digo */
 }
 
-/* Botón de copiado */
+/* Botï¿½n de copiado */
 .btn-copy {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
     background-color: rgba(128, 128, 128, 0.1); /* Fondo muy sutil */
     color: inherit; /* Hereda el color de texto del modo claro/oscuro */
-    border: 1px solid #6c757d; /* Borde gris estándar */
+    border: 1px solid #6c757d; /* Borde gris estï¿½ndar */
     border-radius: 4px;
     font-size: 0.75rem;
     padding: 2px 8px;
@@ -136,12 +139,12 @@ pre {
     .btn-copy:hover, .btn-copy:focus {
         background-color: rgba(128, 128, 128, 0.2);
         border-color: #adb5bd;
-        outline: 2px solid #0d6efd; /* Anillo de enfoque claro para navegación por teclado */
+        outline: 2px solid #0d6efd; /* Anillo de enfoque claro para navegaciï¿½n por teclado */
     }
 
-/* Feedback cuando se ha copiado con éxito */
+/* Feedback cuando se ha copiado con ï¿½xito */
 .btn-copy-success {
-    color: #198754 !important; /* Color verde éxito */
+    color: #198754 !important; /* Color verde ï¿½xito */
     border-color: #198754 !important;
 }
 
@@ -152,8 +155,8 @@ pre {
     background-color: #fefefe; /* Fondo visible al enfocarse */
     color: #333; /* Color de texto visible al enfocarse */
     padding: 8px;
-    z-index: 100; /* Asegura que esté por encima de otros elementos al hacerse visible */
-    transition: top 0.3s ease-in-out; /* Transición suave para el efecto de aparición */
+    z-index: 100; /* Asegura que estï¿½ por encima de otros elementos al hacerse visible */
+    transition: top 0.3s ease-in-out; /* Transiciï¿½n suave para el efecto de apariciï¿½n */
 }
 
     .skip-link:focus {
