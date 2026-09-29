@@ -22,7 +22,7 @@
     <label for="suscribirse" class="form-check-label">Suscribirse al boletín</label>
     </div>
     <div class="mt-3">
-        <button type="submit" class="btn" @onclick="() => MostrarAlerta(7)">Suscribirse</button>
+        <button type="submit" class="btn btn-outline-light" @onclick="() => MostrarAlerta(7)">Suscribirse</button>
 
     @foreach (var alerta in alertas)
 {
@@ -61,7 +61,7 @@
 <div class="border border-2 p-4 rounded">
     <label for="buscar" class="visuallyhidden">Buscar:</label>
     <input type="text" id="buscar" class="form-control-sm">
-    <button type="submit" class="btn" @onclick="() => MostrarAlerta(0)">Buscar</button>
+    <button type="submit" class="btn btn-outline-light" @onclick="() => MostrarAlerta(0)">Buscar</button>
 
     @foreach (var alerta in alertas)
 {
@@ -94,7 +94,7 @@
 <h3>Ejemplo 3:</h3>
 <div class="border border-2 p-4 rounded">
     <input type="text" class="form-control-sm" aria-label="buscar">
-    <button type="submit" class="btn" @onclick="() => MostrarAlerta(1)">Buscar</button>
+    <button type="submit" class="btn btn-outline-light" @onclick="() => MostrarAlerta(1)">Buscar</button>
 
     @foreach (var alerta in alertas)
 {
@@ -126,7 +126,7 @@
 <h3>Ejemplo 4:</h3>
 <div class="border border-2 p-4 rounded">
     <input type="text" class="form-control-sm" aria-labelledby="botonbuscar">
-    <button id="botonbuscar" class="btn" type="submit" @onclick="() => MostrarAlerta(2)">Buscar</button>
+    <button id="botonbuscar" class="btn btn-outline-light" type="submit" @onclick="() => MostrarAlerta(2)">Buscar</button>
 
     @foreach (var alerta in alertas)
 {
@@ -212,7 +212,7 @@
   </form>
 </div>
 <div class="mt-3">
-<button id="enviarpedido" class="btn" type="submit" @onclick="() => MostrarAlerta(3)">Enviar formulario</button>
+<button id="enviarpedido" class="btn btn-outline-light" type="submit" @onclick="() => MostrarAlerta(3)">Enviar formulario</button>
 </div>
 <div>
     @foreach (var alerta in alertas)
@@ -310,7 +310,7 @@
         </fieldset>
     </form>
 <div class="mt-3">
-    <button id="hacerpedido" class="btn" type="submit" @onclick="() => MostrarAlerta(4)">Hacer pedido</button>
+    <button id="hacerpedido" class="btn btn-outline-light" type="submit" @onclick="() => MostrarAlerta(4)">Hacer pedido</button>
     @foreach (var alerta in alertas)
 {
     if (alerta.Visible && alerta.Index == 4)
@@ -368,7 +368,7 @@
     </fieldset>
 </form>
 <div class="mt-3">
-    <button id="descargar" class="btn" type="submit" @onclick="() => MostrarAlerta(5)">Iniciar descarga</button>
+    <button id="descargar" class="btn btn-outline-light" type="submit" @onclick="() => MostrarAlerta(5)">Iniciar descarga</button>
     @foreach (var alerta in alertas)
 {
     if (alerta.Visible && alerta.Index == 5)
@@ -428,7 +428,7 @@
     </fieldset>
 </form>
 <div class="mt-3">
-    <button id="contactar" class="btn" type="submit" @onclick="() => MostrarAlerta(6)">Enviar mensaje</button>
+    <button id="contactar" class="btn btn-outline-light" type="submit" @onclick="() => MostrarAlerta(6)">Enviar mensaje</button>
     @foreach (var alerta in alertas)
 {
     if (alerta.Visible && alerta.Index == 6)
@@ -443,7 +443,7 @@
 </div>
 
 <br />
-<h3><span class="oi oi-code"></span> Código</h3>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
 <pre class="border border-2 p-4 rounded">
     <code>
  &lt;form&gt;
@@ -709,7 +709,7 @@
 </div>
 
 
-<h3><span class="oi oi-pencil"></span> Anotaciones sobre Tipos de Campo de Entrada HTML5</h3>
+<h3><span class="bi bi-pencil" aria-hidden="true"></span> Anotaciones sobre Tipos de Campo de Entrada HTML5</h3>
 <p>Utilizar los tipos de campo de entrada semánticos de HTML5 es una buena práctica por varias razones. Mejoran la experiencia de usuario al ofrecer interfaces más intuitivas, como teclados especializados en dispositivos móviles para correos electrónicos o números. Además, proporcionan validación básica por parte del navegador, lo que ayuda a prevenir errores de entrada comunes. Para las tecnologías de asistencia, el tipo de campo es crucial, ya que les permite anunciar el propósito del campo y adaptar su interacción a las expectativas del usuario.</p>
 
 <ul>

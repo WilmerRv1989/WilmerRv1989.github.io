@@ -1,4 +1,4 @@
-﻿namespace PortafolioBlog.Services
+﻿namespace PortafolioBlog.Models
 {
     public class PersonaClass
     {

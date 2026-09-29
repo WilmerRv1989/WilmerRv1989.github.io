@@ -43,7 +43,7 @@
 
             <div class="text-center" style="flex: 0.5;">
                 <a href="blog" class="btn btn-link text-decoration-none" aria-label="Volver al índice del blog">
-                    <span class="oi oi-grid-three-up" aria-hidden="true" style="font-size: 1.5rem;"></span>
+                    <span class="bi bi-grid-3x3-gap" aria-hidden="true" style="font-size: 1.5rem;"></span>
                     <small class="d-block">Índice</small>
                 </a>
             </div>
@@ -61,25 +61,13 @@
         
         @if (!string.IsNullOrEmpty(ArticleName))
         {
-            <ComentsComponent @key="ArticleName" />
+            <ComentariosComponent @key="ArticleName" />
         }
     }
 </div>
 
 
-<aside class="mt-5 py-5 border-top border-bottom text-center rounded shadow-sm bg-dark text-light" aria-labelledby="contacto-titulo">
-    <h2 id="contacto-titulo" class="h4 mb-4 fw-bold">Contacto y Redes sociales</h2>
-    <div class="d-flex flex-wrap justify-content-center gap-3 px-3">
-        <a class="btn btn-primary" href="mailto:wilmer8981@hotmail.com">wilmer8981@hotmail.com</a>
-        <a class="btn btn-outline-primary text-light" href="https://www.linkedin.com/in/wilmer-rodriguez-a98b5956/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-outline-primary text-light" href="https://clubdeescritura.com/perfil/171865/wilmer-rodriguez-vega" target="_blank" rel="noopener">Club de escritura</a>
-        <a class="btn btn-outline-primary text-light" href="https://mastodon.cr/@@Wilmer" target="_blank" rel="noopener">Mastodon</a>
-        <a class="btn btn-outline-primary text-light" href="https://www.threads.com/@@rvwilmer" target="_blank" rel="noopener">Threads</a>
-        <a class="btn btn-outline-primary text-light" href="https://www.instagram.com/rvwilmer" target="_blank" rel="noopener">Instagram</a>
-        <a class="btn btn-outline-primary text-light" href="https://www.facebook.com/wilmer.rv" target="_blank" rel="noopener">Facebook</a>
-        <a class="btn btn-outline-primary text-light" href="https://linktr.ee/Wilmer.Rv.1989?utm_source=threads&utm_medium=social&utm_content=link_in_bio" target="_blank" rel="noopener">Linktree</a>
-    </div>
-</aside>
+<ContactoComponent Titulo="Contacto y Redes sociales" Complementario="true" />
 
 @code {
     [Parameter] public string? ArticleName { get; set; }

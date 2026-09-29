@@ -131,25 +131,6 @@
             var datosReales = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
             listaCompleta = datosReales ?? new List<PostMetadata>();
 
-            // GENERADOR DE PRUEBAS (Borrar o comentar esto cuando se termine de hacer el test). Usa fecha pasada para simular posts antiguos.
-            // string[] cats = { "Accesibilidad web", ".NET", "Opinión", "CSS" };
-            // Random rnd = new Random();
-
-            // for (int i = 1; i <= 50; i++)
-            // {
-            //     listaCompleta.Add(new PostMetadata
-            //     {
-            //         Id = $"post-prueba-{i}",
-            //         Titulo = $"Artículo de prueba número {i}",
-            //         Resumen = $"Este es un resumen generado automáticamente para probar la búsqueda y la paginación del post {i}.",
-            //         Fecha = DateTime.Now.AddDays(-i), // Cada uno un día más viejo
-            //         Autor = "Sistema de Pruebas",
-            //         Categoria = cats[rnd.Next(cats.Length)], // Categoría aleatoria de la lista
-            //         Etiquetas = new List<string> { "Prueba", "Test", "Blazor" }
-            //     });
-            // }
-
-            //se inicializan los datos, con los datos reales y los datos de prueba combinados si no se ha comentado la sección de generación de pruebas.
             CargarCategorias();
             ActualizarVista();
 
