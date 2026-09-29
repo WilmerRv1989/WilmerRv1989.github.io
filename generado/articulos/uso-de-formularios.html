@@ -1,0 +1,590 @@
+<h1 id="titulo-principal">Hablemos de Uso de formularios</h1>
+<p>Nota: Esta es la cuarta entrada de una serie dedicada a la accesibilidad web. En esta serie, exploraremos diversos aspectos clave para garantizar que las páginas web sean accesibles para todos los usuarios, incluyendo aquellos con discapacidades. En esta entrada hablaremos del uso de formularios y su correcto etiquetado para la accesibilidad. Esta serie es una re-publicación de contenido que había creado anteriormente en un sitio web dedicado a la accesibilidad, con fines prácticos y educativos que ahora estoy trasladando a este blog personal para llegar a una audiencia más amplia interesada en el tema.</p>
+<p>El uso de formularios para que los usuarios ingresen información o realicen búsquedas es común en las páginas web. Por esta razón, es importante que estos formularios sean accesibles y compatibles con las herramientas de apoyo utilizadas por personas con discapacidad.</p>
+<p>Una recomendación clave es proporcionar etiquetas para identificar todos los controles del formulario, como campos de texto, casillas de verificación, botones de opción y menús desplegables. En la mayoría de los casos, garantizar que los formularios cumplan con los criterios de accesibilidad implica establecer las etiquetas correspondientes utilizando el elemento &quot;label&quot; del formulario.</p>
+<p>Las etiquetas de un formulario deben describir en todos los casos el propósito y la función del campo correspondiente. Esto se logra asociando las etiquetas del formulario con los controles de formulario adecuados.</p>
+<h2 id="etiquetar-correctamente-un-control-de-formulario">Etiquetar correctamente un control de formulario</h2>
+<p>La asociación entre una etiqueta de formulario y su control puede ser implícita o explícita. Se recomienda que, siempre que sea posible, se realice de forma explícita.</p>
+<p>Para asociar explícitamente una etiqueta con su control correspondiente, se utilizan los atributos 'for' e 'id', los cuales deben coincidir de manera idéntica para que la etiqueta del formulario y el control se relacionen correctamente. A continuación se muestra un ejemplo:</p>
+<h3 id="ejemplo-1">Ejemplo 1:</h3>
+<div class="demo border border-2 p-4 rounded">
+<div>
+    <label for="correo" class="form-label">Correo electrónico:</label>
+    <input type="email" class="form-control-lg" id="correo">
+</div>
+<div class="mt-2">
+    <input type="checkbox" class="form-check-input" id="suscribirse">
+    <label for="suscribirse" class="form-check-label">Suscribirse al boletín</label>
+</div>
+<div class="mt-3">
+    <button type="submit" class="btn btn-outline-light" data-demo-alerta="Gracias por suscribirse al lado oscuro. Pronto recibirás nuestro boletín del Imperio Galáctico">Suscribirse</button>
+</div>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;div&gt;
+    &lt;label for=&quot;correo&quot;&gt;Correo electrónico:&lt;/label&gt;
+    &lt;input type=&quot;email&quot; id=&quot;correo&quot;&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    &lt;input type=&quot;checkbox&quot; id=&quot;suscribirse&quot;&gt;
+    &lt;label for=&quot;suscribirse&quot;&gt;Suscribirse al boletín&lt;/label&gt;
+&lt;/div&gt;
+&lt;div&gt;
+    &lt;button type=&quot;submit&quot;&gt;Suscribirse&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="explicacion">Explicación</h3>
+<p>En este ejemplo, se utilizan los atributos 'for' e 'id' para asociar la etiqueta y el campo de formulario. En el primer caso, se emplea 'correo' tanto en el 'for' como en el 'id' para que las herramientas de asistencia puedan leer la etiqueta al interactuar con el campo de formulario. Lo mismo ocurre con el uso de la casilla de verificación, donde se utiliza 'suscribirse' para asociar correctamente ambos elementos.</p>
+<p>NOTA: Los nombres utilizados en los atributos 'for' e 'id' deben ser únicos para cada elemento de formulario. Si usamos el mismo nombre en dos casos distintos, causaremos confusión, ya que la herramienta de asistencia no sabrá a qué campo pertenece cada etiqueta.</p>
+<h2 id="ocultar-la-etiqueta-del-campo-de-formulario">Ocultar la etiqueta del campo de formulario</h2>
+<p>En algunas situaciones, es apropiado ocultar visualmente la etiqueta de un campo de formulario, siempre y cuando su uso contextual sea suficiente para entender la función del campo. Esto es común en casos como los cuadros de búsqueda acompañados del botón &quot;Buscar&quot;, entre otros.</p>
+<p>Sin embargo, es importante mantener la etiqueta presente en el código HTML para que sea detectada por las herramientas de apoyo utilizadas por personas con discapacidad.</p>
+<p>El siguiente ejemplo muestra el campo de búsqueda junto al botón de “Buscar”; el mismo tiene visualmente oculta la etiqueta del cuadro de formulario, pero esta sigue estando presente para las herramientas de apoyo.</p>
+<h3 id="ejemplo-2">Ejemplo 2</h3>
+<div class="demo border border-2 p-4 rounded">
+<label for="buscar" class="visually-hidden">Buscar:</label>
+<input type="search" id="buscar">
+<button type="submit" data-demo-alerta="No se ha encontrado ningún resultado">Buscar</button>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;label for=&quot;buscar&quot; class=&quot;visually-hidden&quot;&gt;Buscar:&lt;/label&gt;
+&lt;input type=&quot;search&quot; id=&quot;buscar&quot;&gt;
+&lt;button type=&quot;submit&quot;&gt;Buscar&lt;/button&gt;
+</code></pre>
+<h3 id="explicacion-1">Explicación</h3>
+<p>En este ejemplo, se continúa utilizando los atributos 'for' e 'id' para asociar la etiqueta con el campo de formulario. Sin embargo, en este caso, se oculta la etiqueta usando CSS, de modo que aunque esté visualmente oculta, sigue siendo accesible para las herramientas de apoyo.</p>
+<h2 id="uso-de-aria-label">Uso de aria-label</h2>
+<p>El atributo aria-label se utiliza para etiquetar un control cuyo texto de referencia no es visible, pero está disponible para las herramientas de apoyo. Se recomienda su uso únicamente en casos donde el control de formulario se explique contextualmente, como se muestra en el siguiente ejemplo.</p>
+<h3 id="ejemplo-3">Ejemplo 3:</h3>
+<div class="demo border border-2 p-4 rounded">
+<input type="search" class="form-control-sm" aria-label="buscar">
+<button type="submit" class="btn btn-outline-light" data-demo-alerta="Sigue sin haber ningún resultado">Buscar</button>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;input type=&quot;search&quot; aria-label=&quot;buscar&quot;&gt;
+&lt;button type=&quot;submit&quot;&gt;Buscar&lt;/button&gt;
+</code></pre>
+<h3 id="explicacion-2">Explicación</h3>
+<p>En este caso, el atributo aria-label contiene un texto que permite identificar el uso del control para usuarios de herramientas de apoyo. Este atributo sirve para describir la funcionalidad del control cuando no hay un texto circundante que lo explique o si este no es suficiente para que el usuario comprenda su funcionalidad por sí mismo.</p>
+<h2 id="uso-de-aria-labelledby">Uso de aria-labelledby</h2>
+<p>El atributo aria-labelledby se emplea para vincular un control de formulario con otro elemento cercano que pueda describir su función o propósito. A diferencia del atributo aria-label, que proporciona una etiqueta directamente, el aria-labelledby requiere que identifiquemos un elemento adicional mediante su ID para establecer esta asociación.</p>
+<h3 id="ejemplo-4">Ejemplo 4:</h3>
+<div class="demo border border-2 p-4 rounded">
+<input type="search" class="form-control-sm" aria-labelledby="botonbuscar">
+<button id="botonbuscar" class="btn btn-outline-light" type="submit" data-demo-alerta="No sé qué esperas, sigue sin haber resultados">Buscar</button>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;input type=&quot;search&quot; aria-labelledby=&quot;botonbuscar&quot;&gt;
+&lt;button id=&quot;botonbuscar&quot; type=&quot;submit&quot;&gt;Buscar&lt;/button&gt;
+</code></pre>
+<h3 id="explicacion-3">Explicación</h3>
+<p>Cuando usamos el atributo aria-labelledby, estamos vinculando el control del formulario con la etiqueta o texto de otro elemento que tenga un ID de referencia. Una forma útil de entender la diferencia entre aria-labelledby y aria-label es que, en el primer caso, las herramientas de apoyo como lectores de pantalla leerán el texto de la etiqueta asociada, por ejemplo, el texto del botón &quot;Buscar&quot;. Mientras que en el aria-label, el lector de pantalla leerá el texto que hayamos especificado directamente en el atributo.</p>
+<h2 id="formularios-agrupados">Formularios agrupados</h2>
+<p>HTML nos ofrece el elemento &lt;fieldset&gt;, el cual sirve para agrupar controles de formulario, los cuales serán relacionados con el título o leyenda que identifique la agrupación. Esta debe ser usada en aquellos casos donde se apliquen formularios asociados a datos específicos, elección de opciones excluyentes entre sí y otros casos similares. Veamos algunos ejemplos prácticos y su correcto uso.</p>
+<h3 id="ejemplo-de-formularios-agrupados">Ejemplo de formularios agrupados</h3>
+<div class="demo border border-2 p-4 rounded">
+<div style="display: flex;">
+  <form style="margin-right: 20px;">
+    <fieldset>
+      <legend>Dirección de Envío</legend>
+      <div>
+        <label for="nombre" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombre">
+      </div>
+      <div>
+        <label for="pais" class="form-label">País:</label>
+        <input type="text" class="form-control" id="pais">
+      </div>
+      <div>
+        <label for="ciudad" class="form-label">Ciudad:</label>
+        <input type="text" class="form-control" id="ciudad">
+      </div>
+      <div>
+        <label for="calle" class="form-label">Calle:</label>
+        <input type="text" class="form-control" id="calle">
+      </div>
+      <div>
+        <label for="codigopostal" class="form-label">Código Postal:</label>
+        <input type="text" class="form-control" id="codigopostal">
+      </div>
+    </fieldset>
+  </form>
+
+  <form>
+    <fieldset>
+      <legend>Dirección de Facturación</legend>
+      <div>
+        <label for="nombrefacturacion" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="nombrefacturacion">
+      </div>
+      <div>
+        <label for="paisfacturacion" class="form-label">País:</label>
+        <input type="text" class="form-control" id="paisfacturacion">
+      </div>
+      <div>
+        <label for="ciudadfacturacion" class="form-label">Ciudad:</label>
+        <input type="text" class="form-control" id="ciudadfacturacion">
+      </div>
+      <div>
+        <label for="callefacturacion" class="form-label">Calle:</label>
+        <input type="text" class="form-control" id="callefacturacion">
+      </div>
+      <div>
+        <label for="codigopostalfacturacion" class="form-label">Código Postal:</label>
+        <input type="text" class="form-control" id="codigopostalfacturacion">
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div class="mt-3">
+  <button id="enviarpedido" class="btn btn-outline-light" type="submit" data-demo-alerta="¡Excelente! Pronto recibirás tu envío… Es broma, no vas a recibir nada.">Enviar formulario</button>
+</div>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;div&gt;
+  &lt;form&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Dirección de Envío&lt;/legend&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;nombre&quot;&gt;Nombre:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;nombre&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;pais&quot;&gt;País:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;pais&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;ciudad&quot;&gt;Ciudad:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;ciudad&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;calle&quot;&gt;Calle:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;calle&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;codigopostal&quot;&gt;Código Postal:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;codigopostal&quot;&gt;
+      &lt;/div&gt;
+    &lt;/fieldset&gt;
+  &lt;/form&gt;
+
+  &lt;form&gt;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Dirección de Facturación&lt;/legend&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;nombrefacturacion&quot;&gt;Nombre:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;nombrefacturacion&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;paisfacturacion&quot;&gt;País:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;paisfacturacion&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;ciudadfacturacion&quot;&gt;Ciudad:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;ciudadfacturacion&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;callefacturacion&quot;&gt;Calle:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;callefacturacion&quot;&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label for=&quot;codigopostalfacturacion&quot;&gt;Código Postal:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;codigopostalfacturacion&quot;&gt;
+      &lt;/div&gt;
+    &lt;/fieldset&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;button id=&quot;enviarpedido&quot; type=&quot;submit&quot;&gt;Enviar formulario&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="explicacion-4">Explicación</h3>
+<p>El elemento &lt;fieldset&gt; en este caso funciona como un contenedor que agrupa todos los campos de formulario relacionados con la dirección de envío o facturación. El título dentro del &lt;legend&gt; marca el grupo y será leído por las herramientas de apoyo una vez que el foco interactúe con alguno de los campos dentro de la agrupación, ya sea de facturación o envío.</p>
+<p>Es importante tener en cuenta que, dependiendo de la configuración, los lectores de pantalla leerán la leyenda junto con cada campo de formulario. Por esta razón, se recomienda usar leyendas lo más cortas y concisas posible, y utilizar etiquetas claras para aquellos casos donde la leyenda solo se lea una vez.</p>
+<h3 id="ejemplo-de-agrupacion-usando-radio-buttons">Ejemplo de agrupación usando radio buttons.</h3>
+<div class="demo border border-2 p-4 rounded">
+<form>
+    <fieldset>
+        <legend>Seleccione la comida que le gustaría recibir:</legend>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="radiogrupo" id="pizza" value="pizza">
+            <label for="pizza" class="form-check-label">Pizza</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="radiogrupo" id="hamburguesa" value="hamburguesa">
+            <label for="hamburguesa" class="form-check-label">Hamburguesa</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="radiogrupo" id="sushi" value="sushi">
+            <label for="sushi" class="form-check-label">Sushi</label>
+        </div>
+    </fieldset>
+</form>
+<div class="mt-3">
+    <button id="hacerpedido" class="btn btn-outline-light" type="submit" data-demo-alerta="Yo que usted espero sentado su pedido">Hacer pedido</button>
+</div>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;form&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Seleccione la comida que le gustaría recibir:&lt;/legend&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;radio&quot; name=&quot;radiogrupo&quot; id=&quot;pizza&quot; value=&quot;pizza&quot;&gt;
+            &lt;label for=&quot;pizza&quot;&gt;Pizza&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;radio&quot; name=&quot;radiogrupo&quot; id=&quot;hamburguesa&quot; value=&quot;hamburguesa&quot;&gt;
+            &lt;label for=&quot;hamburguesa&quot;&gt;Hamburguesa&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;radio&quot; name=&quot;radiogrupo&quot; id=&quot;sushi&quot; value=&quot;sushi&quot;&gt;
+            &lt;label for=&quot;sushi&quot;&gt;Sushi&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+&lt;div&gt;
+    &lt;button id=&quot;hacerpedido&quot; type=&quot;submit&quot;&gt;Hacer pedido&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="ejemplo-de-agrupacion-con-casillas-de-verificacion">Ejemplo de agrupación con casillas de verificación</h3>
+<div class="demo border border-2 p-4 rounded">
+<form>
+    <fieldset>
+        <legend>Seleccione el formato de descarga de su cuento favorito:</legend>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="formato1" value="txt">
+            <label for="formato1" class="form-check-label">Formato EPUB</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="formato2" value="csv">
+            <label for="formato2" class="form-check-label">Formato DOCX</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="formato3" value="json">
+            <label for="formato3" class="form-check-label">Formato PDF</label>
+        </div>
+    </fieldset>
+</form>
+<div class="mt-3">
+    <button id="descargar" class="btn btn-outline-light" type="submit" data-demo-alerta="Descargando... ¡Ups! Ha ocurrido un error en la descarga. Mejor suerte para la próxima">Iniciar descarga</button>
+</div>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;form&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Seleccione el formato de descarga de su cuento favorito:&lt;/legend&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;formato1&quot; value=&quot;txt&quot;&gt;
+            &lt;label for=&quot;formato1&quot;&gt;Formato EPUB&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;formato2&quot; value=&quot;csv&quot;&gt;
+            &lt;label for=&quot;formato2&quot;&gt;Formato DOCX&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;input type=&quot;checkbox&quot; id=&quot;formato3&quot; value=&quot;json&quot;&gt;
+            &lt;label for=&quot;formato3&quot;&gt;Formato PDF&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+&lt;div&gt;
+    &lt;button id=&quot;descargar&quot; type=&quot;submit&quot;&gt;Iniciar descarga&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="marcado-de-controles-de-formulario-placeholder">Marcado de controles de formulario (placeholder)</h2>
+<p>Una forma de agregar ayuda contextual es mediante el uso del atributo 'placeholder' en los campos de formulario donde el usuario debe ingresar información. Este atributo proporciona texto de marcador de posición que ofrece orientación al usuario sobre el tipo de información que se espera en el campo.</p>
+<p>El texto del marcador de posición se muestra visualmente dentro del campo de formulario y desaparece automáticamente una vez que el usuario comienza a escribir en él. Sin embargo, es importante tener en cuenta que una vez que el usuario empieza a ingresar información, el texto de marcador de posición ya no es visible. Por lo tanto, se debe proporcionar una orientación clara y concisa sobre el formato requerido en las etiquetas para evitar confusiones o errores por parte del usuario.</p>
+<h3 id="ejemplo-uso-de-placeholder">Ejemplo uso de 'placeholder'</h3>
+<div class="demo border border-2 p-4 rounded">
+<div class="col-5">
+    <form>
+        <fieldset>
+            <legend>Ejemplo de formulario de Contacto</legend>
+
+            <label for="nombrecontacto" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" id="nombrecontacto" placeholder="Ingrese su nombre">
+
+            <label for="emailcontacto" class="form-label">Correo electrónico:</label>
+            <input type="email" class="form-control" id="emailcontacto" placeholder="Ingrese su correo electrónico">
+
+            <label for="mensajecontacto" class="form-label">Mensaje:</label>
+            <textarea id="mensajecontacto" class="form-control" rows="3" placeholder="Escriba su mensaje aquí"></textarea>
+        </fieldset>
+    </form>
+    <div class="mt-3">
+        <button id="contactar" class="btn btn-outline-light" type="submit" data-demo-alerta="Hemos recibido tu mensaje, pronto serás contactado. Si quieres, puedes esperar sentado de nuevo como con tu comida favorita">Enviar mensaje</button>
+    </div>
+</div>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;div&gt;
+    &lt;form&gt;
+        &lt;fieldset&gt;
+            &lt;legend&gt;Ejemplo de formulario de Contacto&lt;/legend&gt;
+
+            &lt;label for=&quot;nombrecontacto&quot;&gt;Nombre:&lt;/label&gt;
+            &lt;input type=&quot;text&quot; id=&quot;nombrecontacto&quot; placeholder=&quot;Ingrese su nombre&quot;&gt;
+
+            &lt;label for=&quot;emailcontacto&quot;&gt;Correo electrónico:&lt;/label&gt;
+            &lt;input type=&quot;email&quot; id=&quot;emailcontacto&quot; placeholder=&quot;Ingrese su correo electrónico&quot;&gt;
+
+            &lt;label for=&quot;mensajecontacto&quot;&gt;Mensaje:&lt;/label&gt;
+            &lt;textarea id=&quot;mensajecontacto&quot; rows=&quot;3&quot; placeholder=&quot;Escriba su mensaje aquí&quot;&gt;&lt;/textarea&gt;
+        &lt;/fieldset&gt;
+    &lt;/form&gt;
+    &lt;div&gt;
+        &lt;button id=&quot;contactar&quot; type=&quot;submit&quot;&gt;Enviar mensaje&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="ejemplo-de-formulario-html5">Ejemplo de Formulario HTML5</h2>
+<p>HTML5 introdujo una variedad de tipos de entrada específicos más allá del simple campo de texto. Estos tipos semánticos, como email, tel, date o number, permiten describir con mayor precisión el tipo de dato que el usuario debe ingresar en un campo de formulario. Su uso es una práctica recomendada en accesibilidad, ya que proporciona información valiosa tanto para los navegadores como para las tecnologías de asistencia.</p>
+<p>Al utilizar el tipo de input adecuado, los navegadores pueden optimizar la experiencia del usuario, por ejemplo, mostrando teclados específicos en dispositivos móviles para facilitar la entrada de correos electrónicos o números de teléfono. Para los usuarios de lectores de pantalla, estos tipos semánticos ofrecen un contexto adicional sobre el campo, ayudándoles a comprender qué tipo de información se espera y cómo interactuar con ella.</p>
+<div class="demo border border-2 p-4 rounded">
+<form>
+
+    <div class="mt-2">
+        <label for="campoTexto">Campo de Texto (text):</label>
+        <input type="text" id="campoTexto" placeholder="Escribe algo aquí" required>
+    </div>
+
+    <div class="mt-2">
+        <label for="campoContrasena">Contraseña (password):</label>
+        <input type="password" id="campoContrasena" placeholder="Crear contraseña" required>
+    </div>
+
+    <div class="mt-2">
+        <label for="areaTexto">Área de Texto (textarea):</label>
+        <textarea id="areaTexto" rows="5" placeholder="Escribe algo extenso"></textarea>
+    </div>
+
+    <div class="mt-2">
+        <label for="listaSeleccion">Lista de Selección (select):</label>
+        <select id="listaSeleccion">
+            <option value="">Selecciona una opción</option>
+            <option value="opcion1">Opción Uno (Valor 1)</option>
+            <option value="opcion2">Opción Dos (Valor 2)</option>
+            <option value="opcion3">Opción Tres (Valor 3)</option>
+        </select>
+    </div>
+
+    <div class="mt-2">
+        <input type="checkbox" id="casillaVerificacion">
+        <label for="casillaVerificacion">Casilla de Verificación (checkbox)</label>
+    </div>
+
+    <div class="mt-2">
+        <fieldset>
+            <legend>Botones de Radio (radio):</legend>
+            <span>
+                <input type="radio" id="radioOpcion1" name="radioOpciones" value="radioOpcion1">
+                <label for="radioOpcion1">Seleccionar Radio Opción 1</label>
+            </span>
+            <span>
+                <input type="radio" id="radioOpcion2" name="radioOpciones" value="radioOpcion2" checked>
+                <label for="radioOpcion2">Seleccionar Radio Opción 2</label>
+            </span>
+            <span>
+                <input type="radio" id="radioOpcion3" name="radioOpciones" value="radioOpcion3">
+                <label for="radioOpcion3">Seleccionar Radio Opción 3</label>
+            </span>
+        </fieldset>
+    </div>
+
+    <div class="mt-2">
+        <label for="campoEmail">Correo Electrónico (email):</label>
+        <input type="email" id="campoEmail" placeholder="ejemplo@dominio.com">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoURL">URL (url):</label>
+        <input type="url" id="campoURL" placeholder="https://www.hablemos-de-accesibilidad.com">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoTelefono">Teléfono (tel):</label>
+        <input type="tel" id="campoTelefono" placeholder="Ej: +(506)-1234-4567">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoBusqueda">Búsqueda (search):</label>
+        <input type="search" id="campoBusqueda" placeholder="Escribe tu búsqueda...">
+    </div>
+
+    <div class="mt-2">
+        <label for="rangoDeslizante">Rango Deslizante (range):</label>
+        <input type="range" id="rangoDeslizante" min="0" max="100" step="1" value="50">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoNumero">Número (number):</label>
+        <input type="number" id="campoNumero" min="0" max="10" step="1" value="5">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoFecha">Fecha (date):</label>
+        <input type="date" id="campoFecha">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoMes">Mes (month):</label>
+        <input type="month" id="campoMes">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoSemana">Semana (week):</label>
+        <input type="week" id="campoSemana">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoHora">Hora (time):</label>
+        <input type="time" id="campoHora">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoFechaHoraLocal">Fecha y Hora Local (datetime-local):</label>
+        <input type="datetime-local" id="campoFechaHoraLocal">
+    </div>
+
+    <div class="mt-2">
+        <label for="campoColor">Color (color):</label>
+        <input type="color" id="campoColor" value="#008080">
+    </div>
+
+</form>
+</div>
+<h3><span class="bi bi-code-slash" aria-hidden="true"></span> Código</h3>
+<pre class="border border-2 p-4 rounded"><code class="language-html">&lt;form&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoTexto&quot;&gt;Campo de Texto (text):&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;campoTexto&quot; placeholder=&quot;Escribe algo aquí&quot; required&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoContrasena&quot;&gt;Contraseña (password):&lt;/label&gt;
+        &lt;input type=&quot;password&quot; id=&quot;campoContrasena&quot; placeholder=&quot;Crear contraseña&quot; required&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;areaTexto&quot;&gt;Área de Texto (textarea):&lt;/label&gt;
+        &lt;textarea id=&quot;areaTexto&quot; rows=&quot;5&quot; placeholder=&quot;Escribe algo extenso&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;listaSeleccion&quot;&gt;Lista de Selección (select):&lt;/label&gt;
+        &lt;select id=&quot;listaSeleccion&quot;&gt;
+            &lt;option value=&quot;&quot;&gt;Selecciona una opción&lt;/option&gt;
+            &lt;option value=&quot;opcion1&quot;&gt;Opción Uno (Valor 1)&lt;/option&gt;
+            &lt;option value=&quot;opcion2&quot;&gt;Opción Dos (Valor 2)&lt;/option&gt;
+            &lt;option value=&quot;opcion3&quot;&gt;Opción Tres (Valor 3)&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;input type=&quot;checkbox&quot; id=&quot;casillaVerificacion&quot;&gt;
+        &lt;label for=&quot;casillaVerificacion&quot;&gt;Casilla de Verificación (checkbox)&lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;fieldset&gt;
+            &lt;legend&gt;Botones de Radio (radio):&lt;/legend&gt;
+            &lt;span&gt;
+                &lt;input type=&quot;radio&quot; id=&quot;radioOpcion1&quot; name=&quot;radioOpciones&quot; value=&quot;radioOpcion1&quot;&gt;
+                &lt;label for=&quot;radioOpcion1&quot;&gt;Seleccionar Radio Opción 1&lt;/label&gt;
+            &lt;/span&gt;
+            &lt;span&gt;
+                &lt;input type=&quot;radio&quot; id=&quot;radioOpcion2&quot; name=&quot;radioOpciones&quot; value=&quot;radioOpcion2&quot; checked&gt;
+                &lt;label for=&quot;radioOpcion2&quot;&gt;Seleccionar Radio Opción 2&lt;/label&gt;
+            &lt;/span&gt;
+            &lt;span&gt;
+                &lt;input type=&quot;radio&quot; id=&quot;radioOpcion3&quot; name=&quot;radioOpciones&quot; value=&quot;radioOpcion3&quot;&gt;
+                &lt;label for=&quot;radioOpcion3&quot;&gt;Seleccionar Radio Opción 3&lt;/label&gt;
+            &lt;/span&gt;
+        &lt;/fieldset&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoEmail&quot;&gt;Correo Electrónico (email):&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;campoEmail&quot; placeholder=&quot;ejemplo@dominio.com&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoURL&quot;&gt;URL (url):&lt;/label&gt;
+        &lt;input type=&quot;url&quot; id=&quot;campoURL&quot; placeholder=&quot;https://www.hablemos-de-accesibilidad.com&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoTelefono&quot;&gt;Teléfono (tel):&lt;/label&gt;
+        &lt;input type=&quot;tel&quot; id=&quot;campoTelefono&quot; placeholder=&quot;Ej: +(506)-1234-4567&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoBusqueda&quot;&gt;Búsqueda (search):&lt;/label&gt;
+        &lt;input type=&quot;search&quot; id=&quot;campoBusqueda&quot; placeholder=&quot;Escribe tu búsqueda...&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;rangoDeslizante&quot;&gt;Rango Deslizante (range):&lt;/label&gt;
+        &lt;input type=&quot;range&quot; id=&quot;rangoDeslizante&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;1&quot; value=&quot;50&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoNumero&quot;&gt;Número (number):&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;campoNumero&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;1&quot; value=&quot;5&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoFecha&quot;&gt;Fecha (date):&lt;/label&gt;
+        &lt;input type=&quot;date&quot; id=&quot;campoFecha&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoMes&quot;&gt;Mes (month):&lt;/label&gt;
+        &lt;input type=&quot;month&quot; id=&quot;campoMes&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoSemana&quot;&gt;Semana (week):&lt;/label&gt;
+        &lt;input type=&quot;week&quot; id=&quot;campoSemana&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoHora&quot;&gt;Hora (time):&lt;/label&gt;
+        &lt;input type=&quot;time&quot; id=&quot;campoHora&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoFechaHoraLocal&quot;&gt;Fecha y Hora Local (datetime-local):&lt;/label&gt;
+        &lt;input type=&quot;datetime-local&quot; id=&quot;campoFechaHoraLocal&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;label for=&quot;campoColor&quot;&gt;Color (color):&lt;/label&gt;
+        &lt;input type=&quot;color&quot; id=&quot;campoColor&quot; value=&quot;#008080&quot;&gt;
+    &lt;/div&gt;
+
+&lt;/form&gt;
+</code></pre>
+<h3 id="anotaciones-sobre-tipos-de-campo-de-entrada-html5"><span class="bi bi-pencil" aria-hidden="true"></span> Anotaciones sobre Tipos de Campo de Entrada HTML5</h3>
+<p>Utilizar los tipos de campo de entrada semánticos de HTML5 es una buena práctica por varias razones. Mejoran la experiencia de usuario al ofrecer interfaces más intuitivas, como teclados especializados en dispositivos móviles para correos electrónicos o números. Además, proporcionan validación básica por parte del navegador, lo que ayuda a prevenir errores de entrada comunes. Para las tecnologías de asistencia, el tipo de campo es crucial, ya que les permite anunciar el propósito del campo y adaptar su interacción a las expectativas del usuario.</p>
+<ul>
+<li><p><strong><code>type=&quot;email&quot;</code>, <code>type=&quot;tel&quot;</code>, <code>type=&quot;url&quot;</code>:</strong></p>
+<p>Estos tipos van más allá de un simple campo de texto. En dispositivos móviles, activan teclados especializados que incluyen caracteres comunes para correos electrónicos, números para teléfonos o barras para URLs, agilizando la entrada de datos. Además, el navegador puede realizar una validación básica del formato, indicando al usuario si el valor ingresado no parece ser una dirección de correo, un número de teléfono o una URL válidos.</p>
+</li>
+<li><p><strong><code>type=&quot;date&quot;</code>, <code>type=&quot;time&quot;</code>, <code>type=&quot;month&quot;</code>, <code>type=&quot;week&quot;</code>, <code>type=&quot;datetime-local&quot;</code>:</strong></p>
+<p>Al usar estos tipos, los navegadores suelen mostrar selectores de fecha y hora integrados, eliminando la necesidad de JavaScript personalizado o la posibilidad de errores de formato. Esto no solo mejora la usabilidad para todos, sino que garantiza que los usuarios de teclado o lectores de pantalla puedan seleccionar fechas y horas de manera consistente y sin ambigüedades.</p>
+</li>
+<li><p><strong><code>type=&quot;number&quot;</code>, <code>type=&quot;range&quot;</code>:</strong></p>
+<p><code>type=&quot;number&quot;</code> proporciona controles de incremento/decremento (spinners) y restringe la entrada a solo números, mientras que <code>type=&quot;range&quot;</code> ofrece un deslizador intuitivo. Ambos tipos facilitan la entrada de valores numéricos, y para los usuarios de tecnologías de asistencia, el propósito numérico del campo es claramente comunicado. Con <code>type=&quot;range&quot;</code>, el lector de pantalla informará que es un &quot;deslizador&quot; y a menudo su valor actual, lo que es esencial.</p>
+</li>
+<li><p><strong><code>type=&quot;search&quot;</code>:</strong></p>
+<p>Aunque funcionalmente similar a un <code>type=&quot;text&quot;</code>, el <code>type=&quot;search&quot;</code> tiene una semántica específica que indica al navegador que el campo está diseñado para una búsqueda. Esto puede afectar cómo se muestra el campo (a menudo con un icono de lupa o una &quot;x&quot; para borrar el texto) y cómo los lectores de pantalla lo anuncian, proporcionando un contexto más claro al usuario.</p>
+</li>
+<li><p><strong><code>type=&quot;color&quot;</code>:</strong></p>
+<p>Este tipo activa un selector de color nativo del navegador, lo que simplifica enormemente la elección de colores y asegura que la interacción sea consistente y accesible sin importar el dispositivo. Para un lector de pantalla, se anunciará como un &quot;selector de color&quot;, dando al usuario la información necesaria.</p>
+</li>
+</ul>
+<p>Como hemos visto, la accesibilidad en los formularios no es solo una cuestión de cumplimiento técnico, sino de autonomía para el usuario. Implementar etiquetas claras y atributos semánticos correctamente asegura que cualquier persona, independientemente de la herramienta de asistencia que utilice, pueda completar sus tareas con éxito y sin barreras. Espero que estos ejemplos prácticos te sirvan de guía para construir interfaces más inclusivas.</p>
+<p>Con esto concluimos el apartado sobre formularios. En la próxima y última entrega de esta serie, nos enfocaremos en un componente vital para la organización de información compleja: las tablas de datos accesibles. Exploraremos cómo estructurar correctamente los encabezados y las relaciones de datos para que la información tabular sea clara, lógica y navegable para todos los usuarios.</p>
+<p>Espero que les haya sido de utilidad y nos vemos en la próxima entrega donde hablaremos más sobre accesibilidad web. ¡Hasta la próxima miches!</p>

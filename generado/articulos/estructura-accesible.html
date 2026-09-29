@@ -1,0 +1,228 @@
+<h1 id="titulo-principal">Hablemos de Estructura de la página y Contenido Accesible</h1>
+<p><strong>Nota:</strong> Esta es la primera entrada de una serie dedicada a la accesibilidad web. En esta serie, exploraremos diversos aspectos clave para garantizar que las páginas web sean accesibles para todos los usuarios, incluyendo aquellos con discapacidades. Comenzaremos con la estructura de la página y el contenido accesible, y en futuras entradas abordaremos temas como formularios, textos alternativos, tablas, enlaces y más. esta serie es una re-publicación de contenido que había creado anteriormente en un sitio web dedicado a la accesibilidad, con fines prácticos y educativos que ahora estoy trasladando a este blog personal para llegar a una audiencia más amplia interesada en el tema.</p>
+<p>La estructura de una página web es fundamental para garantizar su accesibilidad. Es recomendable utilizar las etiquetas y atributos adecuados proporcionados por <code>HTML</code> para este propósito. <code>HTML</code> ofrece etiquetas contextuales específicas para cada región de una página web. Además, en casos especiales, podemos utilizar roles de <code>ARIA</code> para mejorar el marcado semántico del contenido de la página que estamos creando.</p>
+<p>En esta sección, examinaremos cómo establecer las regiones de una página web, así como la estructura correcta del contenido, incluyendo encabezados, contenido semántico y otros elementos importantes.</p>
+<h2 id="idioma-de-la-pagina-lang">Idioma de la página (lang)</h2>
+<p>Para comenzar, lo primero que debemos de tener en cuenta, es fundamental indicar el idioma principal de tu página web para mejorar la accesibilidad y la experiencia del usuario. Al declarar el idioma, los navegadores y las tecnologías de asistencia, como los lectores de pantalla, pueden renderizar el contenido de forma más precisa, utilizando la pronunciación y las reglas gramaticales adecuadas. Esto evita que el lector de pantalla intente leer el texto en el idioma incorrecto, lo que resultaría en una experiencia confusa e incomprensible para el usuario.</p>
+<p>Además de declarar el idioma principal, si tienes secciones o frases en un idioma diferente dentro de tu contenido, es importante marcarlas explícitamente. Esto permite que las herramientas de asistencia cambien la configuración de idioma al leer esas partes específicas, garantizando que todo el contenido sea accesible y comprensible.</p>
+<h3 id="codigo">Código</h3>
+<pre><code class="language-html">&lt;html lang=&quot;es&quot;&gt;
+    &lt;head&gt;
+        &lt;!-- Tu meta información, título, enlaces a CSS, etc. --&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;!-- Todo el contenido de tu página va aquí --&gt;
+        &lt;p&gt;Este es un párrafo en español. El poeta dijo &lt;q lang=&quot;en&quot;&gt;Poetry is the language of the soul&lt;/q&gt;, una frase que resuena en los corazones de muchos.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="explicacion">Explicación:</h3>
+<p>El atributo <strong><code>lang=&quot;es&quot;</code></strong> en la etiqueta <code>&lt;html&gt;</code> indica que el idioma principal de todo el documento es el español. Si tienes un fragmento de texto en otro idioma, como el ejemplo de la cita en inglés, puedes usar el atributo <strong><code>lang=&quot;en&quot;</code></strong> directamente en la etiqueta que contiene ese texto (<code>&lt;q&gt;</code> en este caso) para especificar el cambio de idioma solo para esa porción y así con cualquier texto o elemento que esté en otro idioma.</p>
+<h2 id="titulo-de-pagina-title">Título de página (title)</h2>
+<p>El título de una página web es el texto que se muestra en la pestaña del navegador. Es un mecanismo de orientación fundamental que, lamentablemente, con el paso del tiempo ha recibido menos atención. En páginas web del tipo &quot;Single Page Application&quot; (SPA) es incluso común que sus creadores no sepan cómo modificar o controlar dinámicamente este título según el contenido visible en pantalla.</p>
+<p>Sin embargo, el título de una página web es un elemento de navegación muy útil para personas con discapacidad, quienes pueden tener dificultades para comprender o ubicarse fácilmente en un sitio web.</p>
+<p>Para crear títulos de página adecuados, no basta con dejar el nombre del sitio web fijo para todo el contenido, sin importar en qué parte nos encontremos. Se deben tener en cuenta algunos elementos clave:</p>
+<ul>
+<li>Un título adecuado debe identificar claramente el propósito y el contenido de la página que se está consultando.</li>
+<li>Usar un título único para todo el sitio web, sin importar el contenido o el cambio de contexto o pantalla, no es una práctica adecuada. Por ejemplo, limitarse al nombre de nuestra empresa sin ningún elemento adicional que refleje el contexto de la pantalla actual en la que se encuentra el usuario.</li>
+</ul>
+<p>Estos elementos se vuelven cada vez más relevantes a medida que aumenta la complejidad de nuestra página web. Por ejemplo, en un sitio web de ventas, un usuario puede acceder a la lista de productos, la vista de un producto específico, el carrito de la compra, pasarelas de pago, su perfil personal, historiales de compra, etc.</p>
+<p>En todos esos casos, mantener un título genérico (como solo el nombre de la empresa de ventas) no será accesible ni adecuado. Será necesario cambiar dinámicamente el título de la página para reflejar el contexto donde se encuentre el usuario. Por ejemplo: &quot;Empresa - Productos - Producto consultado&quot;, según corresponda para cada sección del sitio.</p>
+<p>De esta manera, una persona puede comprender rápidamente dónde se encuentra y qué contenido principal se espera en la página web a medida que navega y revisa el título.</p>
+<p>Para establecer el título de una página, lo hacemos desde el documento <code>HTML</code> de nuestro sitio en la sección <code>&lt;head&gt;</code> y se utiliza la etiqueta <code>&lt;title&gt;</code>.</p>
+<h3 id="codigo-html">Código HTML</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Tu Empresa - Página Principal&lt;/title&gt;
+    &lt;!-- Otros elementos del head --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Contenido de la página --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Nota:</strong> Esta solución solo es viable en proyectos donde tenemos control total del código <code>HTML</code> que se envía al navegador. En proyectos de &quot;Single Page Applications&quot; (SPAs) como React o Angular, necesitamos usar JavaScript para actualizar el valor del título de la página de forma dinámica. La propiedad <code>document.title</code> nos proporciona esta posibilidad. Por ejemplo, la siguiente función en JavaScript puede actualizar el título de la página cuando el usuario visualiza un producto:</p>
+<h3 id="codigo-javascript">Código JavaScript</h3>
+<pre><code class="language-javascript">function actualizarTituloConProducto(nombreProducto) {
+    document.title = &quot;Tu Empresa - Tienda - &quot; + nombreProducto;
+}
+
+// Ejemplo de uso:
+// Si el usuario está viendo &quot;Disfraz de pingüino &quot;
+// actualizarTituloConProducto(&quot;Disfraz de pingüino&quot;);
+// El título de la pestaña se convertirá en &quot;Tu Empresa - Tienda - Disfraz de pingüino&quot;
+</code></pre>
+<p>De esta manera, con una simple función podemos actualizar el título de la página cada vez que se carga un nuevo componente o cambia la vista. Incluso podemos crear un servicio o <em>helper</em> al que llamaremos cada vez que necesitemos actualizar el título para mantener la consistencia en toda la aplicación.</p>
+<h2 id="encabezado-de-pagina-header">Encabezado de página (Header)</h2>
+<p>La mayoría de las páginas web tienen una región en la parte superior conocida como encabezado de página. En esta sección, se suelen incluir elementos como el logotipo del sitio, el título de la página y las funciones de navegación, como los enlaces de menú y la barra de búsqueda. <code>HTML</code> proporciona la etiqueta <code>&lt;header&gt;</code> para esta región, que es identificada correctamente por las herramientas de apoyo.</p>
+<h3 id="codigo-1">Código</h3>
+<pre><code class="language-html">        &lt;header&gt;
+            &lt;p&gt;Este es el encabezado de la página web&lt;/p&gt;
+        &lt;/header&gt;
+</code></pre>
+<h2 id="menu-de-navegacion-nav">Menú de navegación (Nav)</h2>
+<p><code>HTML</code> también proporciona etiquetado para establecer los menús de navegación, utilizando la etiqueta <code>&lt;nav&gt;</code>. Una página web puede tener más de un menú de navegación, pero se recomienda no abusar de ellos para evitar confundir al usuario.</p>
+<p>Si usamos varios menús de navegación, es importante etiquetarlos correctamente utilizando roles de ARIA para diferenciarlos y facilitar la navegación a los usuarios de herramientas de apoyo.</p>
+<h3 id="codigo-2">Código</h3>
+<pre><code class="language-html">        &lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/proyectos&quot;&gt;Proyectos&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/contacto&quot;&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+</code></pre>
+<h2 id="contenido-principal-main">Contenido principal (Main)</h2>
+<p>Para el contenido principal de una página web, se utiliza la etiqueta <code>&lt;main&gt;</code>. Esta marca dónde comienza y termina la región principal de la página, y aquí es donde se coloca todo el contenido que se quiere transmitir al usuario: títulos, texto, imágenes, formularios, etc.</p>
+<h3 id="codigo-3">Código</h3>
+<pre><code class="language-html">        &lt;main&gt;
+            &lt;p&gt;Aquí va el contenido principal de la página web&lt;/p&gt;
+        &lt;/main&gt;
+</code></pre>
+<h2 id="contenido-complementario-aside">Contenido complementario (Aside)</h2>
+<p>Dentro del contenido principal de la página web, también contamos con la etiqueta <code>&lt;aside&gt;</code>, que nos permite agregar contenido adicional que se explique por sí mismo o complemente el contenido de la región principal. Esta etiqueta se utiliza para agregar información adicional, como artículos complementarios, acceso a otras páginas relevantes del sitio, acceso a redes sociales, entre otros. Este contenido se coloca normalmente después de la región principal.</p>
+<h3 id="codigo-4">Código</h3>
+<pre><code class="language-html">        &lt;aside&gt;
+            &lt;p&gt;Aquí podemos colocar la información complementaria a la región principal&lt;/p&gt;
+        &lt;/aside&gt;
+</code></pre>
+<h2 id="pie-de-pagina-footer">Pie de página (Footer)</h2>
+<p>Por último, debemos marcar la región del pie de página de nuestro sitio web. <code>HTML</code> proporciona la etiqueta <code>&lt;footer&gt;</code> para este fin. Normalmente, en esta sección se suelen incluir los derechos de autor, licencias, declaraciones de conformidad, aspectos legales, enlaces de interés y todo aquel contenido complementario al sitio web.</p>
+<h3 id="codigo-5">Código</h3>
+<pre><code class="language-html">        &lt;footer&gt;
+            &lt;p&gt;Aquí se coloca toda la información referida al pie de página del sitio web&lt;/p&gt;
+        &lt;/footer&gt;
+</code></pre>
+<h2 id="conclusiones-sobre-el-etiquetado-de-regiones">Conclusiones sobre el etiquetado de regiones</h2>
+<p>Marcar las regiones de nuestra página web permite a los usuarios de herramientas de apoyo navegar de forma rápida por cada sección si estas están correctamente etiquetadas. Los lectores de pantalla, como NVDA, cuentan con teclas rápidas que permiten a los usuarios hacer saltos por cada región.</p>
+<p>Algunos consejos y consideraciones respecto a las regiones que es bueno tener en cuenta son los siguientes:</p>
+<ul>
+<li>Mantenga siempre la misma estructura para las distintas páginas que componen el sitio web. Esto permite crear familiaridad en el usuario y consistencia en el sitio.</li>
+<li>Etiquete todas las regiones de forma ordenada y no deje sin usar ninguna de las etiquetas de región proporcionadas por HTML5.</li>
+<li>En los menús de navegación, utilice un menú simple y bien organizado. Marque la página actual para los usuarios de herramientas de apoyo, utilizando roles de ARIA tanto para indicar la página actual como para etiquetar varios menús de navegación en páginas con más de uno.</li>
+<li>Recuerde que las regiones correctamente marcadas son las que utilizarán los usuarios de herramientas de apoyo para ubicarse dentro del sitio web.</li>
+</ul>
+<p>Estos son algunos puntos clave a considerar al etiquetar las regiones de una página web para garantizar una experiencia de usuario accesible y coherente.</p>
+<h2 id="uso-de-encabezados">Uso de encabezados</h2>
+<p>Los encabezados desempeñan un papel crucial en la organización del contenido dentro de la región principal de una página web. Son utilizados por los usuarios que emplean herramientas de apoyo para navegar por el contenido proporcionado.</p>
+<p>Es fundamental mantener una jerarquía coherente de encabezados en la página web. Se debe utilizar una jerarquía adecuada para agrupar secuencialmente los encabezados, comenzando con el encabezado más importante, que es el encabezado principal o H1, seguido por el resto de encabezados en orden.</p>
+<p>Un encabezado de nivel 2 o H2 abre una nueva sección dentro del contenido principal de la página, mientras que un encabezado de nivel 3 o H3 abre una subsección del encabezado anterior (H2), y así sucesivamente.</p>
+<p>Es importante no saltar niveles en la jerarquía de encabezados. Por ejemplo, no se debe pasar de un H2 a un H4 o H5 sin haber pasado por los niveles intermedios. Sin embargo, está permitido retroceder en la jerarquía de encabezados al cerrar una subsección, por ejemplo, al terminar un subcapítulo marcado con H4 y regresar a H2 para iniciar una nueva sección dentro de la página.</p>
+<p>Para ilustrar lo mencionado anteriormente, aquí hay un ejemplo de cómo estructurar la jerarquía de encabezados:</p>
+<h3 id="ejemplo-de-jerarquia-de-encabezados">Ejemplo de jerarquía de encabezados:</h3>
+<h1 id="titulo-1">Título 1</h1>
+<p>Texto que abre la sección principal</p>
+<h2 id="titulo-2">Título 2</h2>
+<p>Texto que inicia un capítulo dentro de la región principal</p>
+<h3 id="titulo-3">Título 3</h3>
+<p>Texto que abre una subsección del capítulo o sección</p>
+<h4 id="titulo-4">Título 4</h4>
+<p>Subapartado el cual está subordinado al Título 3</p>
+<h2 id="nuevo-titulo-2">Nuevo Título 2</h2>
+<p>Título que abre una nueva sección aparte del conjunto anterior</p>
+<h3 id="codigo-6">Código</h3>
+<pre><code class="language-html">    &lt;h1&gt;Título 1&lt;/h1&gt;
+    &lt;p&gt;Texto que abre la sección principal&lt;/p&gt;
+        &lt;h2&gt;Título 2&lt;/h2&gt;
+        &lt;p&gt;Texto que inicia un capítulo dentro de la región principal&lt;/p&gt;
+            &lt;h3&gt;Título 3&lt;/h3&gt;
+            &lt;p&gt;Texto que abre una subsección del capítulo o sección&lt;/p&gt;
+                &lt;h4&gt;Título 4&lt;/h4&gt;
+                &lt;p&gt;sub apartado el cual esta subordinado al título 3&lt;/p&gt;
+    &lt;h2&gt;Nuevo Título 2&lt;/h2&gt;
+    &lt;p&gt;título que abre una nueva sección aparte del conjunto anterior&lt;/p&gt;
+</code></pre>
+<h3 id="explicacion-1">Explicación:</h3>
+<p>El ejemplo anterior ilustra un uso correcto de la jerarquía de encabezados dentro de una página web. La cantidad y nivel de encabezados necesarios dependerán del orden y la relación entre los diferentes apartados de la página. Esto queda a discreción del creador de la página, siempre y cuando se respete el orden lógico de la jerarquía de encabezados.</p>
+<p>Es común encontrar páginas web donde se utiliza texto de encabezado para marcar contenido que no lo es, simplemente por el estilo predeterminado de los encabezados o por una incorrecta jerarquía en la presentación de la información. Todos estos usos son incorrectos, ya que dificultan la navegación para los usuarios de herramientas de apoyo, como lectores de pantalla.</p>
+<h2 id="contenido-correctamente-estructurado">Contenido correctamente estructurado</h2>
+<p>El contenido de una página web debe estar marcado semánticamente, es decir, toda la información de la región principal que será consumida por los usuarios debe estar marcada de acuerdo al tipo de contenido que se esté presentando.</p>
+<p>Para lograr esto, utilizamos diversas etiquetas que <code>HTML</code> ofrece para diferentes tipos de contenido. A continuación, se presenta una lista de las etiquetas más comunes y sus usos:</p>
+<h3 id="article">Article</h3>
+<p>La etiqueta <code>&lt;article&gt;</code> se utiliza para marcar contenido como un artículo independiente en una página, como un artículo de una página de ventas o el artículo principal de una página de noticias en un medio informativo.</p>
+<h3 id="codigo-7">Código</h3>
+<pre><code class="language-html">    &lt;article&gt;
+        &lt;h2&gt;Artículo&lt;/h2&gt;
+        &lt;p&gt;Sección de un artículo&lt;/p&gt;
+    &lt;/article&gt;
+</code></pre>
+<h3 id="section">Section</h3>
+<p>La etiqueta <code>&lt;section&gt;</code> marca el inicio de una sección general de una página web dentro de la región principal; se utiliza para la agrupación temática del contenido.</p>
+<h3 id="codigo-8">Código</h3>
+<pre><code class="language-html">    &lt;section&gt;
+        &lt;h2&gt;Capítulo 1&lt;/h2&gt;
+        &lt;p&gt;Érase una vez en un lugar de La Mancha... &lt;/p&gt;
+    &lt;/section&gt;
+</code></pre>
+<h3 id="parrafos">Párrafos</h3>
+<p><code>&lt;p&gt;</code> se utiliza para marcar los párrafos de texto plano que componen la página web. Por ejemplo, este párrafo que estás leyendo se encuentra marcado mediante esta etiqueta.</p>
+<h3 id="cita-en-bloque">Cita en bloque</h3>
+<p><code>&lt;blockquote&gt;</code> se utiliza para marcar bloques de citas, muy útil para referenciar textos de autores. Estas citas son leídas por las herramientas de apoyo, ayudando a evitar confusiones en la lectura del texto citado, ya que se menciona tanto el inicio como el cierre de la cita.</p>
+<h3 id="ejemplo-de-cita-en-bloque">Ejemplo de cita en bloque</h3>
+<blockquote>
+<p>&quot;En tres tiempos se divide la vida: en presente, pasado y futuro. De éstos, el presente es brevísimo; el futuro, dudoso; el pasado, cierto. De lo que poseemos, una mínima parte es la que está en nuestras manos; lo demás es ajeno. Y aun esa mínima parte, que llamamos presente, se nos escurre entre las manos mientras hablamos de ella. Pues mientras digo esto, ya una parte ha pasado; mientras lo dispongo, ya se ha desvanecido. De tal modo que la vida es fugaz, y, por si fuera poco, gran parte de ella se nos escapa sin vivirla.&quot;</p>
+<p>Séneca: Sobre la brevedad de la vida</p>
+</blockquote>
+<h3 id="codigo-9">Código</h3>
+<pre><code class="language-html">    &lt;blockquote&gt;
+        &lt;p&gt;&quot;En tres tiempos se divide la vida: en presente, pasado y futuro. De éstos, el presente es brevísimo; el futuro, dudoso; el pasado, cierto. De lo que poseemos, una mínima parte es la que está en nuestras manos; lo demás es ajeno. Y aun esa mínima parte, que llamamos presente, se nos escurre entre las manos mientras hablamos de ella. Pues mientras digo esto, ya una parte ha pasado; mientras lo dispongo, ya se ha desvanecido. De tal modo que la vida es fugaz, y, por si fuera poco, gran parte de ella se nos escapa sin vivirla.&quot;&lt;/p&gt;
+        &lt;cite&gt;Séneca: Sobre la brevedad de la vida&lt;/cite&gt;
+    &lt;/blockquote&gt;
+</code></pre>
+<h3 id="cita-dentro-de-un-parrafo-de-texto">Cita dentro de un párrafo de texto</h3>
+<p>La etiqueta <code>&lt;q&gt;</code> se utiliza para marcar citas dentro de un párrafo de texto, agregando un resaltado visual específico para el texto de la cita.</p>
+<h3 id="codigo-10">Código</h3>
+<pre><code class="language-html">    &lt;p&gt;El poeta dijo &lt;q&gt;La poesía es el lenguaje del alma&lt;/q&gt;, una frase que resuena en los corazones de muchos.&lt;/p&gt;
+</code></pre>
+<h3 id="listas-desordenadas">Listas desordenadas</h3>
+<p>Utilice la etiqueta <code>&lt;ul&gt;</code> para crear listas desordenadas. Las listas desordenadas se utilizan cuando no hay una relación de jerarquía entre los elementos; estas serán leídas por las herramientas de apoyo como viñetas.</p>
+<h3 id="ejemplo-de-lista-desordenada">Ejemplo de lista desordenada</h3>
+<ul>
+<li>Elemento 1</li>
+<li>Elemento 2</li>
+<li>Elemento 3</li>
+</ul>
+<h3 id="codigo-11">Código</h3>
+<pre><code class="language-html">    &lt;ul&gt;
+        &lt;li&gt;Elemento 1&lt;/li&gt;
+        &lt;li&gt;Elemento 2&lt;/li&gt;
+        &lt;li&gt;Elemento 3&lt;/li&gt;
+    &lt;/ul&gt;
+</code></pre>
+<h3 id="listas-ordenadas">Listas ordenadas</h3>
+<p>Utilice la etiqueta <code>&lt;ol&gt;</code> para crear listas ordenadas. Las listas ordenadas o numeradas se utilizan para marcar una relación de jerarquía entre los elementos. Se enumeran de forma automática y las herramientas de apoyo las leerán en ese orden.</p>
+<h3 id="ejemplo-de-lista-ordenada">Ejemplo de lista ordenada</h3>
+<ol>
+<li>Elemento 1</li>
+<li>Elemento 2</li>
+<li>Elemento 3</li>
+</ol>
+<h3 id="codigo-12">Código</h3>
+<pre><code class="language-html">    &lt;ol&gt;
+        &lt;li&gt;Elemento 1&lt;/li&gt;
+        &lt;li&gt;Elemento 2&lt;/li&gt;
+        &lt;li&gt;Elemento 3&lt;/li&gt;
+    &lt;/ol&gt;
+</code></pre>
+<h3 id="listas-de-definiciones-o-descripciones">Listas de definiciones o descripciones</h3>
+<p>Utilice la etiqueta <code>&lt;dl&gt;</code> para crear listas de definiciones o descripciones. Se trata de listas cuyo uso es para establecer conceptos acompañados de una definición del mismo. Se utiliza <code>&lt;dt&gt;</code> para marcar el concepto a definir o describir y <code>&lt;dd&gt;</code> para marcar el texto de la definición o descripción.</p>
+<h3 id="codigo-13">Código</h3>
+<pre><code class="language-html">    &lt;dl&gt;
+        &lt;dt&gt;HTML&lt;/dt&gt;
+        &lt;dd&gt;HTML (HyperText Markup Language) es el lenguaje de marcado estándar utilizado para crear páginas web y aplicaciones web.&lt;/dd&gt;
+
+        &lt;dt&gt;CSS&lt;/dt&gt;
+        &lt;dd&gt;CSS (Cascading Style Sheets) es un lenguaje utilizado para describir la presentación de un documento HTML. Define el diseño, los colores y otros aspectos de la apariencia de un documento web.&lt;/dd&gt;
+    &lt;/dl&gt;
+</code></pre>
+<p>Al combinar estas etiquetas de manera adecuada y coherente, se puede crear una página web bien organizada, fácil de leer y navegar. Esto mejora la experiencia del usuario y la accesibilidad del contenido para aquellos que utilizan herramientas de apoyo. Se recomienda su uso consciente y respetando los parámetros de accesibilidad recomendados.</p>
+<h2 id="conclusiones-generales">Conclusiones Generales</h2>
+<p>En esta entrada, hemos explorado la estructura fundamental de una página web y su papel crucial para garantizar la accesibilidad. Iniciamos con la declaración del idioma (<code>lang</code>), un paso esencial que permite a los lectores de pantalla interpretar el contenido de forma precisa. Continuamos con el uso estratégico del título de la página (<code>&lt;title&gt;</code>), que actúa como una brújula, no solo para la orientación inmediata en el navegador, sino también para facilitar la navegación por el historial y la gestión de favoritos.</p>
+<p>Además, examinamos cómo las etiquetas semánticas de <code>HTML</code> (como <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;aside&gt;</code> y <code>&lt;footer&gt;</code>) no solo organizan visualmente el contenido, sino que, de manera más relevante, definen regiones y roles que las tecnologías de asistencia comprenden y utilizan para permitir una navegación rápida y eficiente. La jerarquía adecuada de los encabezados (H1-H6) asegura un flujo lógico y navegable dentro del contenido principal de la página.</p>
+<p>Finalmente, abordamos la importancia de emplear correctamente las etiquetas para el contenido estructurado, incluyendo párrafos, citas en bloque y en línea, así como los distintos tipos de listas (ordenadas, desordenadas y de definición). Esto garantiza que la información se presente de forma clara, coherente y semánticamente rica, beneficiando tanto a los usuarios de herramientas de apoyo como a cualquier persona que acceda al contenido.</p>
+<p>Aplicar estas prácticas de manera consciente y consistente es la base para construir sitios web que sean verdaderamente inclusivos y accesibles, permitiendo que cualquier usuario, sin importar sus capacidades, pueda acceder e interactuar con el contenido de forma efectiva.</p>
+<p>Gracias por leer esta entrada, que como les contaba, es la primera de una serie dedicada a la accesibilidad web que formaba parte de el sitio web #HablemosDeAccesibilidad que había hecho hace un tiempo con fines prácticos y educativos, y que ahora estoy re-publicando en este blog personal para que llegue a más gente interesada en el tema. espero que les haya sido de utilidad y nos vemos en la próxima entrega donde hablaremos de otros aspectos importantes de la accesibilidad web. ¡Hasta la próxima miches!</p>

@@ -91,6 +91,11 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 .blog-content pre { background: #0b1220; color: #e6e6e6; padding: 1rem; border-radius: 6px; overflow-x: auto; border: 1px solid #1e2533; }
 .blog-content pre code { display: block; background: transparent; color: inherit; padding: 0; }
 
+/* Las líneas largas se parten en lugar de obligar a desplazar horizontalmente (1.4.10 Reajuste).
+   pre-wrap conserva la sangría; overflow-wrap parte también palabras o URL sin espacios. */
+.blog-content pre,
+.blog-content pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+
 /* Tablas */
 .blog-content table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; border: 1px solid #1f2937; }
 .blog-content th, .blog-content td { border: 1px solid #1f2937; padding: .5rem .75rem; }
@@ -146,6 +151,37 @@ pre {
 .btn-copy-success {
     color: #198754 !important; /* Color verde �xito */
     border-color: #198754 !important;
+}
+
+/* Demos del blog (```html demo): aspecto de los controles sin clases (así el código mostrado queda limpio).
+   Los que sí llevan clases (p. ej. form-control, btn) conservan el estilo de Bootstrap. */
+.demo label:not([class]) { margin-right: .5rem; }
+.demo input:not([class]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+.demo select:not([class]),
+.demo textarea:not([class]) {
+    background-color: #212529;
+    color: #e6e6e6;
+    border: 1px solid #adb5bd;
+    border-radius: .375rem;
+    padding: .375rem .75rem;
+    max-width: 100%;
+}
+.demo button:not([class]) {
+    background-color: transparent;
+    color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: .375rem;
+    padding: .375rem .75rem;
+}
+.demo button:not([class]):hover { background-color: #f8f9fa; color: #0b1220; }
+.demo .demo-alerta { color: #8ab4ff; font-weight: bold; }
+
+/* Todos los bloques de código del blog con el mismo recuadro claro (el de border border-2 p-4 rounded),
+   tanto los generados por las demos como los escritos a mano en el Markdown. */
+.blog-content pre {
+    border: 2px solid #dee2e6;
+    border-radius: .375rem;
+    padding: 1.5rem;
 }
 
 .skip-link {

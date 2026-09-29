@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>¿Sueñan los ciegos con un mundo accesible?</title>
+    <link>https://wilmer-rv.com/blog</link>
+    <description>Blog de Wilmer Rodríguez Vega sobre accesibilidad digital (WCAG), ingeniería de software y reflexiones filosóficas.</description>
+    <language>es</language>
+    <atom:link href="https://wilmer-rv.com/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>No a las 'Accessibility Overlays'</title>
+      <link>https://wilmer-rv.com/blog/no_a_las_accessibility_overlays</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/no_a_las_accessibility_overlays</guid>
+      <pubDate>Mon, 08 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Análisis crítico de las 'Accessibility Overlays' y por qué no son una solución adecuada para la accesibilidad web.</description>
+      <category>Opinión</category>
+      <category>Accesibilidad</category>
+      <category>Overlays</category>
+      <category>Crítica</category>
+    </item>
+    <item>
+      <title>Etiquetas HTML útiles que deberías estar usando</title>
+      <link>https://wilmer-rv.com/blog/etiquetas-html-utiles</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/etiquetas-html-utiles</guid>
+      <pubDate>Mon, 01 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Exploración de etiquetas HTML nativas que mejoran la accesibilidad y reducen la necesidad de JavaScript.</description>
+      <category>Programación</category>
+      <category>HTML5</category>
+      <category>Accesibilidad</category>
+      <category>JavaScript</category>
+    </item>
+    <item>
+      <title>Tablas de datos accesibles</title>
+      <link>https://wilmer-rv.com/blog/uso-de-tablas</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/uso-de-tablas</guid>
+      <pubDate>Sun, 11 Jan 2026 12:00:00 GMT</pubDate>
+      <description>Creación de tablas accesibles con encabezados y estructura semántica.</description>
+      <category>Accesibilidad web</category>
+      <category>Tablas</category>
+      <category>ARIA</category>
+      <category>Datos</category>
+    </item>
+    <item>
+      <title>Uso de formularios accesibles</title>
+      <link>https://wilmer-rv.com/blog/uso-de-formularios</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/uso-de-formularios</guid>
+      <pubDate>Sat, 10 Jan 2026 16:00:00 GMT</pubDate>
+      <description>Ejemplos interactivos sobre el etiquetado correcto de campos de formularios accesibles para lectores de pantalla.</description>
+      <category>Accesibilidad web</category>
+      <category>Formularios</category>
+      <category>Interactivo</category>
+      <category>html</category>
+      <category>Accesibilidad</category>
+    </item>
+    <item>
+      <title>Uso de enlaces y accesibilidad web</title>
+      <link>https://wilmer-rv.com/blog/uso-de-enlaces</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/uso-de-enlaces</guid>
+      <pubDate>Fri, 09 Jan 2026 17:00:00 GMT</pubDate>
+      <description>Demostración de cómo crear enlaces descriptivos y accesibles tanto dentro como fuera de contexto.</description>
+      <category>Accesibilidad web</category>
+      <category>Enlaces</category>
+      <category>Navegación</category>
+      <category>Teclado</category>
+    </item>
+    <item>
+      <title>Imágenes y texto alternativo</title>
+      <link>https://wilmer-rv.com/blog/uso-de-imagenes</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/uso-de-imagenes</guid>
+      <pubDate>Thu, 08 Jan 2026 12:00:00 GMT</pubDate>
+      <description>Práctica interactiva sobre descripciones alternativas y cuándo usar imágenes decorativas.</description>
+      <category>Accesibilidad web</category>
+      <category>Texto Alternativo</category>
+      <category>Atributo Alt</category>
+      <category>Diseño Inclusivo</category>
+    </item>
+    <item>
+      <title>Estructura de la página y accesibilidad web</title>
+      <link>https://wilmer-rv.com/blog/estructura-accesible</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/estructura-accesible</guid>
+      <pubDate>Wed, 07 Jan 2026 12:00:00 GMT</pubDate>
+      <description>Guía sobre etiquetas HTML5, jerarquía de encabezados y regiones semánticas.</description>
+      <category>Accesibilidad web</category>
+      <category>HTML5</category>
+      <category>Semántica</category>
+      <category>WCAG</category>
+    </item>
+    <item>
+      <title>Bienvenida a ¿Sueñan los ciegos con un mundo accesible?</title>
+      <link>https://wilmer-rv.com/blog/bienvenida</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/bienvenida</guid>
+      <pubDate>Mon, 05 Jan 2026 12:00:00 GMT</pubDate>
+      <description>Una reflexión filosófica y técnica sobre el derecho a habitar y construir la realidad digital.</description>
+      <category>Opinión</category>
+      <category>Filosofía</category>
+      <category>Accesibilidad</category>
+      <category>Presentación</category>
+    </item>
+  </channel>
+</rss>
