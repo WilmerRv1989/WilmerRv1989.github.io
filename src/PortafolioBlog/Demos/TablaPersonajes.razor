@@ -1,0 +1,52 @@
+@* Demo de "Tablas de datos accesibles": tabla generada desde datos, con aria-label por fila en los botones. *@
+<div class="demo border border-2 p-4 rounded">
+<table class="table">
+    <caption class="table caption-top">Personajes de Los Simpsons</caption>
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col" colspan="2" class="text-center">Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PersonaClass persona in personas)
+        {
+            <tr>
+                <td>@persona.Nombre</td>
+                <td>@persona.Apellido</td>
+                <td>@persona.Edad</td>
+                <td><button type="button" aria-label="Editar @persona.Nombre">&#9998;</button></td>
+                <td><button type="button" aria-label="Eliminar @persona.Nombre">&#128465;</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+@code {
+    private readonly List<PersonaClass> personas = new()
+    {
+        new() { Nombre = "Homero", Apellido = "Simpson", Edad = 39 },
+        new() { Nombre = "Marge", Apellido = "Simpson", Edad = 36 },
+        new() { Nombre = "Bart", Apellido = "Simpson", Edad = 10 },
+        new() { Nombre = "Lisa", Apellido = "Simpson", Edad = 8 },
+        new() { Nombre = "Maggie", Apellido = "Simpson", Edad = 1 },
+        new() { Nombre = "Apu", Apellido = "Nahasapeemapetilon", Edad = 40 },
+        new() { Nombre = "Montgomery", Apellido = "Burns", Edad = 104 },
+        new() { Nombre = "Ned", Apellido = "Flanders", Edad = 60 },
+        new() { Nombre = "Milhouse", Apellido = "Van Houten", Edad = 10 },
+        new() { Nombre = "Moe", Apellido = "Szyslak", Edad = 47 },
+        new() { Nombre = "Krusty", Apellido = "El Payaso", Edad = 52 },
+        new() { Nombre = "Seymour", Apellido = "Skinner", Edad = 44 },
+        new() { Nombre = "Edna", Apellido = "Krabappel", Edad = 41 },
+        new() { Nombre = "Barney", Apellido = "Gumble", Edad = 40 },
+        new() { Nombre = "Ralph", Apellido = "Wiggum", Edad = 8 },
+        new() { Nombre = "Nelson", Apellido = "Muntz", Edad = 12 },
+        new() { Nombre = "Clancy", Apellido = "Wiggum", Edad = 43 },
+        new() { Nombre = "Waylon", Apellido = "Smithers", Edad = 42 },
+        new() { Nombre = "Troy", Apellido = "McClure", Edad = 38 },
+        new() { Nombre = "Lenny", Apellido = "Leonard", Edad = 40 },
+    };
+}

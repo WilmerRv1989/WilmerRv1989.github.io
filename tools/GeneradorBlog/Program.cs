@@ -24,6 +24,7 @@ using YamlDotNet.Serialization.NamingConventions;
 //   ```html demo sin-navegar   los enlaces de la demo no se abren (para URL de ejemplo que no existen)
 //   ```html demo centrado      centra el contenido del recuadro de la demo
 //   Las opciones se pueden combinar: ```html demo sin-estilos centrado h4
+//   Dentro de una demo, una línea con el atributo data-demo-oculto se ve en la demo pero no en el código mostrado.
 //   {{demo: Nombre}}      inserta el componente Razor Demos/Nombre.razor (en su propio párrafo)
 
 // MSBuild lee la salida como UTF-8 (StdOutEncoding en PortafolioBlog.csproj); sin esto las tildes llegan rotas.
@@ -304,7 +305,8 @@ sealed partial class Generador(Opciones opciones)
 
             var codigo = bloque.Lines.ToString();
             // data-demo-alerta es un mecanismo del blog, no parte de lo que se enseña: se omite en el código mostrado.
-            var codigoMostrado = AtributoAlertaDemo().Replace(codigo, "");
+            var codigoMostrado = string.Join('\n', codigo.Split('\n').Where(l => !l.Contains("data-demo-oculto")));
+            codigoMostrado = AtributoAlertaDemo().Replace(codigoMostrado, "");
             if (sinEstilos) codigoMostrado = AtributoEstilo().Replace(codigoMostrado, "");
             Sustituir(bloque,
                 $"<div class=\"{clasesDemo}\"{atributosDemo}>\n{codigo}\n</div>\n" +
