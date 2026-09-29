@@ -21,6 +21,9 @@ using YamlDotNet.Serialization.NamingConventions;
 //   ```html demo          el HTML se muestra funcionando y, debajo, bajo un encabezado "Código", como código
 //   ```html demo h4       igual, con el encabezado "Código" en otro nivel (por defecto h3)
 //   ```html demo sin-estilos   la demo conserva sus class/style (p. ej. de Bootstrap), pero el código mostrado no
+//   ```html demo sin-navegar   los enlaces de la demo no se abren (para URL de ejemplo que no existen)
+//   ```html demo centrado      centra el contenido del recuadro de la demo
+//   Las opciones se pueden combinar: ```html demo sin-estilos centrado h4
 //   {{demo: Nombre}}      inserta el componente Razor Demos/Nombre.razor (en su propio párrafo)
 
 // MSBuild lee la salida como UTF-8 (StdOutEncoding en PortafolioBlog.csproj); sin esto las tildes llegan rotas.
@@ -287,12 +290,16 @@ sealed partial class Generador(Opciones opciones)
 
             var nivel = 3;
             var sinEstilos = false;
+            var clasesDemo = "demo border border-2 p-4 rounded";
+            var atributosDemo = "";
             foreach (var opcion in opcionesBloque.Where(o => o != "demo"))
             {
                 var encabezado = NivelEncabezado().Match(opcion);
                 if (encabezado.Success) nivel = int.Parse(encabezado.Groups[1].Value);
                 else if (opcion == "sin-estilos") sinEstilos = true;
-                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Opciones válidas: h1 a h6 (nivel del encabezado \"Código\") y sin-estilos.");
+                else if (opcion == "centrado") clasesDemo += " text-center";
+                else if (opcion == "sin-navegar") atributosDemo = " data-demo-sin-navegar";
+                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Opciones válidas: h1 a h6 (nivel del encabezado \"Código\"), sin-estilos, sin-navegar y centrado.");
             }
 
             var codigo = bloque.Lines.ToString();
@@ -300,7 +307,7 @@ sealed partial class Generador(Opciones opciones)
             var codigoMostrado = AtributoAlertaDemo().Replace(codigo, "");
             if (sinEstilos) codigoMostrado = AtributoEstilo().Replace(codigoMostrado, "");
             Sustituir(bloque,
-                $"<div class=\"demo border border-2 p-4 rounded\">\n{codigo}\n</div>\n" +
+                $"<div class=\"{clasesDemo}\"{atributosDemo}>\n{codigo}\n</div>\n" +
                 $"<h{nivel}><span class=\"bi bi-code-slash\" aria-hidden=\"true\"></span> Código</h{nivel}>\n" +
                 $"<pre class=\"border border-2 p-4 rounded\"><code class=\"language-html\">{EscaparHtml(codigoMostrado)}\n</code></pre>");
         }

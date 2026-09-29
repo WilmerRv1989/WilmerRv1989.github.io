@@ -28,6 +28,12 @@
         }
     });
 
+    // Demos marcadas con ```html demo sin-navegar: sus enlaces llevan URL de ejemplo y no deben abrirse.
+    document.addEventListener('click', evento => {
+        const enlace = evento.target.closest('a[href]');
+        if (enlace && enlace.closest('.demo[data-demo-sin-navegar]')) evento.preventDefault();
+    });
+
     document.addEventListener('click', evento => {
         const boton = evento.target.closest('[data-demo-alerta]');
         if (!boton || !boton.closest('.demo')) return;
