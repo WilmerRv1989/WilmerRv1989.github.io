@@ -416,3 +416,6 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Análisis del proyecto: solo local, nunca debe subirse a GitHub ni publicarse
+ANALISIS-PROYECTO.md
