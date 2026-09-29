@@ -1,5 +1,10 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+
+<HeadContent>
+    <link rel="canonical" href="@UrlCanonica" />
+</HeadContent>
 
 <a href="#contenido-principal" class="skip-link" @onclick="SaltarAlContenido" @onclick:preventDefault>Saltar al contenido principal</a>
 
@@ -23,6 +28,20 @@
 </footer>
 
 @code {
+    private const string DominioCanonico = "https://wilmer-rv.com/";
+
+    // URL canónica de la página actual en el dominio propio, sin consulta ni fragmento,
+    // para que los buscadores no indexen la copia de wilmerrv1989.github.io ni variantes.
+    private string UrlCanonica
+    {
+        get
+        {
+            var ruta = Navigation.ToBaseRelativePath(Navigation.Uri);
+            var corte = ruta.IndexOfAny(new[] { '?', '#' });
+            return DominioCanonico + (corte >= 0 ? ruta[..corte] : ruta);
+        }
+    }
+
     // En una SPA el enrutador intercepta los anclajes "#id": se mueve el foco por script
     // para que lector de pantalla y teclado continúen desde el contenido principal.
     private async Task SaltarAlContenido()

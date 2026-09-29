@@ -3,6 +3,19 @@ name: Despliegue de Portafolio
 on:
   push:
     branches: [ main ]
+    # Documentación del repositorio que no forma parte del sitio
+    paths-ignore:
+      - '*.md'
+      - 'LICENSE'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Si llegan dos pushes seguidos, se cancela el despliegue anterior en curso
+concurrency:
+  group: despliegue-pages
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
