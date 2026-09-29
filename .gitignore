@@ -419,6 +419,7 @@ FodyWeavers.xsd
 
 # Análisis del proyecto: solo local, nunca debe subirse a GitHub ni publicarse
 ANALISIS-PROYECTO.md
+COMO-PUBLICAR.md
 
 # Blog: generado en cada build desde src/PortafolioBlog/Contenido/Blog (tools/GeneradorBlog)
 src/PortafolioBlog/wwwroot/generado/
