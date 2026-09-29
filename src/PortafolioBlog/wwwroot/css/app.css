@@ -91,6 +91,11 @@ a:focus-visible { outline: 2px solid #c8e1ff; outline-offset: 2px; border-radius
 .blog-content pre { background: #0b1220; color: #e6e6e6; padding: 1rem; border-radius: 6px; overflow-x: auto; border: 1px solid #1e2533; }
 .blog-content pre code { display: block; background: transparent; color: inherit; padding: 0; }
 
+/* Las líneas largas se parten en lugar de obligar a desplazar horizontalmente (1.4.10 Reajuste).
+   pre-wrap conserva la sangría; overflow-wrap parte también palabras o URL sin espacios. */
+.blog-content pre,
+.blog-content pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+
 /* Tablas */
 .blog-content table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; border: 1px solid #1f2937; }
 .blog-content th, .blog-content td { border: 1px solid #1f2937; padding: .5rem .75rem; }
