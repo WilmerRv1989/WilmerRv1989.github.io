@@ -13,8 +13,9 @@
 
   <!--
     Blog: las entradas se escriben en Contenido/Blog/*.md y el generador (tools/GeneradorBlog)
-    produce wwwroot/generado/ (índice y HTML) antes de compilar. Esa carpeta no se versiona.
-    En Debug se incluyen borradores y entradas programadas para poder revisarlas en local.
+    produce wwwroot/generado/ (índice y HTML), wwwroot/sitemap.xml y wwwroot/feed.xml antes de compilar.
+    Nada de eso se versiona. En Debug se incluyen borradores y entradas programadas para poder
+    revisarlas en local (el sitemap y el RSS nunca los incluyen).
   -->
   <!-- NormalizePath usa el separador del sistema: el workflow compila en Linux, donde Exec no convierte las '\'. -->
   <PropertyGroup>
@@ -23,6 +24,8 @@
     <ComponentesBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Components'))</ComponentesBlog>
     <DemosBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Demos'))</DemosBlog>
     <SalidaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'wwwroot', 'generado'))</SalidaBlog>
+    <PublicoBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'wwwroot'))</PublicoBlog>
+    <UrlSitioBlog>https://wilmer-rv.com/</UrlSitioBlog>
     <MarcaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'obj', 'blog-generado.marca'))</MarcaBlog>
   </PropertyGroup>
 
@@ -31,7 +34,7 @@
     <!-- El generador comprueba que existan los componentes y demos citados: si se crean o modifican, se revalida. -->
     <ArticuloBlog Include="Components\*.razor;Demos\*.razor" />
     <FuenteGeneradorBlog Include="..\..\tools\GeneradorBlog\*.cs;..\..\tools\GeneradorBlog\*.csproj" />
-    <Content Remove="wwwroot\generado\**" />
+    <Content Remove="wwwroot\generado\**;wwwroot\sitemap.xml;wwwroot\feed.xml" />
   </ItemGroup>
 
   <!--
@@ -55,7 +58,7 @@
       <ArgumentosBorradoresBlog Condition="'$(Configuration)' == 'Debug'">--incluir-borradores</ArgumentosBorradoresBlog>
     </PropertyGroup>
     <!-- Los errores del contenido ya llegan con archivo y línea; IgnoreExitCode evita repetirlos con un MSB3073 genérico. -->
-    <Exec Command="dotnet run --project &quot;$(GeneradorBlogProyecto)&quot; -c Release -v q -- --contenido &quot;$(ContenidoBlog)&quot; --salida &quot;$(SalidaBlog)&quot; --componentes &quot;$(ComponentesBlog)&quot; --demos &quot;$(DemosBlog)&quot; $(ArgumentosBorradoresBlog)"
+    <Exec Command="dotnet run --project &quot;$(GeneradorBlogProyecto)&quot; -c Release -v q -- --contenido &quot;$(ContenidoBlog)&quot; --salida &quot;$(SalidaBlog)&quot; --publico &quot;$(PublicoBlog)&quot; --url $(UrlSitioBlog) --componentes &quot;$(ComponentesBlog)&quot; --demos &quot;$(DemosBlog)&quot; $(ArgumentosBorradoresBlog)"
           StdOutEncoding="utf-8"
           StdErrEncoding="utf-8"
           IgnoreExitCode="true">
@@ -72,8 +75,8 @@
   <!-- Los archivos generados no existían cuando MSBuild evaluó el proyecto: se registran aquí para que se sirvan y se publiquen. -->
   <Target Name="RegistrarBlogGenerado" DependsOnTargets="GenerarBlog" BeforeTargets="BeforeBuild">
     <ItemGroup>
-      <Content Remove="wwwroot\generado\**" />
-      <Content Include="wwwroot\generado\**" CopyToPublishDirectory="PreserveNewest" />
+      <Content Remove="wwwroot\generado\**;wwwroot\sitemap.xml;wwwroot\feed.xml" />
+      <Content Include="wwwroot\generado\**;wwwroot\sitemap.xml;wwwroot\feed.xml" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
   </Target>
 

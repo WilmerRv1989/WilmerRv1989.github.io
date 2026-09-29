@@ -2,6 +2,8 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Linq;
 using Markdig;
 using Markdig.Helpers;
 using Markdig.Renderers;
@@ -14,6 +16,8 @@ using YamlDotNet.Serialization.NamingConventions;
 // Generador del blog: lee Contenido/Blog/*.md (cabecera YAML + cuerpo Markdown) y produce
 //   <salida>/posts.json              índice de entradas publicadas
 //   <salida>/articulos/<slug>.html   HTML de cada entrada escrita en Markdown
+//   <publico>/sitemap.xml            mapa del sitio para buscadores (en la raíz, para que abarque todo el sitio)
+//   <publico>/feed.xml               canal RSS 2.0 del blog
 // Los errores se escriben en formato MSBuild (archivo(línea,columna): error CODIGO: mensaje)
 // para que aparezcan en la lista de errores de Visual Studio y detengan el build.
 //
@@ -34,13 +38,13 @@ Console.OutputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false
 var opciones = Opciones.Leer(args);
 if (opciones is null)
 {
-    Console.WriteLine("Uso: GeneradorBlog --contenido <carpeta> --salida <carpeta> --componentes <carpeta> --demos <carpeta> [--incluir-borradores]");
+    Console.WriteLine("Uso: GeneradorBlog --contenido <carpeta> --salida <carpeta> --publico <carpeta> --url <https://dominio/> --componentes <carpeta> --demos <carpeta> [--incluir-borradores]");
     return 2;
 }
 
 return new Generador(opciones).Ejecutar();
 
-sealed record Opciones(string Contenido, string Salida, string Componentes, string Demos, bool IncluirBorradores)
+sealed record Opciones(string Contenido, string Salida, string Publico, Uri UrlSitio, string Componentes, string Demos, bool IncluirBorradores)
 {
     public static Opciones? Leer(string[] args)
     {
@@ -54,8 +58,11 @@ sealed record Opciones(string Contenido, string Salida, string Componentes, stri
         var salida = Valor("--salida");
         var componentes = Valor("--componentes");
         var demos = Valor("--demos");
-        if (contenido is null || salida is null || componentes is null || demos is null) return null;
-        return new Opciones(contenido, salida, componentes, demos, args.Contains("--incluir-borradores"));
+        var publico = Valor("--publico");
+        var url = Valor("--url");
+        if (contenido is null || salida is null || componentes is null || demos is null || publico is null
+            || !Uri.TryCreate(url, UriKind.Absolute, out var urlSitio)) return null;
+        return new Opciones(contenido, salida, publico, urlSitio, componentes, demos, args.Contains("--incluir-borradores"));
     }
 }
 
@@ -89,6 +96,8 @@ sealed class Entrada
 sealed partial class Generador(Opciones opciones)
 {
     private const string AutorPorDefecto = "Wilmer Rodríguez Vega";
+    private const string TituloBlog = "¿Sueñan los ciegos con un mundo accesible?";
+    private const string DescripcionBlog = "Blog de Wilmer Rodríguez Vega sobre accesibilidad digital (WCAG), ingeniería de software y reflexiones filosóficas.";
     private const string CamposValidos = "titulo, encabezado, resumen, fecha, categoria, etiquetas, autor, borrador, componente";
 
     // Hora de Costa Rica (UTC-6, sin horario de verano). Una entrada con solo fecha se publica a las 6:00.
@@ -398,6 +407,67 @@ sealed partial class Generador(Opciones opciones)
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         });
         File.WriteAllText(Path.Combine(opciones.Salida, "posts.json"), json, utf8);
+
+        // Sitemap y RSS solo con lo publicado de verdad (en Debug, publicables incluye borradores).
+        var publicadas = publicables
+            .Where(e => !e.Cabecera.Borrador && !e.Programado)
+            .OrderByDescending(e => e.Fecha)
+            .ToList();
+        EscribirXml(Path.Combine(opciones.Publico, "sitemap.xml"), Sitemap(publicadas));
+        EscribirXml(Path.Combine(opciones.Publico, "feed.xml"), Rss(publicadas));
+    }
+
+    private string Url(string ruta) => new Uri(opciones.UrlSitio, ruta).AbsoluteUri;
+
+    private XDocument Sitemap(List<Entrada> publicadas)
+    {
+        XNamespace sm = "http://www.sitemaps.org/schemas/sitemap/0.9";
+        XElement Elemento(string ruta, DateTime? fecha) => new(sm + "url",
+            new XElement(sm + "loc", Url(ruta)),
+            fecha is null ? null : new XElement(sm + "lastmod", fecha.Value.ToString("yyyy-MM-dd")));
+
+        var ultima = publicadas.FirstOrDefault()?.Fecha;
+        return new XDocument(new XElement(sm + "urlset",
+            Elemento("", null),
+            Elemento("blog", ultima),
+            publicadas.Select(e => Elemento("blog/" + e.Slug, e.Fecha))));
+    }
+
+    private XDocument Rss(List<Entrada> publicadas)
+    {
+        XNamespace atom = "http://www.w3.org/2005/Atom";
+        // Fecha de publicación en hora de Costa Rica, expresada en GMT como pide RSS 2.0 (RFC 822).
+        string FechaRss(DateTime momento) => new DateTimeOffset(momento, DesfaseCostaRica).ToUniversalTime().ToString("r");
+
+        return new XDocument(new XElement("rss",
+            new XAttribute("version", "2.0"),
+            new XAttribute(XNamespace.Xmlns + "atom", atom),
+            new XElement("channel",
+                new XElement("title", TituloBlog),
+                new XElement("link", Url("blog")),
+                new XElement("description", DescripcionBlog),
+                new XElement("language", "es"),
+                new XElement(atom + "link",
+                    new XAttribute("href", Url("feed.xml")),
+                    new XAttribute("rel", "self"),
+                    new XAttribute("type", "application/rss+xml")),
+                // Fecha de la última entrada (no la del build): así el canal solo cambia cuando hay algo nuevo.
+                publicadas.Count == 0 ? null : new XElement("lastBuildDate", FechaRss(publicadas[0].MomentoPublicacion)),
+                publicadas.Select(e => new XElement("item",
+                    new XElement("title", e.Cabecera.Titulo),
+                    new XElement("link", Url("blog/" + e.Slug)),
+                    new XElement("guid", new XAttribute("isPermaLink", "true"), Url("blog/" + e.Slug)),
+                    new XElement("pubDate", FechaRss(e.MomentoPublicacion)),
+                    new XElement("description", e.Cabecera.Resumen),
+                    new XElement("category", e.Cabecera.Categoria),
+                    e.Cabecera.Etiquetas.Select(etiqueta => new XElement("category", etiqueta)))))));
+    }
+
+    private static void EscribirXml(string ruta, XDocument documento)
+    {
+        var ajustes = new XmlWriterSettings { Indent = true, Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false) };
+        using var escritor = XmlWriter.Create(ruta, ajustes);
+        documento.Save(escritor);
     }
 
     // Solo lo imprescindible: las tildes y la ñ se dejan tal cual, igual que las escribe Markdig.

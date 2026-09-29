@@ -8,6 +8,10 @@ on:
       - '*.md'
       - 'LICENSE'
   workflow_dispatch:
+  # Todos los días a las 6:00 de Costa Rica (12:00 UTC): publica las entradas cuya fecha ya llegó.
+  # Si no hay nada nuevo, el despliegue no cambia nada en gh-pages.
+  schedule:
+    - cron: '0 12 * * *'
 
 permissions:
   contents: write

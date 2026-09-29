@@ -422,3 +422,5 @@ ANALISIS-PROYECTO.md
 
 # Blog: generado en cada build desde src/PortafolioBlog/Contenido/Blog (tools/GeneradorBlog)
 src/PortafolioBlog/wwwroot/generado/
+src/PortafolioBlog/wwwroot/sitemap.xml
+src/PortafolioBlog/wwwroot/feed.xml

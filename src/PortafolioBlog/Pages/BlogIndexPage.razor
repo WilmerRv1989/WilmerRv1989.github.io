@@ -9,6 +9,10 @@
 
 <div class="container mt-4">
     <h1 class="mb-4 text-primary fw-bold">Blog: ¿Sueñan los ciegos con un mundo accesible?</h1>
+    <p>
+        @* target="_blank": si no, el enrutador de Blazor intercepta el enlace y muestra "Página no encontrada". *@
+        <a href="feed.xml" target="_blank" rel="noopener"><span class="bi bi-rss-fill" aria-hidden="true"></span> Suscribirse por RSS<span class="visually-hidden"> (se abre en una pestaña nueva)</span></a>
+    </p>
 
     @if (listaCompleta == null)
     {
