@@ -23,6 +23,7 @@ using YamlDotNet.Serialization.NamingConventions;
 //   ```html demo sin-estilos   la demo conserva sus class/style (p. ej. de Bootstrap), pero el código mostrado no
 //   ```html demo sin-navegar   los enlaces de la demo no se abren (para URL de ejemplo que no existen)
 //   ```html demo centrado      centra el contenido del recuadro de la demo
+//   ```html demo sin-codigo    muestra solo la demo, sin el encabezado "Código" ni el código
 //   Las opciones se pueden combinar: ```html demo sin-estilos centrado h4
 //   Dentro de una demo, una línea con el atributo data-demo-oculto se ve en la demo pero no en el código mostrado.
 //   {{demo: Nombre}}      inserta el componente Razor Demos/Nombre.razor (en su propio párrafo)
@@ -291,6 +292,7 @@ sealed partial class Generador(Opciones opciones)
 
             var nivel = 3;
             var sinEstilos = false;
+            var sinCodigo = false;
             var clasesDemo = "demo border border-2 p-4 rounded";
             var atributosDemo = "";
             foreach (var opcion in opcionesBloque.Where(o => o != "demo"))
@@ -300,7 +302,8 @@ sealed partial class Generador(Opciones opciones)
                 else if (opcion == "sin-estilos") sinEstilos = true;
                 else if (opcion == "centrado") clasesDemo += " text-center";
                 else if (opcion == "sin-navegar") atributosDemo = " data-demo-sin-navegar";
-                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Opciones válidas: h1 a h6 (nivel del encabezado \"Código\"), sin-estilos, sin-navegar y centrado.");
+                else if (opcion == "sin-codigo") sinCodigo = true;
+                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Opciones válidas: h1 a h6 (nivel del encabezado \"Código\"), sin-estilos, sin-navegar, centrado y sin-codigo.");
             }
 
             var codigo = bloque.Lines.ToString();
@@ -308,10 +311,14 @@ sealed partial class Generador(Opciones opciones)
             var codigoMostrado = string.Join('\n', codigo.Split('\n').Where(l => !l.Contains("data-demo-oculto")));
             codigoMostrado = AtributoAlertaDemo().Replace(codigoMostrado, "");
             if (sinEstilos) codigoMostrado = AtributoEstilo().Replace(codigoMostrado, "");
-            Sustituir(bloque,
-                $"<div class=\"{clasesDemo}\"{atributosDemo}>\n{codigo}\n</div>\n" +
-                $"<h{nivel}><span class=\"bi bi-code-slash\" aria-hidden=\"true\"></span> Código</h{nivel}>\n" +
-                $"<pre class=\"border border-2 p-4 rounded\"><code class=\"language-html\">{EscaparHtml(codigoMostrado)}\n</code></pre>");
+
+            var html = $"<div class=\"{clasesDemo}\"{atributosDemo}>\n{codigo}\n</div>";
+            if (!sinCodigo)
+            {
+                html += $"\n<h{nivel}><span class=\"bi bi-code-slash\" aria-hidden=\"true\"></span> Código</h{nivel}>\n" +
+                        $"<pre class=\"border border-2 p-4 rounded\"><code class=\"language-html\">{EscaparHtml(codigoMostrado)}\n</code></pre>";
+            }
+            Sustituir(bloque, html);
         }
 
         foreach (var parrafo in documento.Descendants<ParagraphBlock>().ToList())

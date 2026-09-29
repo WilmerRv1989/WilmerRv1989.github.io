@@ -1,0 +1,28 @@
+@* Demo de "Uso de enlaces": enlace de omisión dentro de una SPA. El foco se mueve con C# porque el
+   enrutador de Blazor interceptaría un href="#…" (justo el problema que explica el artículo).
+   position: relative + overflow: hidden hacen que el enlace, oculto con top: -40px, aparezca dentro
+   del recuadro de la demo al recibir el foco, y no arriba de la página. *@
+<div class="demo border border-2 p-4 rounded" style="position: relative; overflow: hidden;">
+    <a href="" @onclick:preventDefault @onclick="EnfocarElemento" class="skip-link">Saltar al contenido principal</a>
+
+    <header style="background-color:#eee; padding:10px; margin-top:20px;">
+        <p>Menú de navegación y encabezado...</p>
+        <nav>...</nav>
+    </header>
+
+    <main tabindex="-1" @ref="enfoqueAutomatico" id="demo-contenido-principal" style="background-color:#f8f8f8; padding:20px; border:1px solid #ddd; margin-top:10px;">
+        <h2>Contenido Principal de la Página</h2>
+        <p>Aquí comienza el contenido más relevante y único de la página. Al usar el enlace de omisión, se evita tener que tabular por todos los elementos anteriores.</p>
+        <p>...</p>
+    </main>
+</div>
+
+@code {
+    private ElementReference enfoqueAutomatico;
+
+    // Enfoca el contenido principal de la demo al activar el enlace de omisión.
+    private async Task EnfocarElemento()
+    {
+        await enfoqueAutomatico.FocusAsync();
+    }
+}

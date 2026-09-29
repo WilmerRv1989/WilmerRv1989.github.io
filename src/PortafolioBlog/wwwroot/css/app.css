@@ -176,9 +176,9 @@ pre {
 .demo button:not([class]):hover { background-color: #f8f9fa; color: #0b1220; }
 .demo .demo-alerta { color: #8ab4ff; font-weight: bold; }
 
-/* Código escrito a mano tras una demo Razor ({{demo: X}} + "Código"): mismo recuadro que el de los bloques html demo. */
-.blog-content .demo + h3 + pre,
-.blog-content .demo + h4 + pre {
+/* Todos los bloques de código del blog con el mismo recuadro claro (el de border border-2 p-4 rounded),
+   tanto los generados por las demos como los escritos a mano en el Markdown. */
+.blog-content pre {
     border: 2px solid #dee2e6;
     border-radius: .375rem;
     padding: 1.5rem;
