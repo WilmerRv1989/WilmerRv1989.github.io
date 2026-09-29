@@ -20,6 +20,7 @@ using YamlDotNet.Serialization.NamingConventions;
 // Demos dentro del Markdown:
 //   ```html demo          el HTML se muestra funcionando y, debajo, bajo un encabezado "Código", como código
 //   ```html demo h4       igual, con el encabezado "Código" en otro nivel (por defecto h3)
+//   ```html demo sin-estilos   la demo conserva sus class/style (p. ej. de Bootstrap), pero el código mostrado no
 //   {{demo: Nombre}}      inserta el componente Razor Demos/Nombre.razor (en su propio párrafo)
 
 // MSBuild lee la salida como UTF-8 (StdOutEncoding en PortafolioBlog.csproj); sin esto las tildes llegan rotas.
@@ -285,16 +286,19 @@ sealed partial class Generador(Opciones opciones)
             }
 
             var nivel = 3;
+            var sinEstilos = false;
             foreach (var opcion in opcionesBloque.Where(o => o != "demo"))
             {
                 var encabezado = NivelEncabezado().Match(opcion);
                 if (encabezado.Success) nivel = int.Parse(encabezado.Groups[1].Value);
-                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Usa ```html demo, o ```html demo h4 para cambiar el nivel del encabezado \"Código\".");
+                else if (opcion == "sin-estilos") sinEstilos = true;
+                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Opciones válidas: h1 a h6 (nivel del encabezado \"Código\") y sin-estilos.");
             }
 
             var codigo = bloque.Lines.ToString();
             // data-demo-alerta es un mecanismo del blog, no parte de lo que se enseña: se omite en el código mostrado.
             var codigoMostrado = AtributoAlertaDemo().Replace(codigo, "");
+            if (sinEstilos) codigoMostrado = AtributoEstilo().Replace(codigoMostrado, "");
             Sustituir(bloque,
                 $"<div class=\"demo border border-2 p-4 rounded\">\n{codigo}\n</div>\n" +
                 $"<h{nivel}><span class=\"bi bi-code-slash\" aria-hidden=\"true\"></span> Código</h{nivel}>\n" +
@@ -407,6 +411,9 @@ sealed partial class Generador(Opciones opciones)
 
     [GeneratedRegex("\\s+data-demo-alerta=\"[^\"]*\"")]
     private static partial Regex AtributoAlertaDemo();
+
+    [GeneratedRegex("\\s+(?:class|style)=\"[^\"]*\"")]
+    private static partial Regex AtributoEstilo();
 
     [GeneratedRegex("^h([1-6])$")]
     private static partial Regex NivelEncabezado();

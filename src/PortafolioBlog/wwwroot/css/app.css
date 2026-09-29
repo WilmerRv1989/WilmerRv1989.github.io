@@ -148,12 +148,12 @@ pre {
     border-color: #198754 !important;
 }
 
-/* Demos del blog (```html demo): aspecto de los controles sin tener que poner clases de Bootstrap
-   en el HTML de ejemplo, para que el código mostrado quede limpio. */
-.demo label { margin-right: .5rem; }
-.demo input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
-.demo select,
-.demo textarea {
+/* Demos del blog (```html demo): aspecto de los controles sin clases (así el código mostrado queda limpio).
+   Los que sí llevan clases (p. ej. form-control, btn) conservan el estilo de Bootstrap. */
+.demo label:not([class]) { margin-right: .5rem; }
+.demo input:not([class]):not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+.demo select:not([class]),
+.demo textarea:not([class]) {
     background-color: #212529;
     color: #e6e6e6;
     border: 1px solid #adb5bd;
@@ -170,6 +170,14 @@ pre {
 }
 .demo button:not([class]):hover { background-color: #f8f9fa; color: #0b1220; }
 .demo .demo-alerta { color: #8ab4ff; font-weight: bold; }
+
+/* Código escrito a mano tras una demo Razor ({{demo: X}} + "Código"): mismo recuadro que el de los bloques html demo. */
+.blog-content .demo + h3 + pre,
+.blog-content .demo + h4 + pre {
+    border: 2px solid #dee2e6;
+    border-radius: .375rem;
+    padding: 1.5rem;
+}
 
 .skip-link {
     position: absolute; /* Permite posicionarlo fuera del flujo normal */

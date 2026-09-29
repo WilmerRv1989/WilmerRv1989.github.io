@@ -3,7 +3,8 @@
 // Blazor cambie de página sin recargar.
 //
 //   <button data-demo-alerta="Mensaje">…</button>
-//   Al activarlo, muestra "Mensaje" en una región role="alert" justo después del botón.
+//   Al activarlo, muestra "Mensaje" en una región role="alert" justo después del botón
+//   (o después del <dialog>, si el botón está dentro de uno: el diálogo se cierra y el mensaje debe verse).
 (function () {
     function mostrarAlerta(boton) {
         const demo = boton.closest('.demo');
@@ -13,14 +14,15 @@
         alerta.setAttribute('role', 'alert');
         alerta.className = 'demo-alerta mt-3';
         alerta.textContent = boton.dataset.demoAlerta;
-        boton.insertAdjacentElement('afterend', alerta);
+        (boton.closest('dialog') || boton).insertAdjacentElement('afterend', alerta);
     }
 
     // Una demo nunca envía su formulario: recargaría la página. La validación nativa
     // (required, type="email"…) sí actúa antes, porque 'submit' solo llega si el formulario es válido.
+    // Excepción: <form method="dialog"> no navega, solo cierra su <dialog>, y eso sí debe ocurrir.
     document.addEventListener('submit', evento => {
         if (!evento.target.closest('.demo')) return;
-        evento.preventDefault();
+        if (evento.target.method !== 'dialog') evento.preventDefault();
         if (evento.submitter && evento.submitter.dataset.demoAlerta !== undefined) {
             mostrarAlerta(evento.submitter);
         }

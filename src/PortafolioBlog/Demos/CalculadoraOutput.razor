@@ -1,0 +1,15 @@
+@* Demo de "Etiquetas HTML útiles" (Ejemplo 4): <output> anuncia el resultado al cambiar. *@
+<div class="demo border border-2 p-4 rounded">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <input type="number" class="form-control w-25" aria-label="Primer valor" @bind="ValorA" @bind:event="oninput">
+        <span class="fs-4">+</span>
+        <input type="number" class="form-control w-25" aria-label="Segundo valor" @bind="ValorB" @bind:event="oninput">
+        <span class="fs-4">=</span>
+        <output class="fs-4 fw-bold text-success" name="resultado">@(ValorA + ValorB)</output>
+    </div>
+</div>
+
+@code {
+    private int ValorA { get; set; } = 0;
+    private int ValorB { get; set; } = 0;
+}
