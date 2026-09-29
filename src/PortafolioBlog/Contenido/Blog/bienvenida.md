@@ -16,7 +16,7 @@ Nos encontramos con la **"pseudo-accesibilidad"**: sitios web visualmente deslum
 
 Cuando el código es inaccesible, se rompe la posibilidad de ser parte del mundo y se nos expulsa de la sociedad una vez más: se nos niega el conocimiento, el trabajo, la autonomía y la posibilidad de aprender y crecer.
 
-A menudo se percibe la accesibilidad digital como una lista de verificación tediosa. Mi perspectiva, tras estudiar filosofía, dedicar más de cinco años a auditar la accesibilidad digital y actualmente estudiar ingeniería de software, es distinta: **cada etiqueta `aria-label`, cada input correctamente etiquetado y cada flujo de teclado es un acto de ética técnica.** Ignorar la accesibilidad no es un "olvido técnico"; es la reproducción permanente de barreras.
+A menudo se percibe la accesibilidad digital como una lista de verificación tediosa. Mi perspectiva, tras estudiar filosofía, dedicar más de seis años a auditar la accesibilidad digital y actualmente estudiar ingeniería de software, es distinta: **cada etiqueta `aria-label`, cada input correctamente etiquetado y cada flujo de teclado es un acto de ética técnica.** Ignorar la accesibilidad no es un "olvido técnico"; es la reproducción permanente de barreras.
 
 Como auditor, he visto cómo las herramientas automáticas apenas detectan un porcentaje menor de los errores. El resto queda a merced de la voluntad del desarrollador. Esto obliga al usuario con discapacidad a convertirse en un experto en "mañas" y trucos para sobrevivir a interfaces hostiles, hasta que el cansancio gana y toca abandonar la plataforma. Eso no es tecnología, es un muro de discriminación.
 
