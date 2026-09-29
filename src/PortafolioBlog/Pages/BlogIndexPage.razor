@@ -22,7 +22,7 @@
             <div class="col-md-5">
                 <label for="buscar" class="form-label text-light">Buscar por título o palabra clave:</label>
                 <input type="search" id="buscar" class="form-control" placeholder="Ej: formularios, ARIA..."
-                       @bind="textoBusqueda" @bind:event="oninput" @onkeyup="HandleFiltrado" />
+                       @bind="textoBusqueda" @bind:event="oninput" @bind:after="HandleFiltrado" />
             </div>
 
             <div class="col-md-4">
@@ -47,7 +47,10 @@
             <div class="col-12" aria-live="polite">
                 <p class="text-info mb-0 small">
                     Se encontraron @articulosFiltrados.Count artículos.
-                    Mostrando página @(paginaActual + 1) de @((int)Math.Ceiling((double)articulosFiltrados.Count / TamañoPagina)).
+                    @if (articulosFiltrados.Count > 0)
+                    {
+                        <text>Mostrando página @(paginaActual + 1) de @((int)Math.Ceiling((double)articulosFiltrados.Count / TamañoPagina)).</text>
+                    }
                 </p>
             </div>
         </section>
@@ -231,7 +234,9 @@
     {
         if (listaCompleta != null)
         {
+            // Solo categorías de artículos ya publicados, para no adelantar las de entradas programadas.
             categoriasDisponibles = listaCompleta
+                .Where(p => p.Fecha <= DateTime.Now)
                 .Select(p => p.Categoria)
                 .Distinct()
                 .OrderBy(c => c)
