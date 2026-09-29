@@ -79,6 +79,10 @@
                         </p>
                         <p>
                             <span class="badge bg-secondary mt-2">Categoría: @post.Categoria</span>
+                            @if (post.Borrador || post.Programado)
+                            {
+                                <span class="badge bg-warning text-dark mt-2">@(post.Borrador ? "Borrador" : "Programada") (solo en local)</span>
+                            }
                         </p>
 
                         <ul class="list-inline mt-2 mb-0" aria-label="Etiquetas">
@@ -128,7 +132,7 @@
     {
         try
         {
-            var datosReales = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+            var datosReales = await Http.GetFromJsonAsync<List<PostMetadata>>("generado/posts.json");
             listaCompleta = datosReales ?? new List<PostMetadata>();
 
             CargarCategorias();
@@ -209,8 +213,8 @@
     {
         if (listaCompleta == null) return;
 
-        // 1. Filtrar por fecha (Publicados hoy o antes)
-        var consulta = listaCompleta.Where(p => p.Fecha <= DateTime.Now);
+        // 1. El índice generado ya excluye borradores y entradas programadas (salvo en Debug).
+        IEnumerable<PostMetadata> consulta = listaCompleta;
 
         // 2. Búsqueda
         if (!string.IsNullOrWhiteSpace(textoBusqueda))
@@ -244,9 +248,7 @@
     {
         if (listaCompleta != null)
         {
-            // Solo categorías de artículos ya publicados, para no adelantar las de entradas programadas.
             categoriasDisponibles = listaCompleta
-                .Where(p => p.Fecha <= DateTime.Now)
                 .Select(p => p.Categoria)
                 .Distinct()
                 .OrderBy(c => c)

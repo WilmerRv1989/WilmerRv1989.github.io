@@ -1,4 +1,11 @@
-# No a las Accessibility Overlays {#titulo-principal}
+---
+titulo: "No a las 'Accessibility Overlays'"
+encabezado: "No a las Accessibility Overlays"
+resumen: "Análisis crítico de las 'Accessibility Overlays' y por qué no son una solución adecuada para la accesibilidad web."
+fecha: 2026-06-08
+categoria: "Opinión"
+etiquetas: ["Accesibilidad", "Overlays", "Crítica"]
+---
 
 Hola gente, si, lo sé, la entrada un millón sobre lo mismo. Hoy quiero tocar un tema que puede levantar cejas, incomodar a más de uno en reuniones y, precisamente por eso, vale muchísimo la pena discutir con calma, porque sigue siendo una practica común, un canto de sirena que se niega a desaparecer a pesar de la abundante evidencia de su fracaso: las llamadas capas de accesibilidad, también conocidas como *accessibility overlays* o *widgets*.
 

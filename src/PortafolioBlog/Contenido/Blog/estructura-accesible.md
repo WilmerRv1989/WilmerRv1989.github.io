@@ -1,4 +1,11 @@
-# Hablemos de Estructura de la página y Contenido Accesible {#titulo-principal}
+---
+titulo: "Estructura de la página y accesibilidad web"
+encabezado: "Hablemos de Estructura de la página y Contenido Accesible"
+resumen: "Guía sobre etiquetas HTML5, jerarquía de encabezados y regiones semánticas."
+fecha: 2026-01-07
+categoria: "Accesibilidad web"
+etiquetas: ["HTML5", "Semántica", "WCAG"]
+---
 
 **Nota:** Esta es la primera entrada de una serie dedicada a la accesibilidad web. En esta serie, exploraremos diversos aspectos clave para garantizar que las páginas web sean accesibles para todos los usuarios, incluyendo aquellos con discapacidades. Comenzaremos con la estructura de la página y el contenido accesible, y en futuras entradas abordaremos temas como formularios, textos alternativos, tablas, enlaces y más. esta serie es una re-publicación de contenido que había creado anteriormente en un sitio web dedicado a la accesibilidad, con fines prácticos y educativos que ahora estoy trasladando a este blog personal para llegar a una audiencia más amplia interesada en el tema.
 

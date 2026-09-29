@@ -1,4 +1,10 @@
-# Bienvenida a ¿Sueñan los ciegos con un mundo accesible? {#titulo-principal}
+---
+titulo: "Bienvenida a ¿Sueñan los ciegos con un mundo accesible?"
+resumen: "Una reflexión filosófica y técnica sobre el derecho a habitar y construir la realidad digital."
+fecha: 2026-01-05
+categoria: "Opinión"
+etiquetas: ["Filosofía", "Accesibilidad", "Presentación"]
+---
 
 El título de este espacio no es solo un guiño a la ciencia ficción de **Philip K. Dick**; es una pregunta ontológica sobre la jerarquía de lo viviente. En su novela, se establece una categorización implacable entre personas y replicantes, otorgando un privilegio de existencia basado en la naturaleza del ser. Hoy, esa categorización ha dejado lo meramente físico —donde aún sobreviven miles de barreras que nos negamos a derribar— para trasladarse al **código**. En la web, las seguimos creando, reproduciendo y ejecutando sin cesar.
 

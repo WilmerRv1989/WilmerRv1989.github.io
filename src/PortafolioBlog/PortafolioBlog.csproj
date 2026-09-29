@@ -7,9 +7,69 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.44.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" PrivateAssets="all" />
   </ItemGroup>
+
+  <!--
+    Blog: las entradas se escriben en Contenido/Blog/*.md y el generador (tools/GeneradorBlog)
+    produce wwwroot/generado/ (índice y HTML) antes de compilar. Esa carpeta no se versiona.
+    En Debug se incluyen borradores y entradas programadas para poder revisarlas en local.
+  -->
+  <!-- NormalizePath usa el separador del sistema: el workflow compila en Linux, donde Exec no convierte las '\'. -->
+  <PropertyGroup>
+    <GeneradorBlogProyecto>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', '..', '..', 'tools', 'GeneradorBlog', 'GeneradorBlog.csproj'))</GeneradorBlogProyecto>
+    <ContenidoBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Contenido', 'Blog'))</ContenidoBlog>
+    <ComponentesBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Components'))</ComponentesBlog>
+    <SalidaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'wwwroot', 'generado'))</SalidaBlog>
+    <MarcaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'obj', 'blog-generado.marca'))</MarcaBlog>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ArticuloBlog Include="Contenido\Blog\*.md" />
+    <FuenteGeneradorBlog Include="..\..\tools\GeneradorBlog\*.cs;..\..\tools\GeneradorBlog\*.csproj" />
+    <Content Remove="wwwroot\generado\**" />
+  </ItemGroup>
+
+  <!--
+    La marca (en obj\) guarda con qué configuración se generó la salida. Si cambia (Debug incluye borradores,
+    Release no), se borra para forzar la regeneración: un build de Release nunca reutiliza la salida de Debug.
+  -->
+  <Target Name="ComprobarModoBlog">
+    <ReadLinesFromFile File="$(MarcaBlog)" Condition="Exists('$(MarcaBlog)')">
+      <Output TaskParameter="Lines" PropertyName="ModoBlogAnterior" />
+    </ReadLinesFromFile>
+    <Delete Files="$(MarcaBlog)" Condition="'$(ModoBlogAnterior)' != '$(Configuration)'" />
+  </Target>
+
+  <!-- Solo se ejecuta si cambió alguna entrada, el generador, este archivo o la configuración. -->
+  <Target Name="GenerarBlog"
+          DependsOnTargets="ComprobarModoBlog"
+          Condition="'$(DesignTimeBuild)' != 'true'"
+          Inputs="@(ArticuloBlog);@(FuenteGeneradorBlog);$(MSBuildProjectFullPath)"
+          Outputs="$(MarcaBlog)">
+    <PropertyGroup>
+      <ArgumentosBorradoresBlog Condition="'$(Configuration)' == 'Debug'">--incluir-borradores</ArgumentosBorradoresBlog>
+    </PropertyGroup>
+    <!-- Los errores del contenido ya llegan con archivo y línea; IgnoreExitCode evita repetirlos con un MSB3073 genérico. -->
+    <Exec Command="dotnet run --project &quot;$(GeneradorBlogProyecto)&quot; -c Release -v q -- --contenido &quot;$(ContenidoBlog)&quot; --salida &quot;$(SalidaBlog)&quot; --componentes &quot;$(ComponentesBlog)&quot; $(ArgumentosBorradoresBlog)"
+          StdOutEncoding="utf-8"
+          StdErrEncoding="utf-8"
+          IgnoreExitCode="true">
+      <Output TaskParameter="ExitCode" PropertyName="CodigoSalidaBlog" />
+    </Exec>
+    <!-- Código 1: errores de contenido, ya informados arriba con archivo y línea (y el build falla por ellos).
+         Cualquier otro código distinto de 0: el generador no pudo ejecutarse o falló de forma inesperada. -->
+    <Error Condition="'$(CodigoSalidaBlog)' != '0' and '$(CodigoSalidaBlog)' != '1'" Text="El generador del blog terminó con un error inesperado (código $(CodigoSalidaBlog)). Revisa la salida de la compilación." />
+    <WriteLinesToFile File="$(MarcaBlog)" Lines="$(Configuration)" Overwrite="true" />
+  </Target>
+
+  <!-- Los archivos generados no existían cuando MSBuild evaluó el proyecto: se registran aquí para que se sirvan y se publiquen. -->
+  <Target Name="RegistrarBlogGenerado" DependsOnTargets="GenerarBlog" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Content Remove="wwwroot\generado\**" />
+      <Content Include="wwwroot\generado\**" CopyToPublishDirectory="PreserveNewest" />
+    </ItemGroup>
+  </Target>
 
 </Project>

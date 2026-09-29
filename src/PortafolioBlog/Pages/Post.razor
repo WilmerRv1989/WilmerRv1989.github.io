@@ -1,7 +1,5 @@
 ﻿@page "/blog/{ArticleName}"
-@using Markdig
 @using PortafolioBlog.Models
-@using PortafolioBlog.Services
 @inject HttpClient Http
 @inject IJSRuntime JSRuntime
 
@@ -19,8 +17,15 @@
     }
     else
     {
+        @if (postMetadata is { Borrador: true } or { Programado: true })
+        {
+            <p class="alert alert-warning mt-4 mb-0">
+                Vista previa local: esta entrada es @(postMetadata.Borrador ? "un borrador" : "programada para más adelante") y no aparece en el sitio publicado.
+            </p>
+        }
+
         <article class="blog-content mt-4">
-            @if (postMetadata != null && postMetadata.EsComponente && componente != null)
+            @if (componente != null)
             {
                 <DynamicComponent Type="@componente" />
             }
@@ -91,13 +96,12 @@
         {
             try
             {
-                var articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("data/posts.json");
+                // El índice generado ya contiene solo lo publicable (en Debug, también borradores y programadas).
+                var articulos = await Http.GetFromJsonAsync<List<PostMetadata>>("generado/posts.json");
 
                 if (articulos != null)
                 {
-                    var hoy = DateTime.Now;
                     var listaPublicada = articulos
-                        .Where(p => p.Fecha <= hoy)
                         .OrderByDescending(p => p.Fecha)
                         .ToList();
 
@@ -110,15 +114,14 @@
                         nextPost = currentIndex > 0 ? listaPublicada[currentIndex - 1] : null;
                         prevPost = currentIndex < listaPublicada.Count - 1 ? listaPublicada[currentIndex + 1] : null;
 
-                        if (postMetadata.EsComponente)
+                        if (postMetadata.Componente is not null)
                         {
-                            componente = BlogComponentMapper.GetTypeById(ArticleName);
+                            // El generador ya verificó que Components/<Componente>.razor existe.
+                            componente = Type.GetType($"PortafolioBlog.Components.{postMetadata.Componente}");
                         }
                         else
                         {
-                            var markdown = await Http.GetStringAsync($"articles/{ArticleName}.md");
-                            var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-                            articleHtml = Markdown.ToHtml(markdown, pipeline);
+                            articleHtml = await Http.GetStringAsync($"generado/articulos/{ArticleName}.html");
                         }
                     }
                     else
