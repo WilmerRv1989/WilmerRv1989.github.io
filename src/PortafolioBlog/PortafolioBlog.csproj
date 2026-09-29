@@ -21,12 +21,15 @@
     <GeneradorBlogProyecto>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', '..', '..', 'tools', 'GeneradorBlog', 'GeneradorBlog.csproj'))</GeneradorBlogProyecto>
     <ContenidoBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Contenido', 'Blog'))</ContenidoBlog>
     <ComponentesBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Components'))</ComponentesBlog>
+    <DemosBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'Demos'))</DemosBlog>
     <SalidaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'wwwroot', 'generado'))</SalidaBlog>
     <MarcaBlog>$([MSBuild]::NormalizePath('$(MSBuildProjectDirectory)', 'obj', 'blog-generado.marca'))</MarcaBlog>
   </PropertyGroup>
 
   <ItemGroup>
     <ArticuloBlog Include="Contenido\Blog\*.md" />
+    <!-- El generador comprueba que existan los componentes y demos citados: si se crean o modifican, se revalida. -->
+    <ArticuloBlog Include="Components\*.razor;Demos\*.razor" />
     <FuenteGeneradorBlog Include="..\..\tools\GeneradorBlog\*.cs;..\..\tools\GeneradorBlog\*.csproj" />
     <Content Remove="wwwroot\generado\**" />
   </ItemGroup>
@@ -52,7 +55,7 @@
       <ArgumentosBorradoresBlog Condition="'$(Configuration)' == 'Debug'">--incluir-borradores</ArgumentosBorradoresBlog>
     </PropertyGroup>
     <!-- Los errores del contenido ya llegan con archivo y línea; IgnoreExitCode evita repetirlos con un MSB3073 genérico. -->
-    <Exec Command="dotnet run --project &quot;$(GeneradorBlogProyecto)&quot; -c Release -v q -- --contenido &quot;$(ContenidoBlog)&quot; --salida &quot;$(SalidaBlog)&quot; --componentes &quot;$(ComponentesBlog)&quot; $(ArgumentosBorradoresBlog)"
+    <Exec Command="dotnet run --project &quot;$(GeneradorBlogProyecto)&quot; -c Release -v q -- --contenido &quot;$(ContenidoBlog)&quot; --salida &quot;$(SalidaBlog)&quot; --componentes &quot;$(ComponentesBlog)&quot; --demos &quot;$(DemosBlog)&quot; $(ArgumentosBorradoresBlog)"
           StdOutEncoding="utf-8"
           StdErrEncoding="utf-8"
           IgnoreExitCode="true">
@@ -61,7 +64,9 @@
     <!-- Código 1: errores de contenido, ya informados arriba con archivo y línea (y el build falla por ellos).
          Cualquier otro código distinto de 0: el generador no pudo ejecutarse o falló de forma inesperada. -->
     <Error Condition="'$(CodigoSalidaBlog)' != '0' and '$(CodigoSalidaBlog)' != '1'" Text="El generador del blog terminó con un error inesperado (código $(CodigoSalidaBlog)). Revisa la salida de la compilación." />
-    <WriteLinesToFile File="$(MarcaBlog)" Lines="$(Configuration)" Overwrite="true" />
+    <!-- Tras un fallo se borra la marca: el siguiente build vuelve a generar aunque no cambie ningún archivo. -->
+    <WriteLinesToFile File="$(MarcaBlog)" Lines="$(Configuration)" Overwrite="true" Condition="'$(CodigoSalidaBlog)' == '0'" />
+    <Delete Files="$(MarcaBlog)" Condition="'$(CodigoSalidaBlog)' != '0'" />
   </Target>
 
   <!-- Los archivos generados no existían cuando MSBuild evaluó el proyecto: se registran aquí para que se sirvan y se publiquen. -->

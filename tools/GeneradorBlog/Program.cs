@@ -3,6 +3,8 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Markdig;
+using Markdig.Helpers;
+using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
 using YamlDotNet.Core;
@@ -14,6 +16,11 @@ using YamlDotNet.Serialization.NamingConventions;
 //   <salida>/articulos/<slug>.html   HTML de cada entrada escrita en Markdown
 // Los errores se escriben en formato MSBuild (archivo(línea,columna): error CODIGO: mensaje)
 // para que aparezcan en la lista de errores de Visual Studio y detengan el build.
+//
+// Demos dentro del Markdown:
+//   ```html demo          el HTML se muestra funcionando y, debajo, bajo un encabezado "Código", como código
+//   ```html demo h4       igual, con el encabezado "Código" en otro nivel (por defecto h3)
+//   {{demo: Nombre}}      inserta el componente Razor Demos/Nombre.razor (en su propio párrafo)
 
 // MSBuild lee la salida como UTF-8 (StdOutEncoding en PortafolioBlog.csproj); sin esto las tildes llegan rotas.
 Console.OutputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
@@ -21,13 +28,13 @@ Console.OutputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false
 var opciones = Opciones.Leer(args);
 if (opciones is null)
 {
-    Console.WriteLine("Uso: GeneradorBlog --contenido <carpeta> --salida <carpeta> --componentes <carpeta> [--incluir-borradores]");
+    Console.WriteLine("Uso: GeneradorBlog --contenido <carpeta> --salida <carpeta> --componentes <carpeta> --demos <carpeta> [--incluir-borradores]");
     return 2;
 }
 
 return new Generador(opciones).Ejecutar();
 
-sealed record Opciones(string Contenido, string Salida, string Componentes, bool IncluirBorradores)
+sealed record Opciones(string Contenido, string Salida, string Componentes, string Demos, bool IncluirBorradores)
 {
     public static Opciones? Leer(string[] args)
     {
@@ -40,8 +47,9 @@ sealed record Opciones(string Contenido, string Salida, string Componentes, bool
         var contenido = Valor("--contenido");
         var salida = Valor("--salida");
         var componentes = Valor("--componentes");
-        if (contenido is null || salida is null || componentes is null) return null;
-        return new Opciones(contenido, salida, componentes, args.Contains("--incluir-borradores"));
+        var demos = Valor("--demos");
+        if (contenido is null || salida is null || componentes is null || demos is null) return null;
+        return new Opciones(contenido, salida, componentes, demos, args.Contains("--incluir-borradores"));
     }
 }
 
@@ -120,13 +128,16 @@ sealed partial class Generador(Opciones opciones)
 
         ValidarEnlacesInternos(entradas, publicables);
 
+        // Se renderizan también los borradores: así sus errores aparecen desde el primer día, no al publicarlos.
+        var html = entradas.Where(e => !e.EsComponente).ToDictionary(e => e.Slug, Renderizar);
+
         if (errores > 0)
         {
             Console.WriteLine($"Blog: {errores} error(es) en el contenido. Corrígelos para poder compilar.");
             return 1;
         }
 
-        Escribir(publicables);
+        Escribir(publicables, html);
 
         var ocultas = entradas.Count - publicables.Count;
         Console.WriteLine($"Blog: {publicables.Count} entradas generadas" +
@@ -256,7 +267,84 @@ sealed partial class Generador(Opciones opciones)
         }
     }
 
-    private void Escribir(List<Entrada> publicables)
+    // Markdown → HTML, sustituyendo antes los bloques ```html demo y los marcadores {{demo: Nombre}}.
+    private string Renderizar(Entrada entrada)
+    {
+        var documento = Markdown.Parse(entrada.Cuerpo, pipeline);
+
+        foreach (var bloque in documento.Descendants<FencedCodeBlock>().ToList())
+        {
+            var opcionesBloque = (bloque.Arguments ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (!opcionesBloque.Contains("demo")) continue;
+
+            var linea = entrada.LineaCuerpo + bloque.Line;
+            if (!string.Equals(bloque.Info, "html", StringComparison.OrdinalIgnoreCase))
+            {
+                Error(entrada.Ruta, linea, "BLOG013", $"Solo los bloques ```html pueden ser demos (este es ```{bloque.Info}).");
+                continue;
+            }
+
+            var nivel = 3;
+            foreach (var opcion in opcionesBloque.Where(o => o != "demo"))
+            {
+                var encabezado = NivelEncabezado().Match(opcion);
+                if (encabezado.Success) nivel = int.Parse(encabezado.Groups[1].Value);
+                else Error(entrada.Ruta, linea, "BLOG014", $"Opción desconocida en el bloque demo: '{opcion}'. Usa ```html demo, o ```html demo h4 para cambiar el nivel del encabezado \"Código\".");
+            }
+
+            var codigo = bloque.Lines.ToString();
+            // data-demo-alerta es un mecanismo del blog, no parte de lo que se enseña: se omite en el código mostrado.
+            var codigoMostrado = AtributoAlertaDemo().Replace(codigo, "");
+            Sustituir(bloque,
+                $"<div class=\"demo border border-2 p-4 rounded\">\n{codigo}\n</div>\n" +
+                $"<h{nivel}><span class=\"bi bi-code-slash\" aria-hidden=\"true\"></span> Código</h{nivel}>\n" +
+                $"<pre class=\"border border-2 p-4 rounded\"><code class=\"language-html\">{EscaparHtml(codigoMostrado)}\n</code></pre>");
+        }
+
+        foreach (var parrafo in documento.Descendants<ParagraphBlock>().ToList())
+        {
+            // Tras el análisis, Markdig ya no conserva el texto crudo del párrafo: se reconstruye desde sus literales.
+            var texto = parrafo.Inline is null
+                ? ""
+                : string.Concat(parrafo.Inline.Descendants<LiteralInline>().Select(l => l.Content.ToString())).Trim();
+            if (!texto.Contains("{{")) continue;
+
+            var linea = entrada.LineaCuerpo + parrafo.Line;
+            var marcador = MarcadorDemo().Match(texto);
+            if (!marcador.Success)
+            {
+                if (texto.Contains("{{demo", StringComparison.OrdinalIgnoreCase))
+                    Error(entrada.Ruta, linea, "BLOG016", "Marcador de demo mal escrito. Usa {{demo: NombreDelComponente}} solo, en su propio párrafo.");
+                continue;
+            }
+
+            var nombre = marcador.Groups[1].Value;
+            if (!File.Exists(Path.Combine(opciones.Demos, nombre + ".razor")))
+                Error(entrada.Ruta, linea, "BLOG015", $"No existe la demo '{nombre}' (se buscó {nombre}.razor en {opciones.Demos}).");
+            Sustituir(parrafo, $"<div data-demo-componente=\"{nombre}\"></div>");
+        }
+
+        var escritor = new StringWriter();
+        var renderizador = new HtmlRenderer(escritor);
+        pipeline.Setup(renderizador);
+        renderizador.Render(documento);
+
+        var encabezadoArticulo = EscaparHtml(entrada.Cabecera.Encabezado ?? entrada.Cabecera.Titulo!);
+        return $"<h1 id=\"titulo-principal\">{encabezadoArticulo}</h1>\n" + escritor;
+    }
+
+    // Cambia un bloque del documento por HTML literal (Markdig lo escribe tal cual, líneas en blanco incluidas).
+    private static void Sustituir(Block bloque, string html)
+    {
+        var contenedor = bloque.Parent!;
+        contenedor[contenedor.IndexOf(bloque)] = new HtmlBlock(null)
+        {
+            Type = HtmlBlockType.NonInterruptingBlock,
+            Lines = new StringLineGroup(html),
+        };
+    }
+
+    private void Escribir(List<Entrada> publicables, Dictionary<string, string> html)
     {
         // Se vacía la carpeta completa: no deben quedar entradas borradas ni marcas de otra configuración.
         if (Directory.Exists(opciones.Salida)) Directory.Delete(opciones.Salida, recursive: true);
@@ -266,11 +354,7 @@ sealed partial class Generador(Opciones opciones)
         var utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
         foreach (var entrada in publicables.Where(e => !e.EsComponente))
-        {
-            var encabezado = EscaparHtml(entrada.Cabecera.Encabezado ?? entrada.Cabecera.Titulo!);
-            var html = $"<h1 id=\"titulo-principal\">{encabezado}</h1>\n" + Markdown.ToHtml(entrada.Cuerpo, pipeline);
-            File.WriteAllText(Path.Combine(carpetaArticulos, entrada.Slug + ".html"), html, utf8);
-        }
+            File.WriteAllText(Path.Combine(carpetaArticulos, entrada.Slug + ".html"), html[entrada.Slug], utf8);
 
         var indice = publicables
             .OrderByDescending(e => e.Fecha)
@@ -320,4 +404,13 @@ sealed partial class Generador(Opciones opciones)
 
     [GeneratedRegex(@"^/?blog/([^/?#]+)/?(?:[?#].*)?$")]
     private static partial Regex EnlaceAlBlog();
+
+    [GeneratedRegex("\\s+data-demo-alerta=\"[^\"]*\"")]
+    private static partial Regex AtributoAlertaDemo();
+
+    [GeneratedRegex("^h([1-6])$")]
+    private static partial Regex NivelEncabezado();
+
+    [GeneratedRegex(@"^\{\{\s*demo\s*:\s*([A-Za-z_][A-Za-z0-9_]*)\s*\}\}$")]
+    private static partial Regex MarcadorDemo();
 }

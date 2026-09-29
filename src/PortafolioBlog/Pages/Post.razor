@@ -31,7 +31,21 @@
             }
             else if (articleHtml != null)
             {
-                @((MarkupString)articleHtml)
+                @foreach (var parte in DividirEnPartes(articleHtml))
+                {
+                    if (parte.Demo is not null)
+                    {
+                        <DynamicComponent Type="@parte.Demo" />
+                    }
+                    else if (parte.DemoInexistente is not null)
+                    {
+                        <p class="alert alert-danger">No se encontró la demo «@parte.DemoInexistente».</p>
+                    }
+                    else
+                    {
+                        @((MarkupString)parte.Html!)
+                    }
+                }
             }
         </article>
 
@@ -82,6 +96,36 @@
     private PostMetadata? prevPost;
     private PostMetadata? nextPost;
     private Type? componente;
+
+    // Un tramo del artículo: HTML generado desde el Markdown, o una demo Razor (Demos/<Nombre>.razor)
+    // que el generador dejó marcada como <div data-demo-componente="Nombre"></div>.
+    private sealed record ParteArticulo(string? Html, Type? Demo, string? DemoInexistente);
+
+    private static readonly System.Text.RegularExpressions.Regex MarcadorDemo =
+        new("<div data-demo-componente=\"([A-Za-z_][A-Za-z0-9_]*)\"></div>");
+
+    private string? htmlDividido;
+    private List<ParteArticulo> partes = new();
+
+    private List<ParteArticulo> DividirEnPartes(string html)
+    {
+        if (ReferenceEquals(html, htmlDividido)) return partes;
+
+        partes = new List<ParteArticulo>();
+        var inicio = 0;
+        foreach (System.Text.RegularExpressions.Match marcador in MarcadorDemo.Matches(html))
+        {
+            partes.Add(new ParteArticulo(html[inicio..marcador.Index], null, null));
+            var nombre = marcador.Groups[1].Value;
+            var tipo = Type.GetType($"PortafolioBlog.Demos.{nombre}");
+            partes.Add(new ParteArticulo(null, tipo, tipo is null ? nombre : null));
+            inicio = marcador.Index + marcador.Length;
+        }
+        partes.Add(new ParteArticulo(html[inicio..], null, null));
+
+        htmlDividido = html;
+        return partes;
+    }
 
     protected override async Task OnParametersSetAsync()
     {

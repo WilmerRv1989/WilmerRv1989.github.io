@@ -148,6 +148,29 @@ pre {
     border-color: #198754 !important;
 }
 
+/* Demos del blog (```html demo): aspecto de los controles sin tener que poner clases de Bootstrap
+   en el HTML de ejemplo, para que el código mostrado quede limpio. */
+.demo label { margin-right: .5rem; }
+.demo input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+.demo select,
+.demo textarea {
+    background-color: #212529;
+    color: #e6e6e6;
+    border: 1px solid #adb5bd;
+    border-radius: .375rem;
+    padding: .375rem .75rem;
+    max-width: 100%;
+}
+.demo button:not([class]) {
+    background-color: transparent;
+    color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: .375rem;
+    padding: .375rem .75rem;
+}
+.demo button:not([class]):hover { background-color: #f8f9fa; color: #0b1220; }
+.demo .demo-alerta { color: #8ab4ff; font-weight: bold; }
+
 .skip-link {
     position: absolute; /* Permite posicionarlo fuera del flujo normal */
     top: -40px; /* Lo mueve fuera de la pantalla por defecto */
