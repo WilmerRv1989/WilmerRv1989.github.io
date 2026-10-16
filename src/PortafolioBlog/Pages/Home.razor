@@ -116,6 +116,11 @@
                              Tecnologias='["Debian", "Docker", "Caddy", "Cloudflare Tunnel", "Tailscale"]'
                              Estado="En producción" />
 
+            <TarjetaProyecto Titulo="MiHojaDeRolAccesible"
+                             Descripcion="App para llevar mi personaje de Dungeons & Dragons y tirar dados con TalkBack o NVDA, sin depender de que otra persona lleve mis números en la mesa. Usa las reglas libres SRD 5.2.1 en español (CC BY 4.0), funciona sin conexión en el móvil y guía la creación del personaje paso a paso."
+                             Tecnologias='["Blazor WebAssembly", ".NET 10", "PWA", "SRD 5.2.1"]'
+                             Estado="En desarrollo" />
+
             <TarjetaProyecto Titulo="autocommit-cli"
                              Descripcion="Herramienta de línea de comandos en Python para automatizar el flujo de Git (add, commit, push, pull). Incluye validaciones heurísticas para prevenir la fuga accidental de credenciales o contenido sensible."
                              Tecnologias='["Python", "CLI", "Git"]'
@@ -133,6 +138,39 @@
                              Descripcion="Sitio web desarrollado en Blazor Server (.NET 7) con ejemplos prácticos de programación accesible: estructuras semánticas, formularios, gestión de enlaces, descripciones complejas de imágenes y tablas de datos."
                              Tecnologias='["Blazor Server", ".NET 7", "WCAG", "AWS"]'
                              Estado="Archivado" />
+        </div>
+    </section>
+
+    <section id="complementos-nvda" class="mt-5" aria-labelledby="complementos-nvda-titulo">
+        <h2 id="complementos-nvda-titulo" class="h2 mb-3 text-center text-light">Complementos para el lector de pantalla NVDA</h2>
+        <p class="text-center mb-4">
+            Complementos que desarrollo para ampliar el lector de pantalla NVDA. Se instalan desde su Tienda de complementos,
+            incluyen un manual en español y su código está disponible en GitHub.
+        </p>
+        <div class="row g-4">
+            <TarjetaProyecto Titulo="MiAjedrezAccesible"
+                             Descripcion="Ajedrez completo para NVDA: partidas contra el motor Stockfish con 10 niveles (los más bajos dejan ganar a quien empieza), el curso «Aprender a jugar» con 23 lecciones y 113 ejercicios, 5.000 problemas de Lichess con nivel tipo Elo, reloj, partidas en PGN y estadísticas. Escrito desde cero, tomando como referencia el complemento Chessmart, abandonado desde 2022."
+                             Tecnologias='["Python", "NVDA", "Stockfish"]'
+                             Estado="Disponible en la tienda de NVDA"
+                             Url="https://github.com/WilmerRv1989/MiAjedrezAccesible"
+                             TextoBoton="Ver proyecto"
+                             EtiquetaBoton="Ver proyecto MiAjedrezAccesible en GitHub" />
+
+            <TarjetaProyecto Titulo="MiSudokuAccesible"
+                             Descripcion="Sudoku para NVDA para todas las edades: tableros de 9×9 y miniaturas de 4×4 y 6×6, pistas que explican la técnica en lugar de dar la respuesta, un curso de 13 lecciones y un sudoku del día con racha y estadísticas."
+                             Tecnologias='["Python", "NVDA"]'
+                             Estado="Disponible en la tienda de NVDA"
+                             Url="https://github.com/WilmerRv1989/MiSudokuAccesible"
+                             TextoBoton="Ver proyecto"
+                             EtiquetaBoton="Ver proyecto MiSudokuAccesible en GitHub" />
+
+            <TarjetaProyecto Titulo="MiCrucigramaAccesible"
+                             Descripcion="Crucigramas en español pensados desde el inicio para lectores de pantalla. El tablero se recorre «por caminitos» para entender cómo se cruzan las palabras, con pistas graduadas, crucigramas infantiles, un curso guiado y un crucigrama del día. Palabras de Wikcionario (CC BY-SA) y pistas propias."
+                             Tecnologias='["Python", "NVDA", "Wikcionario"]'
+                             Estado="En revisión para la tienda de NVDA"
+                             Url="https://github.com/WilmerRv1989/MiCrucigramaAccesible"
+                             TextoBoton="Ver proyecto"
+                             EtiquetaBoton="Ver proyecto MiCrucigramaAccesible en GitHub" />
         </div>
     </section>
 
