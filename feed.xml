@@ -6,7 +6,19 @@
     <description>Blog de Wilmer Rodríguez Vega sobre accesibilidad digital (WCAG), ingeniería de software y reflexiones filosóficas.</description>
     <language>es</language>
     <atom:link href="https://wilmer-rv.com/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 08 Jun 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 01 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Mis complementos para NVDA: ajedrez, sudoku y crucigramas accesibles</title>
+      <link>https://wilmer-rv.com/blog/mis-complementos-para-nvda</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/mis-complementos-para-nvda</guid>
+      <pubDate>Sun, 01 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Los complementos que desarrollo para el lector de pantalla NVDA: qué hace cada uno, cómo instalarlos y sus novedades. Una entrada que voy actualizando.</description>
+      <category>Proyectos</category>
+      <category>NVDA</category>
+      <category>Complementos</category>
+      <category>Juegos accesibles</category>
+      <category>Lectores de pantalla</category>
+    </item>
     <item>
       <title>No a las 'Accessibility Overlays'</title>
       <link>https://wilmer-rv.com/blog/no_a_las_accessibility_overlays</link>

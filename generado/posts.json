@@ -1,5 +1,22 @@
 [
   {
+    "Id": "mis-complementos-para-nvda",
+    "Titulo": "Mis complementos para NVDA: ajedrez, sudoku y crucigramas accesibles",
+    "Resumen": "Los complementos que desarrollo para el lector de pantalla NVDA: qué hace cada uno, cómo instalarlos y sus novedades. Una entrada que voy actualizando.",
+    "Fecha": "2026-11-01T00:00:00",
+    "Autor": "Wilmer Rodríguez Vega",
+    "Categoria": "Proyectos",
+    "Etiquetas": [
+      "NVDA",
+      "Complementos",
+      "Juegos accesibles",
+      "Lectores de pantalla"
+    ],
+    "Componente": null,
+    "Borrador": false,
+    "Programado": false
+  },
+  {
     "Id": "no_a_las_accessibility_overlays",
     "Titulo": "No a las 'Accessibility Overlays'",
     "Resumen": "Análisis crítico de las 'Accessibility Overlays' y por qué no son una solución adecuada para la accesibilidad web.",
