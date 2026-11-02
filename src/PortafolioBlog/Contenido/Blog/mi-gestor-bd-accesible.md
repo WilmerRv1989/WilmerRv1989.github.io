@@ -1,0 +1,63 @@
+---
+titulo: "MiGestorBDAccesible: me cansé de pelear con los gestores de bases de datos, así que hice el mío"
+resumen: "Por qué creé un gestor de bases de datos accesible con lector de pantalla para SQL Server, Oracle y PostgreSQL, cómo lo diseñé y dónde descargarlo."
+fecha: 2026-11-02
+categoria: "Proyectos"
+etiquetas: ["Bases de datos", "Lectores de pantalla", "NVDA", "Código abierto"]
+---
+
+Hola gente, hoy les traigo algo distinto a lo habitual. No es una entrada para explicar una técnica ni para discutir una mala práctica: es para contarles de un programa que acabo de publicar. Se llama **MiGestorBDAccesible** y es un gestor de bases de datos pensado desde el primer día para usarse con el teclado y un lector de pantalla.
+
+Si trabajan o estudian con bases de datos, seguro conocen los gestores de siempre: SQL Server Management Studio, SQL Developer, pgAdmin. Son programas enormes, muy completos y muy pulidos… a menos que uses un lector de pantalla. Ahí la historia cambia.
+
+## ¿Cuál era el problema?
+
+Seamos sinceros: quienes usamos lectores de pantalla llevamos años trabajando con bases de datos a pesar de las herramientas, no gracias a ellas. Árboles de objetos que no se anuncian bien, resultados de consultas que no se pueden recorrer, formularios que no dicen qué esperan, mensajes de error que aparecen en algún lugar de la pantalla y nunca se leen. O sea: todo lo que un gestor gráfico promete hacer más fácil, con NVDA se vuelve una carrera de obstáculos.
+
+Por eso, durante mucho tiempo, mi única forma real de trabajar con bases de datos fue la terminal. Y funciona, no lo voy a negar. Pero una cosa es que algo funcione y otra muy distinta es que te permita trabajar en igualdad de condiciones. Yo quería algo más: un programa hecho a mi medida, que cubriera lo que de verdad necesito para estudiar y trabajar, y que pudiera usar de punta a punta con mi lector de pantalla.
+
+Y no crean que la terminal de cada motor es la salvación. Con SQL Server o con Oracle, incluso sus propias consolas son poco amigables con el lector de pantalla: no permiten navegar libremente con las flechas arriba y abajo para releer lo que salió, así que terminas saltando entre el explorador de objetos y otras ventanas, y armando trucos para enterarte de lo que pasó. SSMS era el único que medio se dejaba usar, pero sus partes accesibles se limitaban al árbol de objetos y al cuadro de consultas, nada más. El resto era complicado o, por decirlo de alguna manera, del todo inusable.
+
+Esos son los recuerdos que tengo de trabajar con bases de datos, y son justamente la razón por la que quise hacer este programa.
+
+## Entonces, ¿qué hace MiGestorBDAccesible?
+
+Sirve para lo mismo que esos programas: conectarse a un servidor, recorrer sus bases de datos, escribir y ejecutar consultas, y crear o modificar tablas. La diferencia es que cada cosa que hace te la dice, y casi todo lo que cambia algo en la base de datos te muestra antes el SQL y te pide confirmación. Les cuento lo principal:
+
+1. **Tres motores con las mismas teclas.** Funciona con SQL Server (desde 2017), Oracle (desde 19c, incluida Oracle Free) y PostgreSQL (desde 14). Las acciones se llaman igual y usan los mismos atajos, sin importar el motor. Para mí este punto es clave: aprender tres programas distintos ya es difícil; aprender tres programas distintos e inaccesibles, imposible.
+2. **Un explorador de objetos que habla.** Un árbol con bases de datos, tablas, columnas, llaves, índices, vistas, procedimientos, funciones, secuencias, disparadores y, en Oracle, paquetes. Con Intro te describe en palabras lo que tienes delante.
+3. **Un editor de consultas de verdad.** Varias pestañas, resultados en tablas que se recorren con los comandos del lector de pantalla, mensajes de error con «Ir a la línea», historial, y buscar y reemplazar.
+4. **Formularios que cuidan tus datos.** Para crear y modificar tablas, índices, restricciones CHECK y llaves foráneas. Revisan lo que escribiste antes de aplicar el cambio y te avisan de lo que se podría romper.
+5. **Editar filas sin miedo.** Un panel con su propia transacción: confirmas o deshaces cuando quieras.
+6. **Herramientas para entender una base ajena.** Describir el modelo completo con el orden de carga y los posibles problemas, encontrar el camino de JOIN entre dos tablas, buscar cualquier objeto por su nombre y ver qué objetos usa cada uno y quién lo usa.
+7. **Ayuda con F1** sobre la palabra de SQL que tienes bajo el cursor, con ejemplos para tu motor, y un manual completo.
+
+Y algo que me parece importante decir: no necesita Internet ni envía ningún dato. Sus conexiones y contraseñas se quedan en su equipo, cifradas con su cuenta de Windows.
+
+## ¿Cómo lo hice?
+
+Antes de escribir una sola línea, estudié a fondo los programas que ya existen. Con [REA](https://github.com/morluto/rea), una herramienta de ingeniería inversa que trabaja con agentes de inteligencia artificial, analicé SSMS, SQL Developer y pgAdmin: cómo organizan el explorador de objetos, qué ofrece cada menú, cómo crean y modifican tablas, cómo editan filas y cómo muestran los resultados. De ahí saqué sus funciones principales, las estudié una por una y las volví a diseñar en un solo programa, pensado desde el principio para el teclado y el lector de pantalla.
+
+Y aquí conviene decirlo sin rodeos: la ingeniería inversa me sirvió para entender cómo funcionan esos programas, no para copiarlos. El código de MiGestorBDAccesible es propio y está escrito desde cero.
+
+Tanto ese análisis como el desarrollo los hice con la asistencia de Claude, un modelo de inteligencia artificial de Anthropic. Claude escribió la mayor parte del código siguiendo mis indicaciones; la dirección y las decisiones fueron mías: qué estudiar, qué hace el programa, cómo se anuncia cada cosa, qué teclas usa y qué dejar fuera. Probé yo mismo con NVDA cada función, cada tecla y cada mensaje. Se los cuento porque creo que es lo honesto, y porque el código completo está publicado para quien quiera revisarlo.
+
+## Más que un programa: el derecho a construir
+
+Cuando abrí este blog escribí que la exclusión empieza mucho antes de publicar una web: empieza en las aulas, cuando se nos dice *«mejor no estudies tecnología, es muy visual, no vas a poder»*. Las bases de datos son uno de esos lugares donde ese mensaje se repite en silencio, cada vez que una herramienta da por hecho que quien la usa puede ver.
+
+MiGestorBDAccesible es mi forma de responder a eso. No quiero que las personas ciegas solo consumamos tecnología: quiero que la construyamos, y para construirla necesitamos herramientas que no nos dejen afuera. Si este programa le ahorra a alguien una tarde de pelea con un árbol de objetos que no se anuncia, ya habrá valido la pena.
+
+## ¿Dónde lo consigo?
+
+- **Descarga:** en la [página de la última versión](https://github.com/WilmerRv1989/MiGestorBDAccesible/releases/latest) están el instalador y el manual de usuario.
+- **Requisitos:** Windows 10 u 11 de 64 bits y su propio servidor de base de datos (en su equipo, en la red o en un contenedor de Docker).
+- **Código fuente:** en el [repositorio de GitHub](https://github.com/WilmerRv1989/MiGestorBDAccesible), con licencia GPL v3.
+
+Un detalle: como todavía no tiene firma digital, Windows puede mostrar «Windows protegió su PC». Elijan «Más información» y después «Ejecutar de todas formas».
+
+## ¿Y lo que viene?
+
+La próxima versión sumará MySQL, MariaDB y SQLite. Si usan otro motor o les falta algo, escríbanme a contacto@wilmer-rv.com o abran un [reporte en GitHub](https://github.com/WilmerRv1989/MiGestorBDAccesible/issues). Lo leo todo.
+
+En fin, pues eso era. Espero que les sea útil, que lo prueben y que me cuenten qué tal les va. Nos vemos en la próxima entrega. ¡Hasta la próxima, miches!
