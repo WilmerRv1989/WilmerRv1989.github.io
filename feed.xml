@@ -6,7 +6,19 @@
     <description>Blog de Wilmer Rodríguez Vega sobre accesibilidad digital (WCAG), ingeniería de software y reflexiones filosóficas.</description>
     <language>es</language>
     <atom:link href="https://wilmer-rv.com/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 01 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>MiGestorBDAccesible: me cansé de pelear con los gestores de bases de datos, así que hice el mío</title>
+      <link>https://wilmer-rv.com/blog/mi-gestor-bd-accesible</link>
+      <guid isPermaLink="true">https://wilmer-rv.com/blog/mi-gestor-bd-accesible</guid>
+      <pubDate>Mon, 02 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Por qué creé un gestor de bases de datos accesible con lector de pantalla para SQL Server, Oracle y PostgreSQL, cómo lo diseñé y dónde descargarlo.</description>
+      <category>Proyectos</category>
+      <category>Bases de datos</category>
+      <category>Lectores de pantalla</category>
+      <category>NVDA</category>
+      <category>Código abierto</category>
+    </item>
     <item>
       <title>Mis complementos para NVDA: ajedrez, sudoku y crucigramas accesibles</title>
       <link>https://wilmer-rv.com/blog/mis-complementos-para-nvda</link>
